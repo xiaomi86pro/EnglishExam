@@ -1,42 +1,17 @@
-"use client";
+import { createClient } from "@/lib/supabase/server";
+import LoginForm from "./login-form";
+import { redirect } from "next/navigation";
 
-import { useState } from "react";
-import { createClient } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
+export default async function LoginPage() {
+  const supabase = await createClient();
 
-export default function LoginPage() {
-  const supabase = createClient();
-  const router = useRouter();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
-  async function handleLogin() {
-    const { error } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
-
-    if (!error) {
-      router.push("/dashboard");
-    } else {
-      alert(error.message);
-    }
+  if (user) {
+    redirect("/dashboard");
   }
 
-  return (
-    <div>
-      <h1>Login</h1>
-      <input
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
-      />
-      <input
-        type="password"
-        placeholder="Password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-      <button onClick={handleLogin}>Login</button>
-    </div>
-  );
+  return <LoginForm />;
 }
