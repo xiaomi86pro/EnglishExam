@@ -1,0 +1,44 @@
+Bước 5 — Render Question Engine
+
+Đây là chỗ quan trọng nhất.
+
+Bạn có các loại:
+
+Engine Mapping	UI Component
+MCQ_SINGLE	RadioGroup
+TEXT_INPUT	Input
+PASSAGE_MCQ	Passage + MCQ
+PASSAGE_TEXT	Passage + Input
+REORDER	DragDrop
+TRUE_FALSE	Toggle
+AUDIO_MCQ	Audio + MCQ
+AUDIO_TEXT	Audio + Input
+ESSAY	Textarea
+
+VI. Thứ tự triển khai chuẩn (không rối)
+
+Tôi đề xuất thứ tự:
+
+Login
+
+Template list
+
+Start exam
+
+Resume exam
+
+Load exam structure
+
+MCQ only
+
+Save answer
+
+Submit
+
+Result
+
+Add other question types
+
+Admin question CRUD
+
+Template builder
