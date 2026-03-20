@@ -1,0 +1,340 @@
+I. FOUNDATION (BẮT BUỘC TẠO TRƯỚC)
+1️⃣ Theme cơ bản (tailwind config)
+
+Bạn cần định nghĩa rõ:
+
+Primary color (ví dụ: blue-600)
+
+Danger (red-600)
+
+Success (green-600)
+
+Gray scale
+
+Border radius chuẩn
+
+Font family
+
+Container width
+
+Không để mỗi trang tự chọn màu.
+
+2️⃣ Folder UI chuẩn
+components/
+  ui/
+    Button.tsx
+    Input.tsx
+    Textarea.tsx
+    Select.tsx
+    Label.tsx
+    Card.tsx
+    Badge.tsx
+    Alert.tsx
+    Spinner.tsx
+    Divider.tsx
+
+Không tạo dư thừa.
+Chỉ tạo thứ dùng nhiều lần.
+
+II. CORE COMPONENTS (PRIORITY 1)
+1️⃣ Button
+
+Phải có variant:
+
+primary
+
+secondary
+
+outline
+
+danger
+
+ghost
+
+disabled state
+
+loading state
+
+Dùng cho:
+
+Login
+
+Start exam
+
+Submit exam
+
+Save
+
+Delete
+
+Pagination
+
+2️⃣ Input System
+
+Gồm:
+
+Input
+
+Label
+
+Error text
+
+Description text
+
+Phải xử lý:
+
+focus state
+
+error state
+
+disabled state
+
+Exam system có nhiều form → cái này cực kỳ quan trọng.
+
+3️⃣ Card
+
+Dùng cho:
+
+Dashboard widget
+
+Exam template card
+
+Result summary
+
+Admin statistics
+
+Nên có:
+
+Header
+
+Content
+
+Footer option
+
+4️⃣ Alert
+
+Dùng cho:
+
+Login error
+
+RPC error
+
+Success message
+
+Warning khi submit exam
+
+Variant:
+
+success
+
+error
+
+warning
+
+info
+
+5️⃣ Spinner / Loading
+
+Bạn sẽ dùng ở:
+
+Login
+
+Start exam
+
+Save answer
+
+Fetch dashboard
+
+Không dùng random loading mỗi nơi mỗi kiểu.
+
+III. LAYOUT SYSTEM (PRIORITY 2)
+
+Sau khi auth ổn định.
+
+1️⃣ Container
+
+Ví dụ:
+
+max-w-6xl
+
+px-6
+
+mx-auto
+
+Dùng thống nhất.
+
+2️⃣ Page Wrapper
+
+Ví dụ:
+
+<PageContainer>
+  <PageHeader />
+  <Content />
+</PageContainer>
+
+Để mọi dashboard page giống nhau.
+
+3️⃣ Section Wrapper
+
+Dùng cho:
+
+Dashboard blocks
+
+Exam sections
+
+Question groups
+
+IV. DATA UI (PRIORITY 3 – DASHBOARD)
+1️⃣ Table
+
+Exam system chắc chắn có:
+
+List question
+
+List exam
+
+List template
+
+Result table
+
+Bạn cần:
+
+Table
+
+TableHead
+
+TableRow
+
+TableCell
+
+Empty state
+
+2️⃣ Badge
+
+Dùng cho:
+
+Difficulty
+
+Status (draft / published)
+
+Role (admin / teacher / student)
+
+Exam state (in_progress / submitted)
+
+3️⃣ Modal
+
+Dùng cho:
+
+Confirm delete
+
+Confirm submit exam
+
+Edit question
+
+View detail
+
+Không nên dùng window.confirm().
+
+V. EXAM RUNTIME UI (ĐẶC THÙ)
+
+Khi làm phần thi thật.
+
+Bạn sẽ cần:
+
+1️⃣ Question Card
+
+Question number
+
+Question content
+
+Options list
+
+Answer state
+
+2️⃣ Option Component
+
+Selected state
+
+Hover state
+
+Disabled after submit
+
+3️⃣ Exam Navigation Panel
+
+List số câu
+
+Màu phân biệt answered / not answered
+
+Timer
+
+Cái này làm sau khi RPC xong.
+
+VI. STATE VISUAL SYSTEM
+
+BẮT BUỘC phải chuẩn hóa:
+
+State	Style
+Hover	nhẹ
+Focus	ring rõ
+Active	darker
+Disabled	opacity
+Error	red border
+Success	green text
+VII. KHÔNG NÊN LÀM NGAY
+
+Animation phức tạp
+
+Dark mode
+
+Fancy gradient
+
+Custom font cầu kỳ
+
+Exam system cần clarity > aesthetics.
+
+VIII. Thứ tự build thực tế cho bạn
+Giai đoạn hiện tại (Auth phase)
+
+Tạo:
+
+Button
+
+Input
+
+Label
+
+Alert
+
+Spinner
+
+Card
+
+Container wrapper
+
+Sau đó build:
+
+app/page.tsx
+
+login
+
+register
+
+Sau khi dashboard chạy
+
+Tạo:
+
+Table
+
+Badge
+
+Modal
+
+Sau khi exam runtime bắt đầu
+
+Tạo:
+
+QuestionCard
+
+OptionItem
+
+ExamNavPanel

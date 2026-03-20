@@ -1,0 +1,294 @@
+PHASE 0 – Environment & Infrastructure
+0.1 Supabase Setup
+
+ Kiểm tra .env.local
+
+ Kiểm tra lib/supabase/client.ts
+
+ Kiểm tra lib/supabase/server.ts
+
+ Kiểm tra middleware.ts chỉ check session
+
+🔌 RPC: ❌ chưa dùng
+
+0.2 Session test
+
+ Test login xong đọc được session server-side
+
+ Test middleware redirect nếu chưa login
+
+🔌 RPC: ❌
+
+✅ PHASE 1 – Authentication Foundation
+
+📁 app/(auth)/
+
+1.1 Login page
+
+ Form email/password
+
+ supabase.auth.signInWithPassword
+
+ Redirect /dashboard
+
+🔌 RPC: ❌
+
+1.2 Dashboard root redirect
+
+📁 app/(dashboard)/page.tsx
+
+ Gọi RPC lấy role
+
+ Redirect theo role
+
+🔌 RPC dùng:
+
+rpc_get_my_profile (hoặc tương đương bạn đã có)
+
+✅ PHASE 2 – RPC Integration Layer
+
+📁 lib/rpc/
+
+2.1 Tạo wrapper chuẩn
+
+ callRpc<T>()
+
+ Chuẩn hóa error handling
+
+🔌 RPC: tất cả RPC đi qua đây
+
+2.2 Student RPC wrapper
+
+📁 lib/rpc/student.ts
+
+ getAvailableTemplates()
+🔌 rpc_get_available_exam_templates
+
+ startExam(templateId)
+🔌 rpc_start_exam
+
+ resumeExam(examId)
+🔌 rpc_resume_exam
+
+ getExamStructure(examId)
+🔌 rpc_get_exam_structure
+
+ saveAnswer(...)
+🔌 rpc_save_answer
+
+ submitExam(examId)
+🔌 rpc_submit_exam
+
+ getExamResult(examId)
+🔌 rpc_get_exam_result
+
+2.3 Teacher RPC wrapper
+
+📁 lib/rpc/teacher.ts
+
+ createQuestion()
+🔌 rpc_create_question
+
+ updateQuestion()
+🔌 rpc_update_question
+
+ updatePassageWithQuestions()
+🔌 rpc_update_passage_with_questions
+
+ normalizeAnswer()
+🔌 rpc_normalize_answer
+
+ softDeleteQuestion()
+🔌 rpc_soft_delete_question
+
+ listQuestions()
+🔌 rpc_list_questions
+
+ createExamTemplate()
+🔌 rpc_create_exam_template
+
+ Template section/item RPC tương ứng
+
+2.4 Admin RPC wrapper
+
+📁 lib/rpc/admin.ts
+
+ RPC user management
+
+ RPC analytics
+
+ RPC registry inspect (nếu có)
+
+✅ PHASE 3 – Domain Modeling + Mapping
+
+📁 types/
+
+ types/profile.ts
+
+ types/question.ts
+
+ types/exam.ts
+
+📁 lib/mappers/
+
+ exam.mapper.ts
+
+ question.mapper.ts
+
+3.1 Map cho student runtime
+
+🔌 RPC liên quan:
+
+rpc_get_exam_structure
+
+rpc_get_exam_result
+
+Flow:
+
+RPC raw
+  ↓
+mapper
+  ↓
+ExamStructure (Domain)
+  ↓
+UI
+✅ PHASE 4 – Student Runtime (Core)
+4.1 Student Dashboard
+
+📁 /dashboard/student
+
+ List template
+
+🔌 rpc_get_available_exam_templates
+
+ Start exam
+
+🔌 rpc_start_exam
+
+ Resume exam
+
+🔌 rpc_resume_exam
+
+4.2 Exam Page
+
+📁 /student/exams/[examId]
+
+Load structure
+
+ Gọi getExamStructure
+
+🔌 rpc_get_exam_structure
+
+Question Renderer
+
+📁 components/exam/
+
+ QuestionRenderer.tsx
+
+ MCQSingle
+
+ TextInput
+
+ PassageMCQ
+
+ TrueFalse
+
+ Essay
+
+Save Answer
+
+ Call saveAnswer khi change
+🔌 rpc_save_answer
+
+Submit Exam
+
+ Confirm submit
+
+ Call submitExam
+🔌 rpc_submit_exam
+
+ Redirect result page
+
+4.3 Result Page
+
+📁 /student/result/[examId]
+
+ Call getExamResult
+🔌 rpc_get_exam_result
+
+ Render breakdown
+
+✅ PHASE 5 – Teacher Panel
+5.1 Question Management
+
+📁 /dashboard/teacher/questions
+
+ List question
+🔌 rpc_list_questions
+
+ Create
+🔌 rpc_create_question
+
+ Update
+🔌 rpc_update_question
+
+ Soft delete
+🔌 rpc_soft_delete_question
+
+5.2 Passage Editing
+
+ Update passage + questions atomically
+🔌 rpc_update_passage_with_questions
+
+5.3 Exam Template Builder
+
+📁 /dashboard/teacher/templates
+
+ Create template
+🔌 rpc_create_exam_template
+
+ Add section
+
+ Add template items
+
+ Preview template
+
+✅ PHASE 6 – Admin Panel
+
+📁 /dashboard/admin
+
+ Manage user role
+
+ Analytics dashboard
+
+ System metrics
+
+🔌 RPC tương ứng admin
+
+🔐 SECURITY CHECKLIST (BẮT BUỘC)
+
+ Mọi RPC có rpc_assert_min_role
+
+ Không expose service role
+
+ Validate numeric ID
+
+ Không tin tưởng client state
+
+🎯 Thứ tự triển khai tối ưu
+
+1️⃣ Auth + middleware
+2️⃣ RPC wrapper
+3️⃣ Student exam runtime (end-to-end hoàn chỉnh)
+4️⃣ Teacher
+5️⃣ Admin
+
+🚨 Cực kỳ quan trọng
+
+Bạn KHÔNG nên:
+
+Build teacher trước student
+
+Build UI đẹp trước runtime chạy ổn
+
+Build analytics khi chưa có exam flow hoàn chỉnh

@@ -1,0 +1,272 @@
+MÔ HÌNH LOGIC TỔNG THỂ FRONTEND (cho exam system của bạn)
+
+Tôi chia thành 4 khối lớn:
+
+A. System Architecture Layer
+B. UI Layer
+C. Feature Layer (Domain UI)
+D. Runtime Integration Layer
+A. SYSTEM ARCHITECTURE LAYER
+
+Đây là tầng nền tảng cấu trúc project.
+
+A1. App Router Structure
+
+(auth)
+
+(dashboard)
+
+layout.tsx
+
+middleware.ts
+
+A2. Supabase Connection
+
+server client
+
+browser client
+
+SSR handling
+
+auth session flow
+
+A3. Role-based model (DB driven)
+
+rpc_assert_min_role
+
+profiles table
+
+no JWT metadata role
+
+👉 Bạn đã hoàn thành ~80% phần A.
+
+B. UI LAYER (Design System)
+
+Đây là nơi bạn đang làm.
+
+Tôi chia thành 3 tầng con:
+
+B1. Foundation (Atomic UI)
+B2. Composite UI (Reusable Blocks)
+B3. Domain UI (Business-specific)
+B1 — FOUNDATION (Design System Core)
+
+Mục tiêu:
+Tạo các UI primitive không chứa business logic.
+
+B1.1 Typography
+
+Heading
+
+Text
+
+Label
+
+Caption
+
+B1.2 Layout primitives
+
+Container
+
+Stack (vertical/horizontal)
+
+Grid wrapper
+
+Spacer
+
+B1.3 Input primitives
+
+Input
+
+Textarea
+
+Select
+
+Checkbox
+
+Radio
+
+Switch
+
+B1.4 Feedback primitives
+
+Badge ← bạn đang ở đây
+
+Alert
+
+Toast
+
+Spinner
+
+B1.5 Action primitives
+
+Button
+
+IconButton
+
+B1.6 Surface primitives
+
+Card
+
+Divider
+
+Modal shell
+
+⚠ Ở giai đoạn này:
+
+Không được dính exam logic
+
+Không được hardcode enum database
+
+Chỉ styling + behavior cơ bản
+
+B2 — COMPOSITE UI (Reusable Blocks)
+
+Đây là bước nâng cao hơn Foundation.
+
+Ghép nhiều primitive thành block reusable.
+
+Ví dụ:
+
+B2.1 Table System
+
+Table
+
+TableHeader
+
+TableRow
+
+TableCell
+
+SortableHeader
+
+B2.2 Form System
+
+FormField wrapper
+
+FormSection
+
+ValidationMessage
+
+FieldGroup
+
+B2.3 Filter Bar
+
+SearchInput
+
+StatusFilter
+
+DifficultyFilter
+
+B2.4 Pagination
+B2.5 Confirm Dialog
+
+⚠ Ở B2 vẫn chưa được gắn business rule.
+
+Chỉ reusable block.
+
+B3 — DOMAIN UI (Business Aware Components)
+
+Đây mới là nơi:
+
+ExamStatusBadge
+
+RoleBadge
+
+DifficultyBadge
+
+ExamStateBadge
+
+Hoặc:
+
+ExamCard
+
+TemplateCard
+
+QuestionPreview
+
+PassagePreview
+
+Đây là tầng connect UI với domain schema.
+
+Ví dụ:
+
+components/system/
+
+Ở đây mới được mapping:
+
+"draft" -> warning
+"published" -> success
+C. FEATURE LAYER
+
+Đây là nơi tạo từng màn hình cụ thể.
+
+Ví dụ:
+
+C1. Admin Dashboard
+
+Statistics panel
+
+Template management table
+
+C2. Teacher Panel
+
+Create question screen
+
+Manage passages
+
+Manage exams
+
+C3. Student Panel
+
+Exam list
+
+Exam runtime screen
+
+Result screen
+
+Ở tầng này:
+
+Gọi RPC
+
+Handle loading
+
+Handle empty state
+
+Handle error state
+
+D. RUNTIME INTEGRATION LAYER
+
+Đây là phần nhiều người bỏ quên.
+
+D1. Loading states
+
+Skeleton
+
+Spinner
+
+D2. Error boundary
+D3. Auth redirect logic
+D4. RPC error mapping
+D5. State synchronization (client/server)
+📊 Toàn bộ mô hình rút gọn
+A. System Architecture
+   A1. App Router
+   A2. Supabase
+   A3. Role Model
+
+B. UI Layer
+   B1. Foundation
+   B2. Composite UI
+   B3. Domain UI
+
+C. Feature Screens
+   C1. Admin
+   C2. Teacher
+   C3. Student
+
+D. Runtime Handling
+   D1. Loading
+   D2. Error
+   D3. Auth
+   D4. RPC Integration
