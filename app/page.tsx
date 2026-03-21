@@ -4,6 +4,11 @@ import { Container } from "@/components/ui/layout/container";
 import { Stack } from "@/components/ui/layout/stack";
 import { Grid } from "@/components/ui/layout/grid";
 import { Spacer } from "@/components/ui/layout/spacer";
+import "@/styles/globals.css"; // chứa tokens
+import { Badge } from "@/components/ui/badge";
+import { Alert } from "@/components/ui/alert";
+import { Spinner } from "@/components/ui/spinner";
+import { Skeleton } from "@/components/ui/skeleton";
 
 
 export default function Page() {
@@ -49,6 +54,16 @@ export default function Page() {
         <Spacer size={8} />
       </Stack>
      </Container> 
+    </div>
+
+    <div className="p-4 space-y-4">
+      <Badge>New</Badge>
+
+      <Alert variant="error">Something went wrong!</Alert>
+
+      <Spinner />
+
+      <Skeleton className="w-64 h-6" />
     </div>
     
   );
