@@ -1,0 +1,83 @@
+@import "tailwindcss";
+
+:root {
+  /* =========================
+     RAW PALETTE
+  ========================== */
+
+  --color-slate-50: 248 250 252;
+  --color-slate-100: 241 245 249;
+  --color-slate-200: 226 232 240;
+  --color-slate-300: 203 213 225;
+  --color-slate-400: 148 163 184;
+  --color-slate-500: 100 116 139;
+  --color-slate-600: 71 85 105;
+  --color-slate-700: 51 65 85;
+  --color-slate-800: 30 41 59;
+  --color-slate-900: 15 23 42;
+
+  --color-red-600: 220 38 38;
+  --color-green-600: 22 163 74;
+
+  /* =========================
+     SEMANTIC TOKENS
+  ========================== */
+
+  --background: var(--color-slate-50);
+  --foreground: var(--color-slate-900);
+
+  --surface: 255 255 255;
+  --surface-muted: var(--color-slate-100);
+  --border: var(--color-slate-200);
+
+  --text-primary: var(--color-slate-900);
+  --text-secondary: var(--color-slate-700);
+  --text-muted: var(--color-slate-500);
+
+  --text-danger: var(--color-red-600);
+  --text-success: var(--color-green-600);
+}
+
+/* =========================
+   UTILITY MAPPING
+========================== */
+
+.bg-background {
+  background-color: rgb(var(--background));
+}
+
+.bg-surface {
+  background-color: rgb(var(--surface));
+}
+
+.bg-surface-muted {
+  background-color: rgb(var(--surface-muted));
+}
+
+.text-foreground {
+  color: rgb(var(--foreground));
+}
+
+.text-primary {
+  color: rgb(var(--text-primary));
+}
+
+.text-secondary {
+  color: rgb(var(--text-secondary));
+}
+
+.text-muted {
+  color: rgb(var(--text-muted));
+}
+
+.text-danger {
+  color: rgb(var(--text-danger));
+}
+
+.text-success {
+  color: rgb(var(--text-success));
+}
+
+.border-default {
+  border-color: rgb(var(--border));
+}

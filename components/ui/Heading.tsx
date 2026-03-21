@@ -51,7 +51,7 @@ export function Heading({
       className={clsx(
         sizeMap[size],
         weightMap[weight],
-        "tracking-tight",
+        "tracking-tight text-primary",
         className
       )}
     >

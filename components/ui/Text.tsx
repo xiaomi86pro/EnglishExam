@@ -37,11 +37,11 @@ const sizeMap: Record<TextSize, string> = {
 };
 
 const toneMap: Record<TextTone, string> = {
-  primary: "text-foreground",
-  secondary: "text-muted-foreground",
-  muted: "text-muted-foreground",
-  danger: "text-red-600",
-  success: "text-green-600",
+  primary: "text-primary",
+  secondary: "text-secondary",
+  muted: "text-muted",
+  danger: "text-danger",
+  success: "text-success",
 };
 
 const weightMap: Record<TextWeight, string> = {
