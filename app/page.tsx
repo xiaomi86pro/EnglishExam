@@ -36,6 +36,15 @@ export default function Page() {
       <div className="bg-surface p-4 border border-default">
         Card Surface
       </div>
+      <div className="p-4 space-y-4">
+      <Badge>New</Badge>
+
+      <Alert variant="error">Something went wrong!</Alert>
+
+      <Spinner />
+
+      <Skeleton className="w-64 h-6" />
+    </div>
 
     <Container>
       <Stack gap={6}>
@@ -53,18 +62,7 @@ export default function Page() {
 
         <Spacer size={8} />
       </Stack>
-     </Container> 
+     </Container>
     </div>
-
-    <div className="p-4 space-y-4">
-      <Badge>New</Badge>
-
-      <Alert variant="error">Something went wrong!</Alert>
-
-      <Spinner />
-
-      <Skeleton className="w-64 h-6" />
-    </div>
-    
   );
 }
