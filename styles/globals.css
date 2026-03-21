@@ -137,6 +137,21 @@
 --field-description-size: 0.875rem;
 --field-description-color: var(--muted-foreground);
 
+/* =========================================
+   CONTROL SEMANTIC TOKENS
+========================================= */
+
+:root {
+  --control-bg: #ffffff;
+  --control-border: #cbd5e1;      /* slate-300 */
+  --control-hover: #f1f5f9;       /* slate-100 */
+  --control-active: #e2e8f0;      /* slate-200 */
+  --control-focus: #0f172a;       /* slate-900 */
+  --control-text: #0f172a;
+  --control-muted: #94a3b8;       /* slate-400 */
+  --control-disabled: #e5e7eb;    /* gray-200 */
+}
+
 }
 
 /* =========================
