@@ -37,7 +37,12 @@ import { Checkbox } from "@/components/ui/input/checkbox";
 import { SearchBar } from "@/components/ui/search-bar";
 import { FilterDropdown } from "@/components/ui/filter-dropdown";
 import { Pagination } from "@/components/ui/pagination";
-
+import { PageHeader } from "@/components/ui/page-header";
+import { Toolbar } from "@/components/ui/toolbar";
+import { FilterBar } from "@/components/ui/filter-bar";
+import { SearchBar } from "@/components/ui/search-bar";
+import { FilterDropdown } from "@/components/ui/filter-dropdown";
+import { Pagination } from "@/components/ui/pagination";
 
 import "@/styles/globals.css"; // chứa tokens
 
@@ -50,9 +55,10 @@ export function FormTest() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [direction, setDirection] = useState<"asc" | "desc" | null>(null);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-    const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1);
   const allSelected = selectedIds.length === data.length;
   const someSelected = selectedIds.length > 0;
+  const [page, setPage] = useState(1);
 
   function toggleSelect(id: string) {
     setSelectedIds((prev) =>
@@ -250,6 +256,31 @@ export function FormTest() {
           { label: "Active", value: "active" },
           { label: "Archived", value: "archived" },
         ]}
+      />
+
+      <Pagination page={page} totalPages={5} onPageChange={setPage} />
+    </div>
+
+    <div className="space-y-6 p-10 max-w-4xl">
+      <PageHeader
+        title="Question Bank"
+        description="Manage and organize all questions"
+        actions={<button className="px-4 py-2 border rounded-md">Add</button>}
+      />
+
+      <Toolbar
+        left={
+          <FilterBar>
+            <SearchBar placeholder="Search..." />
+            <FilterDropdown
+              options={[
+                { label: "All", value: "all" },
+                { label: "MCQ", value: "mcq" },
+              ]}
+            />
+          </FilterBar>
+        }
+        right={<button className="px-4 py-2 border rounded-md">Export</button>}
       />
 
       <Pagination page={page} totalPages={5} onPageChange={setPage} />
