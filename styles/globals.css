@@ -173,6 +173,11 @@
   --role-student-text: hsl(140 60% 30%);
   --role-student-border: hsl(140 50% 80%);
 
+  --ui-radius-lg: 1rem;
+  --ui-shadow-lg: 0 10px 25px rgba(0,0,0,0.08);
+  --ui-overlay-bg: rgba(0,0,0,0.5);
+  --ui-transition-fast: 150ms ease-in-out;
+
 }
 
 /* =========================

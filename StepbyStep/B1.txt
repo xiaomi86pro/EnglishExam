@@ -254,6 +254,55 @@ Vì system enforce 1 passage = 1 question_type.
 
 Toàn bộ visual consistency của system phụ thuộc vào đây.
 
+7.Missing: Overlay Group
+
+Bạn có:
+
+modal.tsx
+
+Nhưng chưa thấy:
+
+popover.tsx
+dropdown.tsx (không phải filter-dropdown)
+tooltip.tsx
+drawer.tsx
+
+8.Missing: Feedback System chuẩn
+
+Bạn có:
+
+alert.tsx
+spinner.tsx
+skeleton.tsx
+
+Nhưng chưa thấy:
+
+toast.tsx
+
+9.Missing: Data State Wrapper
+
+Hiện bạn có:
+
+empty-state.tsx
+
+Nhưng chưa có:
+
+data-state.tsx
+10. Thiếu: Confirm Dialog
+
+Modal hiện tại là generic shell.
+Bạn nên có:
+
+confirm-dialog.tsx
+
+Vì hệ thống exam sẽ có:
+
+delete template
+publish exam
+archive question
+
+Confirm dialog nên chuẩn hóa.
+
 2️⃣ ENTITY DISPLAY COMPONENTS
 
 Hiển thị 1 entity domain cụ thể.

@@ -2,7 +2,7 @@
 import React from "react";
 
 interface EmptyStateProps {
-  colSpan: number;
+  colSpan?: number;
   message?: string;
 }
 

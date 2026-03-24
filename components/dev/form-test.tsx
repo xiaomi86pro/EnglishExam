@@ -41,7 +41,7 @@ import { PageHeader } from "@/components/ui/page-header";
 import { Toolbar } from "@/components/ui/toolbar";
 import { FilterBar } from "@/components/ui/filter-bar";
 import { RoleBadge } from "@/components/domain/role-badge";
-
+import { PassageTypeBadge } from "@/components/domain/passage-type-badge";
 
 
 import "@/styles/globals.css"; // chứa tokens
@@ -79,7 +79,13 @@ export function FormTest() {
 
 
   return (
+
     <div className="p-10 space-y-4">
+
+       <div className="space-y-4 p-6">
+      <PassageTypeBadge audioUrl={null} />
+      <PassageTypeBadge audioUrl="https://example.com/audio.mp3" />
+    </div>
 
        <div className="flex gap-4 p-10">
       <RoleBadge role="admin" />
