@@ -40,9 +40,9 @@ import { Pagination } from "@/components/ui/pagination";
 import { PageHeader } from "@/components/ui/page-header";
 import { Toolbar } from "@/components/ui/toolbar";
 import { FilterBar } from "@/components/ui/filter-bar";
-import { SearchBar } from "@/components/ui/search-bar";
-import { FilterDropdown } from "@/components/ui/filter-dropdown";
-import { Pagination } from "@/components/ui/pagination";
+import { RoleBadge } from "@/components/domain/role-badge";
+
+
 
 import "@/styles/globals.css"; // chứa tokens
 
@@ -58,7 +58,8 @@ export function FormTest() {
   const [page, setPage] = useState(1);
   const allSelected = selectedIds.length === data.length;
   const someSelected = selectedIds.length > 0;
-  const [page, setPage] = useState(1);
+  const [accept, setAccept] = useState(false)
+
 
   function toggleSelect(id: string) {
     setSelectedIds((prev) =>
@@ -79,6 +80,13 @@ export function FormTest() {
 
   return (
     <div className="p-10 space-y-4">
+
+       <div className="flex gap-4 p-10">
+      <RoleBadge role="admin" />
+      <RoleBadge role="teacher" />
+      <RoleBadge role="student" />
+      </div>
+
       <Heading as="h1" size="h1">
         Exam Dashboard
       </Heading>
@@ -230,8 +238,15 @@ export function FormTest() {
           </tbody>
         </Table>
       </div>
-      <div className="max-w-xl mx-auto py-10">
 
+      <div className="max-w-xl mx-auto py-10 space-y-10">
+
+      {/* ================= SECTION 1 ================= */}
+
+      <FormSection
+        title="Account Information"
+        description="Basic account credentials"
+      >
         <FormField error="Email is required">
           <FormLabel required>Email</FormLabel>
 
@@ -245,8 +260,58 @@ export function FormTest() {
 
           <FormError />
         </FormField>
+      </FormSection>
 
-      </div>
+      {/* ================= SECTION 2 ================= */}
+
+      <FormSection
+        title="Preferences"
+        description="Select your options"
+      >
+        <FormField>
+          <FormLabel>Notification Settings</FormLabel>
+
+          <FormControl>
+            <FieldGroup direction="col">
+              <label className="flex items-center gap-2">
+                <Checkbox />
+                <span>Email notifications</span>
+              </label>
+
+              <label className="flex items-center gap-2">
+                <Checkbox />
+                <span>SMS notifications</span>
+              </label>
+            </FieldGroup>
+          </FormControl>
+        </FormField>
+      </FormSection>
+
+      {/* ================= SECTION 3 ================= */}
+
+      <FormSection title="Terms">
+        <FormField
+          error={!accept ? "You must accept terms" : undefined}
+        >
+          <FormControl>
+            <label className="flex items-center gap-2">
+              <Checkbox
+                checked={accept}
+                onCheckedChange={(value: boolean) =>
+                  setAccept(value)
+                }
+              />
+              <span>I agree to the terms and conditions</span>
+            </label>
+          </FormControl>
+
+          <FormError />
+        </FormField>
+      </FormSection>
+
+    </div>
+      
+   
       <div className="space-y-6 p-10 max-w-md">
       <SearchBar placeholder="Search..." onSearch={(v) => console.log(v)} />
 

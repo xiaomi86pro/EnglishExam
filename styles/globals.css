@@ -37,7 +37,7 @@
   --text-danger: var(--color-red-600);
   --text-success: var(--color-green-600);
 
-    /* =========================
+  /* =========================
      INTERACTION TOKENS
   ========================== */
 
@@ -88,14 +88,16 @@
 
   /* Surface Tokens */
   --surface-card-background: white;
-  --surface-card-border: #e5e7eb; /* slate-200 */
-  --surface-card-shadow: 0 1px 2px rgba(0,0,0,0.05), 0 1px 3px rgba(0,0,0,0.1);
+  --surface-card-border: #e5e7eb;
+  /* slate-200 */
+  --surface-card-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
 
-  --surface-divider-color: #d1d5db; /* slate-300 */
+  --surface-divider-color: #d1d5db;
+  /* slate-300 */
 
   --surface-modal-background: white;
-  --surface-modal-shadow: 0 10px 25px rgba(0,0,0,0.1), 0 4px 6px rgba(0,0,0,0.05);
-  --surface-modal-overlay: rgba(0,0,0,0.5);
+  --surface-modal-shadow: 0 10px 25px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --surface-modal-overlay: rgba(0, 0, 0, 0.5);
 
   /* ===== TABLE TOKENS ===== */
   --table-bg: #ffffff;
@@ -121,36 +123,55 @@
    FORM TOKENS
 ========================= */
 
---form-spacing-y: 0.75rem;
---form-section-spacing: 2rem;
---form-label-spacing: 0.375rem;
---form-group-spacing: 1rem;
+  --form-spacing-y: 0.75rem;
+  --form-section-spacing: 2rem;
+  --form-label-spacing: 0.375rem;
+  --form-group-spacing: 1rem;
 
---field-error-color: var(--destructive);
---field-error-text-size: 0.875rem;
---field-error-weight: 500;
+  --field-error-color: var(--destructive);
+  --field-error-text-size: 0.875rem;
+  --field-error-weight: 500;
 
---field-label-size: 0.875rem;
---field-label-weight: 500;
---field-label-color: var(--foreground);
+  --field-label-size: 0.875rem;
+  --field-label-weight: 500;
+  --field-label-color: var(--foreground);
 
---field-description-size: 0.875rem;
---field-description-color: var(--muted-foreground);
+  --field-description-size: 0.875rem;
+  --field-description-color: var(--muted-foreground);
 
-/* =========================================
+  /* =========================================
    CONTROL SEMANTIC TOKENS
 ========================================= */
 
-:root {
   --control-bg: #ffffff;
-  --control-border: #cbd5e1;      /* slate-300 */
-  --control-hover: #f1f5f9;       /* slate-100 */
-  --control-active: #e2e8f0;      /* slate-200 */
-  --control-focus: #0f172a;       /* slate-900 */
+  --control-border: #cbd5e1;
+  /* slate-300 */
+  --control-hover: #f1f5f9;
+  /* slate-100 */
+  --control-active: #e2e8f0;
+  /* slate-200 */
+  --control-focus: #0f172a;
+  /* slate-900 */
   --control-text: #0f172a;
-  --control-muted: #94a3b8;       /* slate-400 */
-  --control-disabled: #e5e7eb;    /* gray-200 */
-}
+  --control-muted: #94a3b8;
+  /* slate-400 */
+  --control-disabled: #e5e7eb;
+  /* gray-200 */
+
+
+  /* ROLE TOKENS */
+
+  --role-admin-bg: hsl(0 85% 96%);
+  --role-admin-text: hsl(0 70% 35%);
+  --role-admin-border: hsl(0 60% 85%);
+
+  --role-teacher-bg: hsl(210 85% 96%);
+  --role-teacher-text: hsl(210 70% 35%);
+  --role-teacher-border: hsl(210 60% 85%);
+
+  --role-student-bg: hsl(140 60% 95%);
+  --role-student-text: hsl(140 60% 30%);
+  --role-student-border: hsl(140 50% 80%);
 
 }
 

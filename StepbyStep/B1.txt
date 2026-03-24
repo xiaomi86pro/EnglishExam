@@ -185,25 +185,165 @@ B3. DOMAIN UI (Business-aware Components)
 
 Tại đây mới gắn với exam system.
 
+1️⃣ ENUM / STATUS MAPPING COMPONENTS (Foundation của B3)
+
+Encapsulate mapping từ DB enum → UI.
+
+1. role-badge.tsx
+
+Input:
+
+role: "admin" | "teacher" | "student"
+
+Output:
+
+color
+label
+icon (optional)
+2. exam-status-badge.tsx
+
+Mapping từ bảng exams.status
+
 Ví dụ:
 
-B3 Domain UI
-   ├── RoleBadge
-   ├── ExamStatusBadge
-   ├── DifficultyBadge
-   ├── ExamStateBadge
-   ├── ExamCard
-   ├── TemplateCard
-   └── QuestionPreview
-File đầu ra:
+type ExamStatus =
+  | "draft"
+  | "published"
+  | "archived"
+3. exam-state-badge.tsx
+
+Runtime state của 1 exam instance:
+
+type ExamState =
+  | "not_started"
+  | "in_progress"
+  | "submitted"
+  | "graded"
+
+Khác với exam.status.
+
+4. difficulty-badge.tsx
+type Difficulty =
+  | "easy"
+  | "medium"
+  | "hard"
+5. question-type-badge.tsx
+
+Mapping theo engine bạn đã định nghĩa:
+
+MCQ_SINGLE
+TEXT_INPUT
+PASSAGE_MCQ
+PASSAGE_TEXT
+REORDER
+TRUE_FALSE
+AUDIO_MCQ
+AUDIO_TEXT
+ESSAY
+6. passage-type-badge.tsx
+
+Vì system enforce 1 passage = 1 question_type.
+
+👉 Đây là lớp quan trọng nhất.
+
+Toàn bộ visual consistency của system phụ thuộc vào đây.
+
+2️⃣ ENTITY DISPLAY COMPONENTS
+
+Hiển thị 1 entity domain cụ thể.
+
+7. question-preview.tsx
+
+Input:
+
+{
+  content: string;
+  type: QuestionType;
+  difficulty: Difficulty;
+  options?: Option[];
+}
+
+Hiển thị:
+
+content
+type badge
+difficulty badge
+option preview (nếu MCQ)
+
+KHÔNG chứa edit logic.
+
+8. passage-preview.tsx
+
+Hiển thị:
+
+passage content
+type badge
+số câu hỏi
+9. exam-card.tsx
+
+Hiển thị:
+
+title
+duration
+status badge
+number of questions
+created_at
+
+Dùng cho:
+
+Admin exam list
+Teacher exam list
+10. template-card.tsx
+
+Hiển thị:
+
+template name
+number of sections
+total questions
+last updated
+3️⃣ CONTEXTUAL COMPOSITES (Advanced B3)
+
+Đây là lớp cao hơn.
+
+11. exam-runtime-header.tsx
+
+Dùng cho Student runtime page:
+
+Hiển thị:
+
+exam title
+timer
+state badge
+submit button
+12. question-runtime-shell.tsx
+
+Wrap 1 question trong runtime:
+
+question number
+question-preview
+answer slot
+
 components/system/
+
+# 1. Enum Mapping
    role-badge.tsx
    exam-status-badge.tsx
-   difficulty-badge.tsx
    exam-state-badge.tsx
+   difficulty-badge.tsx
+   question-type-badge.tsx
+   passage-type-badge.tsx
+   attempt-state-badge.tsx
+
+# 2. Entity Display
+   question-preview.tsx
+   passage-preview.tsx
    exam-card.tsx
    template-card.tsx
-   question-preview.tsx
+
+# 3. Runtime Shell
+   exam-runtime-header.tsx
+   question-runtime-shell.tsx
+
 Tổng cấu trúc cuối cùng của B. UI Layer
 components/
   ui/
