@@ -240,6 +240,12 @@ TRUE_FALSE
 AUDIO_MCQ
 AUDIO_TEXT
 ESSAY
+
+Chuẩn hoá luôn ExamStatus
+Chuẩn hoá ExamState
+Chuẩn hoá Difficulty
+
+
 6. passage-type-badge.tsx
 
 Vì system enforce 1 passage = 1 question_type.
