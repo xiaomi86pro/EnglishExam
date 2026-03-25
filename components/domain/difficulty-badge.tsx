@@ -1,10 +1,10 @@
 // components/domain/difficulty-badge.tsx
 
-import { cn } from "@/lib/utils"
-import type { Difficulty } from "@/lib/mappers/difficulty"
+import { cn } from "@/lib/utils";
+import type { Difficulty } from "@/lib/mappers/difficulty";
 
 interface DifficultyBadgeProps {
-  difficulty: Difficulty
+  difficulty: Difficulty;
 }
 
 const DIFFICULTY_CONFIG: Record<
@@ -23,21 +23,19 @@ const DIFFICULTY_CONFIG: Record<
     label: "Hard",
     className: "bg-rose-100 text-rose-700",
   },
-}
+};
 
-export function DifficultyBadge({
-  difficulty,
-}: DifficultyBadgeProps) {
-  const config = DIFFICULTY_CONFIG[difficulty]
+export function DifficultyBadge({ difficulty }: DifficultyBadgeProps) {
+  const config = DIFFICULTY_CONFIG[difficulty];
 
   return (
     <span
       className={cn(
         "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
-        config.className
+        config.className,
       )}
     >
       {config.label}
     </span>
-  )
+  );
 }
