@@ -46,16 +46,15 @@ export function mapQuestionDifficulty(
 export function deriveExamDifficulty(
   questionDifficulties: number[]
 ): Difficulty {
-  if (!questionDifficulties.length) {
-    return "easy"
+  const valid = questionDifficulties.filter(Number.isFinite);
+
+  if (!valid.length) {
+    return "easy";
   }
 
-  const total = questionDifficulties.reduce(
-    (sum, value) => sum + value,
-    0
-  )
+  const total = valid.reduce((sum, value) => sum + value, 0);
 
-  const average = total / questionDifficulties.length
+  const average = total / valid.length;
 
-  return mapQuestionDifficulty(Math.round(average))
+  return mapQuestionDifficulty(average);
 }

@@ -1,16 +1,40 @@
-import { FC } from "react";
+import { cn } from "@/lib/utils";
+import {
+  BADGE_TONE_STYLES,
+  BADGE_SIZE_STYLES,
+  type BadgeTone,
+  type BadgeVariant,
+  type BadgeSize,
+} from "@/lib/design-system/badge";
 
 interface BadgeProps {
   children: React.ReactNode;
+  tone?: BadgeTone;
+  variant?: BadgeVariant;
+  size?: BadgeSize;
   className?: string;
 }
 
-export const Badge: FC<BadgeProps> = ({ children, className }) => {
+export function Badge({
+  children,
+  tone = "neutral",
+  variant = "subtle",
+  size = "sm",
+  className,
+}: BadgeProps) {
+  const toneStyle = BADGE_TONE_STYLES[tone][variant];
+  const sizeStyle = BADGE_SIZE_STYLES[size];
+
   return (
     <span
-      className={`inline-flex items-center px-2 py-1 text-[var(--badge-font-size)] font-[var(--badge-font-weight)] rounded-[var(--badge-radius)] bg-[var(--badge-bg)] text-[var(--badge-color)] ${className}`}
+      className={cn(
+        "inline-flex items-center font-medium border",
+        sizeStyle,
+        toneStyle,
+        className,
+      )}
     >
       {children}
     </span>
   );
-};
+}

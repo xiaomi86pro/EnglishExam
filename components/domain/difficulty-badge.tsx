@@ -5,6 +5,7 @@ import type { Difficulty } from "@/lib/mappers/difficulty";
 
 interface DifficultyBadgeProps {
   difficulty: Difficulty;
+  className?: string;
 }
 
 const DIFFICULTY_CONFIG: Record<
@@ -25,14 +26,21 @@ const DIFFICULTY_CONFIG: Record<
   },
 };
 
-export function DifficultyBadge({ difficulty }: DifficultyBadgeProps) {
+export function DifficultyBadge({
+  difficulty,
+  className,
+}: DifficultyBadgeProps) {
   const config = DIFFICULTY_CONFIG[difficulty];
+
+  if (!config) return null;
 
   return (
     <span
+      aria-label={`Difficulty: ${config.label}`}
       className={cn(
         "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
         config.className,
+        className,
       )}
     >
       {config.label}

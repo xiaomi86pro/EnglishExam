@@ -370,6 +370,7 @@ exam title
 timer
 state badge
 submit button
+
 12. question-runtime-shell.tsx
 
 Wrap 1 question trong runtime:
@@ -438,3 +439,12 @@ components/
     exam-state-badge.tsx
     exam-card.tsx
     template-card.tsx
+
+
+template-card.tsx
+difficulty-badge.tsx
+question-type-badge.tsx
+exam-status-badge.tsx
+passage-type-badge.tsx
+question-meta-panel.tsx
+exam-summary-card.tsx
