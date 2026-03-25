@@ -1,60 +1,41 @@
 // lib/mappers/difficulty.ts
 
-/* =========================================================
-   DOMAIN DIFFICULTY TYPE
-   ========================================================= */
+export type Difficulty = "easy" | "medium" | "hard";
 
-export type Difficulty = "easy" | "medium" | "hard"
+const MIN_QUESTION_DIFFICULTY = 1;
+const MAX_QUESTION_DIFFICULTY = 5;
 
-/* =========================================================
-   QUESTION DIFFICULTY (1–5 → enum)
-   ========================================================= */
+function normalizeQuestionDifficulty(value: number): number {
+  if (!Number.isFinite(value)) {
+    return MIN_QUESTION_DIFFICULTY;
+  }
 
-/**
- * Map numeric question difficulty (1–5)
- * to domain difficulty.
- *
- * Scale:
- * 1–2   → easy
- * 3     → medium
- * 4–5   → hard
- *
- * Any invalid value will be clamped safely.
- */
-export function mapQuestionDifficulty(
-  value: number
-): Difficulty {
-  if (value <= 2) return "easy"
-  if (value === 3) return "medium"
-  return "hard"
+  return Math.min(
+    MAX_QUESTION_DIFFICULTY,
+    Math.max(MIN_QUESTION_DIFFICULTY, value),
+  );
 }
 
-/* =========================================================
-   EXAM DIFFICULTY (Derived from question difficulties)
-   ========================================================= */
+export function mapQuestionDifficulty(value: number): Difficulty {
+  const normalizedValue = normalizeQuestionDifficulty(value);
 
-/**
- * Derive exam difficulty from a list of numeric
- * question difficulty values (1–5).
- *
- * Strategy:
- * - Compute average
- * - Map average to domain difficulty
- *
- * If list is empty → default to "easy"
- */
+  if (normalizedValue <= 2) return "easy";
+  if (normalizedValue < 4) return "medium";
+
+  return "hard";
+}
+
 export function deriveExamDifficulty(
-  questionDifficulties: number[]
+  questionDifficulties: number[],
 ): Difficulty {
-  const valid = questionDifficulties.filter(Number.isFinite);
+  const validValues = questionDifficulties.filter(Number.isFinite);
 
-  if (!valid.length) {
+  if (validValues.length === 0) {
     return "easy";
   }
 
-  const total = valid.reduce((sum, value) => sum + value, 0);
-
-  const average = total / valid.length;
+  const total = validValues.reduce((sum, value) => sum + value, 0);
+  const average = total / validValues.length;
 
   return mapQuestionDifficulty(average);
 }

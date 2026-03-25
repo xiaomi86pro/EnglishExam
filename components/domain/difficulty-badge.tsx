@@ -1,6 +1,7 @@
 // components/domain/difficulty-badge.tsx
 
-import { cn } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
+import type { BadgeTone } from "@/lib/design-system/badge";
 import type { Difficulty } from "@/lib/mappers/difficulty";
 
 interface DifficultyBadgeProps {
@@ -10,19 +11,19 @@ interface DifficultyBadgeProps {
 
 const DIFFICULTY_CONFIG: Record<
   Difficulty,
-  { label: string; className: string }
+  { label: string; tone: BadgeTone }
 > = {
   easy: {
     label: "Easy",
-    className: "bg-emerald-100 text-emerald-700",
+    tone: "success",
   },
   medium: {
     label: "Medium",
-    className: "bg-amber-100 text-amber-700",
+    tone: "warning",
   },
   hard: {
     label: "Hard",
-    className: "bg-rose-100 text-rose-700",
+    tone: "danger",
   },
 };
 
@@ -32,18 +33,9 @@ export function DifficultyBadge({
 }: DifficultyBadgeProps) {
   const config = DIFFICULTY_CONFIG[difficulty];
 
-  if (!config) return null;
-
   return (
-    <span
-      aria-label={`Difficulty: ${config.label}`}
-      className={cn(
-        "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium",
-        config.className,
-        className,
-      )}
-    >
+    <Badge tone={config.tone} variant="subtle" size="sm" className={className}>
       {config.label}
-    </span>
+    </Badge>
   );
 }
