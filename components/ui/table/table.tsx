@@ -18,7 +18,7 @@ export function Table({ children, className, ...props }: TableProps) {
       <table
         className={cn(
           "w-full border-collapse text-left",
-          "text-[var(--table-font-size)] text-[var(--table-text)]",
+          "[font-size:var(--table-font-size)] [color:var(--table-text)]",
           className
         )}
         {...props}
