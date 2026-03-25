@@ -1,17 +1,87 @@
+import type { BadgeTone } from "@/lib/design-system/badge";
+
 /* =========================================================
    DOMAIN QUESTION TYPE
    ========================================================= */
 
 export type QuestionType =
-  | "mcq_single"
-  | "text_input"
-  | "passage_mcq"
-  | "passage_text"
-  | "reorder"
-  | "true_false"
-  | "audio_mcq"
-  | "audio_text"
-  | "essay";
+    | "mcq_single"
+    | "text_input"
+    | "passage_mcq"
+    | "passage_text"
+    | "reorder"
+    | "true_false"
+    | "audio_mcq"
+    | "audio_text"
+    | "essay";
+
+const QUESTION_TYPE_CODES = [
+    "MCQ_SINGLE",
+    "TEXT_INPUT",
+    "PASSAGE_MCQ",
+    "PASSAGE_TEXT",
+    "REORDER",
+    "TRUE_FALSE",
+    "AUDIO_MCQ",
+    "AUDIO_TEXT",
+    "ESSAY",
+] as const;
+
+type QuestionTypeCode = (typeof QUESTION_TYPE_CODES)[number];
+
+const QUESTION_TYPE_BY_CODE: Record<QuestionTypeCode, QuestionType> = {
+    MCQ_SINGLE: "mcq_single",
+    TEXT_INPUT: "text_input",
+    PASSAGE_MCQ: "passage_mcq",
+    PASSAGE_TEXT: "passage_text",
+    REORDER: "reorder",
+    TRUE_FALSE: "true_false",
+    AUDIO_MCQ: "audio_mcq",
+    AUDIO_TEXT: "audio_text",
+    ESSAY: "essay",
+};
+
+const QUESTION_TYPE_CONFIG: Record<
+    QuestionType,
+    { label: string; tone: BadgeTone }
+> = {
+    mcq_single: {
+        label: "Multiple Choice",
+        tone: "info",
+    },
+    text_input: {
+        label: "Text Input",
+        tone: "neutral",
+    },
+    passage_mcq: {
+        label: "Passage MCQ",
+        tone: "purple",
+    },
+    passage_text: {
+        label: "Passage Text",
+        tone: "purple",
+    },
+    reorder: {
+        label: "Reorder",
+        tone: "warning",
+    },
+    true_false: {
+        label: "True / False",
+        tone: "success",
+    },
+    audio_mcq: {
+        label: "Audio MCQ",
+        tone: "info",
+    },
+    audio_text: {
+        label: "Audio Text",
+        tone: "info",
+    },
+    essay: {
+        label: "Essay",
+        tone: "danger",
+    },
+};
 
 /* =========================================================
    DB → DOMAIN
@@ -22,51 +92,20 @@ export type QuestionType =
  * to domain-level QuestionType
  */
 export function mapQuestionType(code: string): QuestionType {
-  switch (code) {
-    case "MCQ_SINGLE":
-      return "mcq_single";
-    case "TEXT_INPUT":
-      return "text_input";
-    case "PASSAGE_MCQ":
-      return "passage_mcq";
-    case "PASSAGE_TEXT":
-      return "passage_text";
-    case "REORDER":
-      return "reorder";
-    case "TRUE_FALSE":
-      return "true_false";
-    case "AUDIO_MCQ":
-      return "audio_mcq";
-    case "AUDIO_TEXT":
-      return "audio_text";
-    case "ESSAY":
-      return "essay";
-    default:
-      throw new Error(`Unknown question type code: ${code}`);
-  }
+    if (QUESTION_TYPE_CODES.includes(code as QuestionTypeCode)) {
+        return QUESTION_TYPE_BY_CODE[code as QuestionTypeCode];
+    }
+
+    throw new Error(`Unknown question type code: ${code}`);
 }
+
 
 /** Label */
 
 export function getQuestionTypeLabel(type: QuestionType): string {
-  switch (type) {
-    case "mcq_single":
-      return "Multiple Choice";
-    case "text_input":
-      return "Text Input";
-    case "passage_mcq":
-      return "Passage MCQ";
-    case "passage_text":
-      return "Passage Text";
-    case "reorder":
-      return "Reorder";
-    case "true_false":
-      return "True / False";
-    case "audio_mcq":
-      return "Audio MCQ";
-    case "audio_text":
-      return "Audio Text";
-    case "essay":
-      return "Essay";
-  }
+    return QUESTION_TYPE_CONFIG[type].label;
+}
+
+export function getQuestionTypeTone(type: QuestionType): BadgeTone {
+    return QUESTION_TYPE_CONFIG[type].tone;
 }
