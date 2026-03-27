@@ -3,8 +3,8 @@ import {
   mapQuestionDifficulty,
   Difficulty,
 } from "@/lib/mappers/difficulty"
-import { DifficultyBadge } from "@/components/domain/difficulty-badge"
-import { QuestionTypeBadge } from "@/components/domain/question-type-badge"
+import { DifficultyBadge } from "@/components/domain/badges/difficulty-badge"
+import { QuestionTypeBadge } from "@/components/domain/question/question-type-badge"
 
 interface Option {
   id: number | string;

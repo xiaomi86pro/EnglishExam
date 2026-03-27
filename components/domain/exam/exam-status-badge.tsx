@@ -1,6 +1,6 @@
 // components/domain/exam-status-badge.tsx
 
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/data-display/badge";
 import {
   EXAM_STATUS_BADGE_CONFIG,
   type ExamStatus,

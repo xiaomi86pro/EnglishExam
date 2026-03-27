@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import { RoleProvider } from "@/components/domain/role-context";
+import { RoleProvider } from "@/components/domain/auth/role-context";
 
 export default async function DashboardLayout({
   children,

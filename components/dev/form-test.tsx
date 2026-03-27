@@ -1,19 +1,19 @@
 "use client"
 
 import { useState } from "react";
-import { Heading } from "@/components/ui/Heading";
-import { Text } from "@/components/ui/Text";
+import { Heading } from "@/components/ui/typography/heading";
+import { Text } from "@/components/ui/typography/text";
 import { Container } from "@/components/ui/layout/container";
 import { Stack } from "@/components/ui/layout/stack";
 import { Grid } from "@/components/ui/layout/grid";
 import { Spacer } from "@/components/ui/layout/spacer";
-import { Badge } from "@/components/ui/badge";
-import { Alert } from "@/components/ui/alert";
-import { Spinner } from "@/components/ui/spinner";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Card } from "@/components/ui/card";
-import { Divider } from "@/components/ui/divider";
-import { Modal } from "@/components/ui/modal";
+import { Badge } from "@/components/ui/data-display/badge";
+import { Alert } from "@/components/ui/feedback/alert";
+import { Spinner } from "@/components/ui/feedback/spinner";
+import { Skeleton } from "@/components/ui/feedback/skeleton";
+import { Card } from "@/components/ui/data-display/card";
+import { Divider } from "@/components/ui/data-display/divider";
+import { Modal } from "@/components/ui/overlay/modal";
 import { Table, } from "@/components/ui/table/table";
 import { TableHeader } from "@/components/ui/table/table-header";
 import { TableRow } from "@/components/ui/table/table-row";
@@ -32,16 +32,16 @@ import {
 } from "@/components/ui/form/form-components"
 import { FormSection } from "@/components/ui/form/form-section";
 import { FieldGroup } from "@/components/ui/form/field-group";
-import { Input } from "@/components/ui/input/input";
+import { Input } from "@/components/ui/input/text-input";
 import { Checkbox } from "@/components/ui/input/checkbox";
-import { SearchBar } from "@/components/ui/search-bar";
-import { FilterDropdown } from "@/components/ui/filter-dropdown";
-import { Pagination } from "@/components/ui/pagination";
+import { SearchBar } from "@/components/ui/search-filter/search-bar";
+import { FilterDropdown } from "@/components/ui/search-filter/filter-dropdown";
+import { Pagination } from "@/components/ui/navigation/pagination";
 import { PageHeader } from "@/components/ui/page-header";
-import { Toolbar } from "@/components/ui/toolbar";
-import { FilterBar } from "@/components/ui/filter-bar";
-import { RoleBadge } from "@/components/domain/role-badge";
-import { PassageTypeBadge } from "@/components/domain/passage-type-badge";
+import { Toolbar } from "@/components/ui/navigation/toolbar";
+import { FilterBar } from "@/components/ui/search-filter/filter-bar";
+import { RoleBadge } from "@/components/domain/badges/role-badge";
+import { PassageTypeBadge } from "@/components/domain/passage/passage-type-badge";
 
 
 import "@/styles/globals.css"; // chứa tokens

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRole } from "@/components/domain/role-context";
+import { useRole } from "@/components/domain/auth/role-context";
 import { hasMinRole } from "@/lib/roles";
 import { redirect } from "next/navigation";
 

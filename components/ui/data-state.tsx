@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { Spinner } from "./spinner";
+import { Spinner } from "./feedback/spinner";
 import { EmptyState } from "./table/empty-state";
 
 interface DataStateProps {

@@ -1,8 +1,11 @@
 // components/domain/exam-card.tsx
 
-import { Card } from "@/components/ui/card";
-import { ExamStatusBadge } from "./exam-status-badge";
-import type { ExamStatus } from "@/lib/mappers/exam";
+import { Card } from "@/components/ui/data-display/card";
+import { ExamStateBadge } from "./exam-state-badge";
+import {
+  deriveExamDisplayState,
+  type ExamStatus,
+} from "@/lib/mappers/exam";
 
 interface ExamCardProps {
   id: number;
@@ -21,13 +24,17 @@ export function ExamCard({
   createdAt,
 }: ExamCardProps) {
   const formattedDate = new Date(createdAt).toLocaleDateString();
+  const displayState = deriveExamDisplayState({
+    status,
+    hasInstance: false,
+  });
 
   return (
     <Card className="rounded-2xl shadow-sm hover:shadow-md transition">
       <div className="p-5 space-y-3">
         <div className="flex items-start justify-between">
           <h3 className="text-lg font-semibold">{title}</h3>
-          <ExamStatusBadge status={status} />
+          <ExamStateBadge state={displayState} />
         </div>
 
         <div className="text-sm text-muted-foreground space-y-1">

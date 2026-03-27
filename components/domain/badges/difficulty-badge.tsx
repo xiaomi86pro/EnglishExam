@@ -1,6 +1,6 @@
 // components/domain/difficulty-badge.tsx
 
-import { Badge } from "@/components/ui/badge";
+import { Badge } from "@/components/ui/data-display/badge";
 import type { BadgeTone } from "@/lib/design-system/badge";
 import type { Difficulty } from "@/lib/mappers/difficulty";
 

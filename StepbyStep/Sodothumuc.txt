@@ -1,0 +1,51 @@
+components/
+├── ui/
+│   ├── input/                  <-- B2: Input primitives
+│   │   ├── TextInput.tsx
+│   │   ├── TextArea.tsx
+│   │   ├── Radio.tsx
+│   │   ├── Checkbox.tsx
+│   │   ├── Select.tsx
+│   │   ├── NumberInput.tsx         <-- chưa có
+│   │   ├── DateInput.tsx           <-- chưa có
+│   │   ├── TimeInput.tsx           <-- chưa có
+│   │   ├── FileUpload.tsx          <-- chưa có
+│   │   ├── Label.tsx
+│   │   └── HelperText.tsx          <-- chưa có
+│   │
+│   └── form/                   <-- B2: Form wrappers / composites
+│       ├── FormField.tsx
+│       ├── FormSection.tsx       <-- optional
+│       └── FormGroup.tsx         <-- optional
+│
+└── domain/                     <-- B3: Domain UI (Business aware)
+    ├── question/
+    │   ├── QuestionCard.tsx
+    │   │     └─ uses: Label, HelperText, AnswerInput
+    │   ├── QuestionEditor.tsx
+    │   │     └─ uses: FormField, TextInput, TextArea, Radio, Checkbox, Select
+    │   └── AnswerInput.tsx
+    │         └─ uses: Radio, Checkbox, TextInput, TextArea
+    │
+    ├── exam/
+    │   ├── ExamCard.tsx
+    │   │     └─ uses: DifficultyBadge, ExamStateBadge
+    │   ├── ExamEditor.tsx
+    │   │     └─ uses: QuestionEditor, FormField, Select
+    │   ├── ExamForm.tsx
+    │   │     └─ uses: FormField, QuestionEditor, AnswerInput
+    │   └── ExamStateBadge.tsx
+    │
+    ├── template/
+    │   ├── TemplateCard.tsx
+    │   ├── TemplateEditor.tsx
+    │   │     └─ uses: FormField, TextInput, Select, SectionCard
+    │   ├── TemplateForm.tsx
+    │   │     └─ uses: FormField, TemplateEditor
+    │   └── SectionCard.tsx
+    │
+    └── badges/
+        ├── DifficultyBadge.tsx
+        ├── PassageTypeBadge.tsx
+        ├── QuestionTypeBadge.tsx
+        └── AnswerResultBadge.tsx

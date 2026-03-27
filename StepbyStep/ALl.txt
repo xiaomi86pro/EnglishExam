@@ -197,6 +197,14 @@ components/system/
 
 "draft" -> warning
 "published" -> success
+
+AnswerInput
+QuestionCard
+ExamCard
+ExamStateBadge
+TemplateEditor
+TemplateForm
+
 C. FEATURE LAYER
 
 Đây là nơi tạo từng màn hình cụ thể.

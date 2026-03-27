@@ -1,6 +1,6 @@
 // components/domain/passage-preview.tsx
 
-import { Card } from "@/components/ui/card";
+import { Card } from "@/components/ui/data-display/card";
 import { PassageTypeBadge } from "./passage-type-badge";
 
 interface PassagePreviewProps {
