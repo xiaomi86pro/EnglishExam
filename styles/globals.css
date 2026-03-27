@@ -188,6 +188,14 @@
 
 --disabled-opacity: 0.6;
 
+--card-bg: hsl(var(--background));
+  --card-border: hsl(var(--border));
+  --card-hover: hsl(var(--muted));
+
+  --color-success: hsl(var(--success));
+  --color-danger: hsl(var(--destructive));
+  --color-primary: hsl(var(--primary));
+
 }
 
 /* =========================
