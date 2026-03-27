@@ -49,3 +49,126 @@ components/
         ├── PassageTypeBadge.tsx
         ├── QuestionTypeBadge.tsx
         └── AnswerResultBadge.tsx
+
+        components/
+├── ui/                                # B2: Design System
+
+│   ├── input/                         # Input primitives
+│   │   ├── text-input.tsx            (rename từ input.tsx)
+│   │   ├── textarea.tsx              ✅
+│   │   ├── radio.tsx                 ✅
+│   │   ├── checkbox.tsx              ✅
+│   │   ├── select.tsx                ✅
+│   │   ├── switch.tsx                ✅
+│   │   ├── label.tsx                 ✅
+│   │   ├── helper-text.tsx           ⚠️ MISSING
+│   │   ├── number-input.tsx          ⚠️ MISSING
+│   │   ├── date-input.tsx            ⚠️ MISSING
+│   │   ├── time-input.tsx            ⚠️ MISSING
+│   │   └── file-upload.tsx           ⚠️ MISSING
+
+│   ├── form/                          # Form wrappers
+│   │   ├── form-field.tsx            ✅
+│   │   ├── field-error.tsx           ✅
+│   │   ├── field-group.tsx           ✅
+│   │   ├── form-section.tsx          ✅
+│   │   ├── form-components.tsx       ⚠️ (nên split nhỏ dần)
+│   │   └── form.tsx                  ⚠️ MISSING (optional wrapper root)
+
+components/ui/form/
+├── form.tsx              # (optional root wrapper)
+├── form-field.tsx        # wrapper 1 field (core)
+├── field-label.tsx       # label (NEW)
+├── field-error.tsx       # error text
+├── field-helper.tsx      # helper text (NEW)
+├── field-group.tsx       # group fields
+├── form-section.tsx      # section lớn
+
+
+│   ├── typography/                   # Text primitives
+│   │   ├── heading.tsx              (rename từ Heading.tsx)
+│   │   └── text.tsx                 (rename từ Text.tsx)
+
+│   ├── layout/                       # Layout primitives
+│   │   ├── container.tsx            ✅
+│   │   ├── stack.tsx                ✅
+│   │   ├── grid.tsx                 ✅
+│   │   └── spacer.tsx               ✅
+
+│   ├── feedback/
+│   │   ├── spinner.tsx              (move)
+│   │   ├── skeleton.tsx             (move)
+│   │   ├── alert.tsx                (move)
+│   │   └── toast.tsx                (move)
+
+│   ├── data-display/
+│   │   ├── badge.tsx                (base badge)
+│   │   ├── card.tsx
+│   │   ├── divider.tsx
+│   │   └── tooltip.tsx
+
+│   ├── overlay/
+│   │   ├── modal.tsx
+│   │   ├── confirm-dialog.tsx
+│   │   └── dropdown.tsx
+
+│   ├── navigation/
+│   │   ├── pagination.tsx
+│   │   └── toolbar.tsx
+
+│   ├── table/
+│   │   ├── table.tsx
+│   │   ├── table-row.tsx
+│   │   ├── table-cell.tsx
+│   │   ├── table-header.tsx
+│   │   ├── sortable-header.tsx
+│   │   ├── table-select.tsx
+│   │   ├── table-bulk-actions.tsx
+│   │   └── empty-state.tsx
+
+│   └── search-filter/
+│       ├── search-bar.tsx
+│       ├── filter-bar.tsx
+│       └── filter-dropdown.tsx
+
+
+├── domain/                            # B3: Business-aware UI
+
+│   ├── question/
+│   │   ├── question-card.tsx         ⚠️ MISSING
+│   │   ├── question-editor.tsx       ⚠️ MISSING
+│   │   ├── answer-input.tsx          ⚠️ MISSING (CRITICAL)
+│   │   ├── question-preview.tsx      ✅ (move vào đây)
+│   │   └── question-type-badge.tsx   ✅
+
+│   ├── exam/
+│   │   ├── exam-card.tsx             ✅ (move vào đây)
+│   │   ├── exam-form.tsx             ⚠️ MISSING
+│   │   ├── exam-editor.tsx           ⚠️ MISSING
+│   │   ├── exam-runtime-header.tsx   ✅
+│   │   ├── exam-state-badge.tsx      ✅
+│   │   ├── exam-status-badge.tsx     ⚠️ (trùng logic → nên merge)
+│   │   └── answer-result-badge.tsx   ⚠️ MISSING
+
+│   ├── template/
+│   │   ├── template-card.tsx         ✅ (move vào đây)
+│   │   ├── template-editor.tsx       ⚠️ MISSING
+│   │   ├── template-form.tsx         ⚠️ MISSING
+│   │   └── section-card.tsx          ⚠️ MISSING
+
+│   ├── passage/
+│   │   ├── passage-preview.tsx       ✅ (move vào đây)
+│   │   └── passage-type-badge.tsx    ✅
+
+│   ├── badges/
+│   │   ├── difficulty-badge.tsx      ✅
+│   │   ├── role-badge.tsx            ✅
+│   │   └── (others...)
+
+│   └── auth/
+│       ├── role-context.tsx          ✅
+│       └── role-guard.tsx            ✅
+
+
+├── dev/
+│   └── form-test.tsx                 ✅ (giữ nguyên)

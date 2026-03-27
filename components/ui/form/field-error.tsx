@@ -1,18 +1,22 @@
-// components/ui/form/field-error.tsx
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
-import { cn } from "@/lib/utils"
+export interface FieldErrorProps
+  extends React.HTMLAttributes<HTMLParagraphElement> {}
 
-interface FieldErrorProps {
-  message?: string
-  className?: string
-}
-
-export function FieldError({ message, className }: FieldErrorProps) {
-  if (!message) return null
+export function FieldError({
+  children,
+  className,
+  id,
+  ...props
+}: FieldErrorProps) {
+  if (!children) return null;
 
   return (
     <p
+      id={id}
       role="alert"
+      aria-live="polite"
       className={cn(
         "mt-1",
         "text-[var(--field-error-text-size)]",
@@ -20,8 +24,9 @@ export function FieldError({ message, className }: FieldErrorProps) {
         "text-[var(--field-error-color)]",
         className
       )}
+      {...props}
     >
-      {message}
+      {children}
     </p>
-  )
+  );
 }

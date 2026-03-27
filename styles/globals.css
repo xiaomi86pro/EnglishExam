@@ -136,8 +136,8 @@
   --field-label-weight: 500;
   --field-label-color: var(--foreground);
 
-  --field-description-size: 0.875rem;
-  --field-description-color: var(--muted-foreground);
+  --field-helper-size: 0.875rem;
+  --field-helper-color: var(--muted-foreground);
 
   /* =========================================
    CONTROL SEMANTIC TOKENS
@@ -177,6 +177,14 @@
   --ui-shadow-lg: 0 10px 25px rgba(0,0,0,0.08);
   --ui-overlay-bg: rgba(0,0,0,0.5);
   --ui-transition-fast: 150ms ease-in-out;
+
+  --input-border: #e5e7eb;
+--input-border-focus: #6366f1;
+--input-border-error: #ef4444;
+
+--focus-ring: 0 0 0 2px rgba(99, 102, 241, 0.3);
+
+--disabled-opacity: 0.6;
 
 }
 

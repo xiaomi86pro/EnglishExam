@@ -1,48 +1,115 @@
-"use client"
+// components/ui/form/form-field.tsx
 
-import { createContext, useContext, useId } from "react"
+import * as React from "react";
+import { cn } from "@/lib/utils";
+import { FieldLabel } from "./field-label";
+import { FieldError } from "./field-error";
+import { FieldHelper } from "./field-helper";
 
-interface FormFieldContextValue {
-  id: string
-  error?: string
-  description?: string
+/* =========================================================
+   TYPES
+   ========================================================= */
+
+export interface FormFieldProps {
+  label?: React.ReactNode;
+  required?: boolean;
+  error?: React.ReactNode;
+  helperText?: React.ReactNode;
+  children: React.ReactElement;
+  className?: string;
+  id?: string;
 }
 
-export const FormFieldContext =
-  createContext<FormFieldContextValue | null>(null)
+/* =========================================================
+   UTILS
+   ========================================================= */
 
-export function useFormField() {
-  const context = useContext(FormFieldContext)
-
-  if (!context) {
-    throw new Error(
-      "FormField components must be used inside <FormField>"
-    )
-  }
-
-  return context
+function generateId() {
+  return `field-${Math.random().toString(36).slice(2, 9)}`;
 }
 
-interface FormFieldProps {
-  error?: string
-  description?: string
-  children: React.ReactNode
-  className?: string
-}
+/* =========================================================
+   COMPONENT
+   ========================================================= */
 
 export function FormField({
+  label,
+  required,
   error,
-  description,
+  helperText,
   children,
   className,
+  id,
 }: FormFieldProps) {
-  const id = useId()
+  // base id
+  const reactId = React.useId();
+  const baseId = id || reactId || generateId();
+
+  const inputId = baseId;
+  const helperId = `${baseId}-helper`;
+  const errorId = `${baseId}-error`;
+
+  const hasError = Boolean(error);
+
+  /* =========================================================
+     ARIA DESCRIBEDBY
+     ========================================================= */
+
+  let describedBy: string | undefined;
+
+  if (hasError) {
+    describedBy = errorId;
+  } else if (helperText) {
+    describedBy = helperId;
+  }
+
+  /* =========================================================
+     CLONE CHILD (inject props into input)
+     ========================================================= */
+
+  const childProps = children.props as any;
+
+const child = React.cloneElement(
+  children as React.ReactElement<any>,
+  {
+    id: childProps.id || inputId,
+    "aria-describedby":
+      childProps["aria-describedby"] || describedBy,
+    "aria-invalid":
+      childProps["aria-invalid"] ??
+      (hasError ? true : undefined),
+  }
+);
+  /* =========================================================
+     RENDER
+     ========================================================= */
 
   return (
-    <FormFieldContext.Provider
-      value={{ id, error, description }}
+    <div
+      className={cn(
+        "flex flex-col",
+        "gap-[var(--form-label-spacing)]",
+        className
+      )}
     >
-      <div className={className}>{children}</div>
-    </FormFieldContext.Provider>
-  )
+      {/* LABEL */}
+      {label && (
+        <FieldLabel htmlFor={inputId} required={required}>
+          {label}
+        </FieldLabel>
+      )}
+
+      {/* INPUT */}
+      {child}
+
+      {/* ERROR / HELPER */}
+      {hasError ? (
+        <FieldError id={errorId}>{error}</FieldError>
+      ) : (
+        helperText && (
+          <FieldHelper id={helperId}>{helperText}</FieldHelper>
+        )
+      )}
+    </div>
+  );
 }
