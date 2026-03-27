@@ -28,6 +28,8 @@
 
   --surface: 255 255 255;
   --surface-muted: var(--color-slate-100);
+  --muted: var(--color-slate-100);
+  --muted-foreground: var(--color-slate-500);
   --border: var(--color-slate-200);
 
   --text-primary: var(--color-slate-900);
@@ -204,6 +206,10 @@
   background-color: rgb(var(--surface-muted));
 }
 
+.bg-muted {
+  background-color: rgb(var(--muted));
+}
+
 .text-foreground {
   color: rgb(var(--foreground));
 }
@@ -219,6 +225,11 @@
 .text-muted {
   color: rgb(var(--text-muted));
 }
+
+.text-muted-foreground {
+  color: rgb(var(--muted-foreground));
+}
+
 
 .text-danger {
   color: rgb(var(--text-danger));
@@ -260,4 +271,13 @@
   box-shadow:
     0 0 0 var(--focus-offset) rgb(var(--background)),
     0 0 0 calc(var(--focus-offset) + 2px) rgb(var(--ring));
+}
+
+/* File input utility fallbacks for semantic color classes */
+.file\:bg-muted::file-selector-button {
+  background-color: rgb(var(--muted));
+}
+
+.file\:text-foreground::file-selector-button {
+  color: rgb(var(--foreground));
 }

@@ -1,16 +1,22 @@
+import * as React from "react";
+import { cn } from "@/lib/utils";
+
 interface HelperTextProps {
   children?: React.ReactNode;
   error?: boolean;
+  className?: string;
 }
 
-export function HelperText({ children, error }: HelperTextProps) {
+export function HelperText({ children, error, className }: HelperTextProps) {
   if (!children) return null;
 
   return (
     <p
-      className={`text-sm mt-1 ${
-        error ? "text-red-500" : "text-muted-foreground"
-      }`}
+      className={cn(
+        "mt-1 text-sm",
+        error ? "text-[rgb(var(--destructive))]" : "text-[rgb(var(--muted-foreground))]",
+        className
+      )}
     >
       {children}
     </p>
