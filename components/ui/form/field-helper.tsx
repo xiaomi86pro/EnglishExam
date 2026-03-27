@@ -1,10 +1,17 @@
 // components/ui/form/field-helper.tsx
 
 import * as React from "react";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
-export interface FieldHelperProps
-  extends React.HTMLAttributes<HTMLParagraphElement> {}
+/* =========================================================
+   TYPES
+   ========================================================= */
+
+export type FieldHelperProps = React.HTMLAttributes<HTMLParagraphElement>;
+
+/* =========================================================
+   COMPONENT
+   ========================================================= */
 
 export function FieldHelper({
   children,
@@ -17,8 +24,9 @@ export function FieldHelper({
   return (
     <p
       id={id}
-      className={clsx(
-        "text-sm text-gray-500",
+      className={cn(
+        "text-[var(--field-helper-size)]",
+        "text-[rgb(var(--field-helper-color))]",
         className
       )}
       {...props}

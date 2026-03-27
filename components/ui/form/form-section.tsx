@@ -1,20 +1,29 @@
 // components/ui/form/form-section.tsx
 
-import { ReactNode } from "react"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { cn } from "@/lib/utils";
 
-interface FormSectionProps {
-  title?: string
-  description?: string
-  children: ReactNode
-  className?: string
+/* =========================================================
+   TYPES
+   ========================================================= */
+
+export interface FormSectionProps
+  extends Omit<React.HTMLAttributes<HTMLElement>, "title"> {
+  title?: React.ReactNode;
+  description?: React.ReactNode;
+  children: React.ReactNode;
 }
+
+/* =========================================================
+   COMPONENT
+   ========================================================= */
 
 export function FormSection({
   title,
   description,
   children,
   className,
+  ...props
 }: FormSectionProps) {
   return (
     <section
@@ -24,16 +33,27 @@ export function FormSection({
         "mb-[var(--form-section-spacing)]",
         className
       )}
+      {...props}
     >
       {(title || description) && (
         <div className="flex flex-col gap-1">
           {title && (
-            <h3 className="text-base font-semibold">
+            <h3
+              className={cn(
+                "text-base font-semibold",
+                "text-[rgb(var(--text-primary))]"
+              )}
+            >
               {title}
             </h3>
           )}
           {description && (
-            <p className="text-sm text-muted-foreground">
+            <p
+              className={cn(
+                "text-sm",
+                "text-[rgb(var(--text-muted))]"
+              )}
+            >
               {description}
             </p>
           )}
@@ -42,5 +62,5 @@ export function FormSection({
 
       {children}
     </section>
-  )
+  );
 }

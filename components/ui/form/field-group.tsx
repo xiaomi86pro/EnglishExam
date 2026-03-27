@@ -1,29 +1,38 @@
 // components/ui/form/field-group.tsx
 
-import { ReactNode } from "react"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { cn } from "@/lib/utils"; 
 
-interface FieldGroupProps {
-  direction?: "row" | "col"
-  children: ReactNode
-  className?: string
+/* =========================================================
+   TYPES
+   ========================================================= */
+
+export interface FieldGroupProps
+  extends React.HTMLAttributes<HTMLDivElement> {
+  direction?: "row" | "col";
+  children: React.ReactNode;
 }
+
+/* =========================================================
+   COMPONENT
+   ========================================================= */
 
 export function FieldGroup({
   direction = "col",
   children,
   className,
+  ...props
 }: FieldGroupProps) {
   return (
     <div
       className={cn(
-        direction === "row"
-          ? "flex flex-wrap items-center gap-[var(--form-group-spacing)]"
-          : "flex flex-col gap-[var(--form-group-spacing)]",
+        "flex",
+        direction === "row" ? "flex-wrap items-center" : "flex-col",
+        "gap-[var(--form-group-spacing)]",
         className
       )}
     >
       {children}
     </div>
-  )
+  );
 }
