@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export interface TimeInputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> {
   value?: string;
   onChange?: (value: string | undefined) => void;
 }

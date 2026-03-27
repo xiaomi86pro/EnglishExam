@@ -1,7 +1,7 @@
 import * as React from "react";
 
 export interface NumberInputProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange" | "value"> {
   value?: number | undefined;
   onChange?: (value: number | undefined) => void;
 }
