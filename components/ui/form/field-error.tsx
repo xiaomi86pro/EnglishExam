@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { useField } from "./form-field";
 
 export interface FieldErrorProps
   extends React.HTMLAttributes<HTMLParagraphElement> {}
@@ -7,14 +8,15 @@ export interface FieldErrorProps
 export function FieldError({
   children,
   className,
-  id,
   ...props
 }: FieldErrorProps) {
+  const { errorId } = useField();
+
   if (!children) return null;
 
   return (
     <p
-      id={id}
+      id={errorId}
       role="alert"
       aria-live="polite"
       className={cn(
@@ -30,3 +32,5 @@ export function FieldError({
     </p>
   );
 }
+
+FieldError.displayName = "FieldError";

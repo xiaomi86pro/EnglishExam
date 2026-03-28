@@ -34,15 +34,10 @@ Luôn dùng composition:
 </FormField>
 4. UI primitives phải tách rời
 
-Bạn nói đúng, nhưng refine lại:
-
 ✔ Đúng:
 form-field.tsx
 field-label.tsx
 field-error.tsx
-❗ Không phải:
-
-“form/*.tsx không được tồn tại”
 
 👉 Thực tế:
 
@@ -56,8 +51,6 @@ Luôn có:
 className?: string
 Không hardcode style khi đã có token
 6. Design Tokens (rất quan trọng)
-
-Bạn có:
 
 styles/global.css
 ✔ Rule
@@ -88,13 +81,13 @@ Bind data
 xử lý aria
 xử lý spacing
 xử lý className phức tạp
-10. Domain dùng mapper (bạn nói đúng)
+10. Domain dùng mapper :
 lib/mappers/*.ts
 ✔ Rule
 convert DB → UI
 map enum → label
 derive state
-✅ IV. INPUT SYSTEM (bạn chưa nhắc tới — nhưng cực kỳ quan trọng)
+✅ IV. INPUT SYSTEM 
 11. Input phải compatible với FieldControl
 ✔ Bắt buộc:
 forwardRef
@@ -127,6 +120,7 @@ FieldHelper
 ErrorText
 FormLabel
 lẫn lộn naming
+
 ✅ VI. ANTI-PATTERN (rất quan trọng)
 🚨 1. UI import UI khác để render
 FormField import FieldError ❌
@@ -136,10 +130,23 @@ FormField import FieldError ❌
 if (questionType === ...)
 🚨 4. Input tự xử lý error
 <input className={error ? ...} />
-✅ VII. BỔ SUNG QUAN TRỌNG (bạn chưa có)
+
+✅ VII. BỔ SUNG 
 14. Context-based logic (B3)
 useField()
 centralize id + aria
+✅ Rule 1
+
+❌ Không truyền id, aria-* từ domain
+
+✅ Rule 2
+
+✔ FieldControl là nơi DUY NHẤT inject props vào input
+
+✅ Rule 3
+
+✔ useField() chỉ dùng trong components/ui/form/*
+
 15. Type safety
 không dùng any trong UI core
 đặc biệt FieldControl

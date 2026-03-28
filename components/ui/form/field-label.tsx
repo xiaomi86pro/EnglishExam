@@ -1,20 +1,11 @@
-// components/ui/form/field-label.tsx
-
 import * as React from "react";
 import { cn } from "@/lib/utils";
-
-/* =========================================================
-   TYPES
-   ========================================================= */
+import { useField } from "./form-field";
 
 export interface FieldLabelProps
   extends React.LabelHTMLAttributes<HTMLLabelElement> {
   required?: boolean;
 }
-
-/* =========================================================
-   COMPONENT
-   ========================================================= */
 
 export function FieldLabel({
   children,
@@ -22,26 +13,23 @@ export function FieldLabel({
   className,
   ...props
 }: FieldLabelProps) {
-  if (!children) return null;
+  const { id } = useField();
 
   return (
     <label
+      htmlFor={id}
       className={cn(
-        "inline-flex items-center gap-1",
-        "text-[var(--field-label-size)]",
-        "font-[var(--field-label-weight)]",
-        "text-[rgb(var(--field-label-color))]",
+        "text-sm font-medium leading-none",
         className
       )}
       {...props}
     >
-      <span>{children}</span>
-
+      {children}
       {required && (
-        <span aria-hidden="true" className="text-[rgb(var(--text-danger))]">
-          *
-        </span>
+        <span className="ml-1 text-[var(--field-error-color)]">*</span>
       )}
     </label>
   );
 }
+
+FieldLabel.displayName = "FieldLabel";

@@ -17,17 +17,7 @@ export const FileUpload = React.forwardRef<
       onChange={(e) => {
         onChange?.(e.target.files);
       }}
-      className={cn(
-        "block h-10 w-full rounded-md border px-3 py-2 text-sm",
-        "bg-[rgb(var(--background))]",
-        "border-[rgb(var(--border))]",
-        "text-[rgb(var(--foreground))]",
-        "file:mr-3 file:rounded-md file:border file:border-[rgb(var(--border))]",
-        "file:bg-[rgb(var(--surface-muted))] file:px-3 file:py-1 file:text-sm file:text-[rgb(var(--foreground))]",
-        "focus:outline-none focus:ring-2 focus:ring-[rgb(var(--ring))] focus:ring-offset-2",
-        "disabled:cursor-not-allowed disabled:opacity-50",
-        className
-      )}
+       className={cn("ui-input-control ui-file-upload aria-[invalid=true]:border-[rgb(var(--destructive))] aria-[invalid=true]:ring-[rgb(var(--destructive))]", className)}
       {...props}
     />
   );

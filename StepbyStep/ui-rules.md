@@ -182,3 +182,8 @@ Nếu thấy:
 FormField import FieldLabel
 
 → ❌ coupling
+
+
+FormField = brain
+FieldControl = nervous system (inject)
+FieldLabel/Error = UI

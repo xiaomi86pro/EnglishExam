@@ -43,14 +43,7 @@ export const Checkbox = React.forwardRef<
         ref={internalRef}
         checked={checked}
         onChange={(e) => onCheckedChange?.(e.target.checked)}
-        className={cn(
-          "h-4 w-4 rounded",
-          "border-[rgb(var(--border))]",
-          "text-[rgb(var(--foreground))]",
-          "focus:ring-2 focus:ring-[rgb(var(--ring))] focus:ring-offset-2",
-          "disabled:cursor-not-allowed disabled:opacity-50",
-          className
-        )}
+        className={cn("ui-choice-control", className)}
         {...props}
       />
     );

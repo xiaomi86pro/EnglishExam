@@ -1,32 +1,24 @@
-// components/ui/form/field-helper.tsx
-
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { useField } from "./form-field";
 
-/* =========================================================
-   TYPES
-   ========================================================= */
-
-export type FieldHelperProps = React.HTMLAttributes<HTMLParagraphElement>;
-
-/* =========================================================
-   COMPONENT
-   ========================================================= */
+export interface FieldHelperProps
+  extends React.HTMLAttributes<HTMLParagraphElement> {}
 
 export function FieldHelper({
   children,
   className,
-  id,
   ...props
 }: FieldHelperProps) {
-  if (!children) return null;
+  const { helperId, hasError } = useField();
+
+  if (hasError || !children) return null;
 
   return (
     <p
-      id={id}
+      id={helperId}
       className={cn(
-        "text-[var(--field-helper-size)]",
-        "text-[rgb(var(--field-helper-color))]",
+        "mt-1 text-[var(--field-helper-color)] text-sm",
         className
       )}
       {...props}
@@ -35,3 +27,5 @@ export function FieldHelper({
     </p>
   );
 }
+
+FieldHelper.displayName = "FieldHelper";
