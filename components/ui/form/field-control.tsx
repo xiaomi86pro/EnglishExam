@@ -1,10 +1,13 @@
 import * as React from "react";
 import { useField } from "./form-field";
 
-type ControlElement =
-  | React.ReactElement<React.InputHTMLAttributes<HTMLInputElement>>
-  | React.ReactElement<React.TextareaHTMLAttributes<HTMLTextAreaElement>>
-  | React.ReactElement<React.SelectHTMLAttributes<HTMLSelectElement>>;
+type ControlProps = {
+  id?: string;
+  "aria-describedby"?: string;
+  "aria-invalid"?: boolean;
+};
+
+type ControlElement = React.ReactElement<ControlProps>;
 
 export interface FieldControlProps {
   children: ControlElement;
@@ -14,12 +17,14 @@ export function FieldControl({ children }: FieldControlProps) {
   const { id, helperId, errorId, hasError } = useField();
 
   const describedBy = hasError ? errorId : helperId;
-  const child = children as React.ReactElement<any>;
+
+  const child = React.Children.only(children); // ✅ runtime guard
 
   return React.cloneElement(child, {
-    id: children.props.id ?? id,
-    "aria-describedby": children.props["aria-describedby"] ?? describedBy,
+    id: child.props.id ?? id,
+    "aria-describedby":
+      child.props["aria-describedby"] ?? describedBy,
     "aria-invalid":
-      children.props["aria-invalid"] ?? (hasError ? true : undefined),
+      child.props["aria-invalid"] ?? (hasError ? true : undefined),
   });
 }

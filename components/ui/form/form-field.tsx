@@ -9,7 +9,12 @@ interface FieldContextValue {
   id: string;
   helperId: string;
   errorId: string;
+
   hasError: boolean;
+  error?: string;
+
+  required?: boolean;
+  disabled?: boolean;
 }
 
 const FieldContext = React.createContext<FieldContextValue | null>(null);
@@ -29,44 +34,36 @@ export function useField() {
 export interface FormFieldProps {
   children: React.ReactNode;
   className?: string;
-}
 
-/* =========================================================
-   UTILS
-   ========================================================= */
-
-function generateId() {
-  return `field-${Math.random().toString(36).slice(2, 9)}`;
+  error?: string;
+  required?: boolean;
+  disabled?: boolean;
 }
 
 /* =========================================================
    COMPONENT
    ========================================================= */
 
-export function FormField({ children, className }: FormFieldProps) {
-  const reactId = React.useId();
-  const baseId = reactId || generateId();
+export function FormField({
+  children,
+  className,
+  error,
+  required,
+  disabled,
+}: FormFieldProps) {
+  const baseId = React.useId();
 
   const helperId = `${baseId}-helper`;
   const errorId = `${baseId}-error`;
-
-  // detect error presence
-  let hasError = false;
-
-  React.Children.forEach(children, (child: any) => {
-    if (
-      child?.type?.displayName === "FieldError" &&
-      child.props?.children
-    ) {
-      hasError = true;
-    }
-  });
 
   const value: FieldContextValue = {
     id: baseId,
     helperId,
     errorId,
-    hasError,
+    hasError: !!error,
+    error,
+    required,
+    disabled,
   };
 
   return (
