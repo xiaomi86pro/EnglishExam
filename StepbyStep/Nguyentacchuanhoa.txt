@@ -1,0 +1,68 @@
+🧠 Nguyên tắc chuẩn hoá (cốt lõi)
+1️⃣ Single Responsibility theo layer
+Layer	Trách nhiệm
+FormField	context + layout
+FieldLabel	label UI
+FieldControl	inject props
+FieldHelper	helper text
+FieldError	error UI
+
+👉 Không component nào làm việc của component khác
+
+2️⃣ Consistent API contract
+
+Tất cả UI primitives phải follow:
+
+interface BaseProps {
+  className?: string;
+  children?: React.ReactNode;
+}
+
+👉 Tránh:
+
+mỗi component 1 kiểu props
+khó scale
+3️⃣ Styling phải đi qua design tokens
+
+Bạn đã có:
+
+--form-label-spacing
+
+👉 Tiếp theo cần chuẩn hoá:
+
+--form-label-font-size
+--form-helper-color
+--form-error-color
+--form-spacing-vertical
+4️⃣ Accessibility phải centralized
+
+👉 Chỉ có:
+
+FormField (context)
+FieldControl (inject)
+
+được xử lý:
+
+id
+aria-describedby
+aria-invalid
+
+❌ Không làm ở Input, Domain
+
+5️⃣ Composition phải nhất quán
+
+Luôn dùng 1 pattern:
+
+<FormField>
+  <FieldLabel />
+  <FieldControl>
+    <Input />
+  </FieldControl>
+  <FieldHelper />
+  <FieldError />
+</FormField>
+
+❌ Không:
+
+<FormField label="...">
+mix 2 pattern
