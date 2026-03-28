@@ -79,44 +79,40 @@ export function QuestionEditor(props: QuestionEditorProps) {
       )}
     >
       {/* CONTENT */}
-      <FormField>
-        <FieldLabel required>Nội dung câu hỏi</FieldLabel>
+      <FormField error={errors?.content} required disabled={disabled}>
+        <FieldLabel>Nội dung câu hỏi</FieldLabel>
 
         <FieldControl>
           <Textarea
             value={value.content}
             onChange={(e) => update("content", e.target.value)}
             placeholder="Nhập nội dung câu hỏi..."
-            disabled={disabled}
           />
         </FieldControl>
 
         {!errors?.content && (
-          <FieldHelper id="question-content-helper">
-            Có thể dùng HTML/markdown nếu editor hỗ trợ
-          </FieldHelper>
+          <FieldHelper>Có thể dùng HTML/markdown nếu editor hỗ trợ</FieldHelper>
         )}
-        <FieldError id="question-content-error">{errors?.content}</FieldError>
+
+        <FieldError />
       </FormField>
 
       {/* TYPE + DIFFICULTY */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* TYPE */}
-        <FormField>
-          <FieldLabel required>Loại câu hỏi</FieldLabel>
+        <FormField error={errors?.type} required disabled={disabled}>
+          <FieldLabel>Loại câu hỏi</FieldLabel>
 
           <FieldControl>
             <Select
               value={value.type}
-              onChange={(e) => update("type", e.target.value as QuestionType)}
-              disabled={disabled}
-            >
-              {QUESTION_TYPES.map((t) => (
-                <option key={t} value={t}>
-                  {getQuestionTypeLabel(t)}
-                </option>
-              ))}
-            </Select>
+              onChange={(e) => {
+                const v = e.target.value;
+                if (QUESTION_TYPES.includes(v as QuestionType)) {
+                  update("type", v as QuestionType);
+                }
+              }}
+            ></Select>
           </FieldControl>
 
           <FieldError id="question-type-error">{errors?.type}</FieldError>
@@ -124,12 +120,14 @@ export function QuestionEditor(props: QuestionEditorProps) {
 
         {/* DIFFICULTY */}
         <FormField>
-          <FieldLabel required>Độ khó</FieldLabel>
+          <FieldLabel>Độ khó</FieldLabel>
 
           <FieldControl>
             <Select
               value={value.difficulty}
-              onChange={(e) => update("difficulty", e.target.value as Difficulty)}
+              onChange={(e) =>
+                update("difficulty", e.target.value as Difficulty)
+              }
               disabled={disabled}
             >
               {DIFFICULTIES.map((d) => (
