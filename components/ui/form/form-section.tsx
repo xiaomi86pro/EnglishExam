@@ -1,5 +1,3 @@
-// components/ui/form/form-section.tsx
-
 import * as React from "react";
 import { cn } from "@/lib/utils";
 
@@ -11,7 +9,6 @@ export interface FormSectionProps
   extends Omit<React.HTMLAttributes<HTMLElement>, "title"> {
   title?: React.ReactNode;
   description?: React.ReactNode;
-  children: React.ReactNode;
 }
 
 /* =========================================================
@@ -25,12 +22,14 @@ export function FormSection({
   className,
   ...props
 }: FormSectionProps) {
+  const headingId = React.useId();
+
   return (
     <section
+      aria-labelledby={title ? headingId : undefined}
       className={cn(
         "flex flex-col",
         "gap-[var(--form-spacing-y)]",
-        "mb-[var(--form-section-spacing)]",
         className
       )}
       {...props}
@@ -39,6 +38,7 @@ export function FormSection({
         <div className="flex flex-col gap-1">
           {title && (
             <h3
+              id={headingId}
               className={cn(
                 "text-base font-semibold",
                 "text-[rgb(var(--text-primary))]"

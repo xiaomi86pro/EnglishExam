@@ -2,23 +2,25 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { useField } from "./form-field";
 
-export interface FieldHelperProps
-  extends React.HTMLAttributes<HTMLParagraphElement> {}
+export type FieldHelperProps =
+  React.HTMLAttributes<HTMLParagraphElement>;
 
 export function FieldHelper({
   children,
   className,
   ...props
 }: FieldHelperProps) {
-  const { helperId, hasError } = useField();
+  const { helperId } = useField();
 
-  if (hasError || !children) return null;
+  if (!children) return null;
 
   return (
     <p
       id={helperId}
       className={cn(
-        "mt-1 text-[var(--field-helper-color)] text-sm",
+        "mt-1",
+        "text-[var(--field-helper-text-size)]",
+        "text-[var(--field-helper-color)]",
         className
       )}
       {...props}
@@ -27,5 +29,3 @@ export function FieldHelper({
     </p>
   );
 }
-
-FieldHelper.displayName = "FieldHelper";

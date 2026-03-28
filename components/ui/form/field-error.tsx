@@ -3,16 +3,20 @@ import { cn } from "@/lib/utils";
 import { useField } from "./form-field";
 
 export interface FieldErrorProps
-  extends React.HTMLAttributes<HTMLParagraphElement> {}
+  extends React.HTMLAttributes<HTMLParagraphElement> {
+  message?: string;
+}
 
 export function FieldError({
-  children,
+  message,
   className,
   ...props
 }: FieldErrorProps) {
-  const { errorId } = useField();
+  const { errorId, error } = useField();
 
-  if (!children) return null;
+  const content = message ?? error;
+
+  if (!content) return null;
 
   return (
     <p
@@ -28,9 +32,7 @@ export function FieldError({
       )}
       {...props}
     >
-      {children}
+      {content}
     </p>
   );
 }
-
-FieldError.displayName = "FieldError";

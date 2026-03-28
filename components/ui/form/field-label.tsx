@@ -2,22 +2,19 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { useField } from "./form-field";
 
-export interface FieldLabelProps
-  extends React.LabelHTMLAttributes<HTMLLabelElement> {
-  required?: boolean;
-}
+export type FieldLabelProps = React.LabelHTMLAttributes<HTMLLabelElement>;
 
 export function FieldLabel({
   children,
-  required,
   className,
   ...props
 }: FieldLabelProps) {
-  const { id } = useField();
+  const { id, required } = useField();
 
   return (
     <label
-      htmlFor={id}
+      htmlFor={props.htmlFor ?? id}
+      aria-required={required || undefined}
       className={cn(
         "text-sm font-medium leading-none",
         className
@@ -31,5 +28,3 @@ export function FieldLabel({
     </label>
   );
 }
-
-FieldLabel.displayName = "FieldLabel";

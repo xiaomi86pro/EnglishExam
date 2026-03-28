@@ -5,6 +5,7 @@ type ControlProps = {
   id?: string;
   "aria-describedby"?: string;
   "aria-invalid"?: boolean;
+  disabled?: boolean;
 };
 
 type ControlElement = React.ReactElement<ControlProps>;
@@ -14,17 +15,24 @@ export interface FieldControlProps {
 }
 
 export function FieldControl({ children }: FieldControlProps) {
-  const { id, helperId, errorId, hasError } = useField();
+  const { id, helperId, errorId, hasError, disabled } = useField();
 
   const describedBy = hasError ? errorId : helperId;
 
-  const child = React.Children.only(children); // ✅ runtime guard
+  const child = React.Children.only(children) as ControlElement;
+
+  const mergedDescribedBy = [
+    child.props["aria-describedby"],
+    describedBy,
+  ]
+    .filter(Boolean)
+    .join(" ") || undefined;
 
   return React.cloneElement(child, {
     id: child.props.id ?? id,
-    "aria-describedby":
-      child.props["aria-describedby"] ?? describedBy,
+    "aria-describedby": mergedDescribedBy,
     "aria-invalid":
-      child.props["aria-invalid"] ?? (hasError ? true : undefined),
+      child.props["aria-invalid"] ?? (hasError || undefined),
+    disabled: child.props.disabled ?? disabled,
   });
 }
