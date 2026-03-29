@@ -1,0 +1,14 @@
+Tổng hợp thiếu (ưu tiên theo mức độ)
+🔴 MUST HAVE
+rpc_get_question_detail
+rpc_create_passage_with_questions
+rpc_get_exam_template_detail
+🟠 SHOULD HAVE
+rpc_restore_deleted_question
+rpc_soft_delete_passage
+rpc_restore_deleted_passage
+rpc_list_exams_admin
+🟡 NICE TO HAVE
+rpc_bulk_delete_questions
+rpc_abandon_exam
+rpc_get_user_profile
