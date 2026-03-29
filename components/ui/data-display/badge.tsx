@@ -5,7 +5,7 @@ import {
   type BadgeTone,
   type BadgeVariant,
   type BadgeSize,
-} from "@/lib/design-system/badge";
+} from "./tokens";
 
 interface BadgeProps {
   children: React.ReactNode;
