@@ -8,6 +8,23 @@ import { Pagination } from "@/components/ui/navigation/pagination";
 
 const supabase = createClient();
 
+type RpcQuestionRow = {
+  question_id: number;
+  question_text: string;
+  difficulty: number;
+  grade_level: number;
+  category_id: number;
+  passage_id: number | null;
+  passage_title: string | null;
+  question_type_code: string;
+  tag_ids: number[] | null;
+  option_count: number;
+  answer_count: number;
+  is_active: boolean;
+  created_at: string;
+  total_count: number;
+};
+
 export type QuestionListItem = {
   id: number;
   text: string;
@@ -21,7 +38,7 @@ export type QuestionListItem = {
   isActive: boolean;
 };
 
-function mapRow(row: any): QuestionListItem {
+function mapRow(row: RpcQuestionRow): QuestionListItem {
   return {
     id: row.question_id,
     text: row.question_text,
@@ -43,7 +60,7 @@ export function QuestionList() {
   const [search, setSearch] = useState("");
   const [data, setData] = useState<QuestionListItem[]>([]);
   const [total, setTotal] = useState(0);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
 
@@ -51,34 +68,38 @@ export function QuestionList() {
   const totalPages = Math.ceil(total / limit);
 
   useEffect(() => {
-    fetchData();
-  }, [page, search]);
+    let isMounted = true;
 
-  async function fetchData() {
-    setLoading(true);
-
-    const { data, error } = await supabase.rpc(
-      "rpc_list_questions_v2",
-      {
+    const fetchData = async () => {
+      const { data, error } = await supabase.rpc("rpc_list_questions_v2", {
         p_limit: limit,
         p_offset: offset,
         p_search: search || null,
         p_is_active: null,
+      });
+
+      if (!isMounted) return;
+
+      if (error) {
+        console.error(error);
+        setLoading(false);
+        return;
       }
-    );
 
-    if (error) {
-      console.error(error);
+      const rows = (data || []) as RpcQuestionRow[];
+      const mapped = rows.map(mapRow);
+
+      setData(mapped);
+      setTotal(rows[0]?.total_count || 0);
       setLoading(false);
-      return;
-    }
+    };
 
-    const mapped = (data || []).map(mapRow);
+    void fetchData();
 
-    setData(mapped);
-    setTotal(mapped[0]?.total_count || 0);
-    setLoading(false);
-  }
+    return () => {
+      isMounted = false;
+    };
+  }, [limit, offset, search]);
 
   // selection logic
   const isAllSelected =
@@ -105,6 +126,7 @@ export function QuestionList() {
       <QuestionListToolbar
         search={search}
         onSearchChange={(v) => {
+          setLoading(true);
           setPage(1);
           setSearch(v);
         }}
@@ -123,11 +145,7 @@ export function QuestionList() {
         onToggleSelectAll={toggleSelectAll}
       />
 
-      <Pagination
-        page={page}
-        totalPages={totalPages}
-        onPageChange={setPage}
-      />
+      <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
     </div>
   );
 }
