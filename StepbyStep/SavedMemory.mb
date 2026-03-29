@@ -165,3 +165,156 @@ Bạn hiện đã có:
 ✅ Clean frontend architecture (App Router + SSR)
 ✅ Strict UI system (composition-based)
 ✅ Scalable folder structure (B3-ready)
+
+
+******************************************************************************************************
+
+Feature → UI needs → Component → Refactor → Reuse
+
+feature bạn sẽ làm theo:
+
+1. Skeleton (end-to-end chạy được)
+2. Stabilize (chuẩn hóa UI + types)
+3. Harden (refactor kiến trúc)
+
+🚀 ROADMAP CHI TIẾT CHO PROJECT CỦA BẠN
+🟢 PHASE 0 — FOUNDATION (bạn đã gần xong)
+✔ Đã có:
+DB schema ✅
+RPC design rule ✅
+Next.js structure ✅
+Form system (Pattern A) ✅
+
+👉 STOP tại đây là đúng — không làm thêm UI generic nữa.
+
+🟡 PHASE 1 — FIRST FEATURE (QUAN TRỌNG NHẤT)
+🎯 Chọn 1 feature duy nhất:
+
+👉 Question Editor (MCQ_SINGLE)
+
+🔹 STEP 1 — Domain contract (KHÔNG UI)
+
+Bạn define:
+
+type Question
+type CreateQuestionInput
+mapper (DB ↔ UI)
+
+👉 Output:
+
+lib/mappers/question.ts
+types/question.ts
+🔹 STEP 2 — Thin UI (không hoàn hảo)
+
+Tạo:
+
+components/domain/question/question-editor.tsx
+
+Chỉ cần:
+
+Input
+Textarea
+Select
+Button
+
+👉 Dùng trực tiếp:
+
+Input
+Select
+FormField
+
+❗ Không tối ưu
+❗ Không abstraction
+
+🔹 STEP 3 — RPC connect (fake cũng được)
+call RPC hoặc mock
+submit form
+
+👉 Mục tiêu:
+
+Có thể tạo question từ UI
+
+🔹 STEP 4 — Render lại (read)
+QuestionCard đơn giản
+✅ KẾT QUẢ PHASE 1
+
+Bạn sẽ có:
+
+1 feature chạy end-to-end
+biết thiếu gì thật sự
+🔵 PHASE 2 — STABILIZE (lúc này mới làm B2, B3)
+
+Sau khi có Question Editor chạy, bạn mới:
+
+🔹 Fix UI Layer (B2 → B3 đúng nghĩa)
+Lúc này bạn sẽ thấy thiếu:
+textarea chưa chuẩn
+select API chưa tốt
+error handling chưa ổn
+field-control typing lỗi (cái bạn đang gặp)
+
+👉 lúc này fix mới đúng và không bị sai hướng
+
+🔹 Chuẩn hóa:
+FieldControl typing
+FormField context
+Input variants
+Select API
+🔹 Tách domain UI đúng nghĩa:
+question/
+  question-editor.tsx
+  question-form.tsx
+  question-option-list.tsx
+🔴 PHASE 3 — EXPAND FEATURE
+
+Sau MCQ_SINGLE:
+
+Thêm:
+TEXT_INPUT
+PASSAGE_MCQ
+REORDER
+
+👉 mỗi loại:
+
+reuse 70%
+extend 30%
+🟣 PHASE 4 — SYSTEM HARDENING
+
+Lúc này mới quay lại:
+
+A layer:
+optimize RPC
+caching
+validation
+B layer:
+polish UI
+C layer:
+reuse patterns
+🎯 QUY TẮC VÀNG (tránh bị loop lại)
+1. ❌ KHÔNG làm full UI trước
+
+→ sai lầm bạn đang gặp
+
+2. ❌ KHÔNG abstract sớm
+
+→ sẽ sai abstraction
+
+3. ✅ LUÔN build 1 feature chạy được trước
+📦 CHIA NHỎ CHAT (cực kỳ quan trọng cho bạn)
+
+Bạn nên chia session như sau:
+
+🧩 Chat 1 — Question Domain
+types
+mapper
+DB shape
+🧩 Chat 2 — Question Editor v1
+form basic
+no optimization
+🧩 Chat 3 — Fix Form System
+FieldControl typing
+error handling
+🧩 Chat 4 — Question UI refine
+option list
+UX
+🧩 Chat 5 — Add question types
