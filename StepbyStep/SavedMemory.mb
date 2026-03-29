@@ -1,0 +1,167 @@
+1. 🧠 Database Schema (Core Domain)
+
+Bạn đã lưu full schema chi tiết (all columns) cho toàn bộ hệ thống:
+
+Các bảng chính:
+exams, exam_questions, exam_question_options
+exam_templates, exam_template_sections, exam_template_items
+questions, options, passages
+user_answers, profiles
+question_types, question_tags, question_categories
+question_text_answers
+question_audits
+rpc_registry
+Quy tắc domain quan trọng:
+Model A (snapshot per exam)
+Passage = unit chứa nhiều questions
+1 passage = 1 question_type (strict rule)
+Passage type derive từ audio_url (đã bỏ passage_types table)
+
+👉 Đây là nền tảng quan trọng nhất cho backend + RPC design.
+
+2. ⚙️ Exam Engine Mapping
+
+Mapping giữa loại câu hỏi và engine:
+
+MCQ_SINGLE → A1, A2, B2, B3...
+TEXT_INPUT → B1, C2...
+PASSAGE_MCQ → C1
+PASSAGE_TEXT → C3
+REORDER → D3
+TRUE_FALSE → E1
+AUDIO_* → E2, E3
+ESSAY → F2
+
+👉 Dùng để:
+
+render UI đúng loại
+validate input
+generate exam logic
+3. 🧩 RPC Architecture
+
+Bạn đã chuẩn hóa:
+
+23 RPC functions
+Naming convention rõ ràng
+Phân nhóm:
+student runtime
+question management
+template management
+analytics
+user management
+Quan trọng:
+
+Bạn muốn:
+
+đưa ra design options trước → rồi mới viết SQL
+
+👉 Điều này ảnh hưởng trực tiếp cách mình support bạn.
+
+4. 🏗️ Frontend Architecture (Next.js App Router)
+Stack:
+Next.js App Router
+Supabase SSR
+Auth model:
+Role nằm trong DB (profiles)
+Dùng rpc_assert_min_role
+❌ Không dùng JWT metadata
+❌ Không API layer
+❌ Không service role
+Middleware:
+Chỉ check authentication
+Không check role
+5. 📁 Project Folder Structure
+app/
+  (auth)/login, register
+  (dashboard)/admin, teacher, student
+  layout.tsx
+  page.tsx
+
+components/
+lib/
+types/
+middleware.ts
+6. 🎨 UI Architecture (B2 → B3 chuẩn hóa)
+UI Layer chia 2 tầng:
+1. components/ui
+input/
+form/
+typography/
+layout/
+feedback/
+data-display/
+overlay/
+navigation/
+table/
+search-filter/
+2. components/domain
+question/
+exam/
+template/
+passage/
+badges/
+auth/
+
+👉 Dependency:
+
+input → form → domain
+7. 🧱 Form System (Pattern A – Custom)
+
+Bạn đã standardize hoàn toàn:
+
+❗ Rule quan trọng:
+
+❌ KHÔNG dùng props:
+
+label
+error
+helperText
+
+✅ Luôn dùng composition:
+
+<FormField>
+  <FieldLabel />
+  <FieldControl>
+    <Input />
+  </FieldControl>
+  <FieldError />
+</FormField>
+Cấu trúc chuẩn:
+form-field.tsx
+field-label.tsx
+field-error.tsx
+field-helper.tsx
+field-group.tsx
+form-section.tsx
+
+👉 Đây là constraint rất quan trọng khi refactor UI.
+
+8. 🧰 UI Conventions
+Dùng cn từ @/lib/utils
+Styling qua design tokens (CSS variables)
+Không dùng shadcn (đã loại bỏ)
+9. 🧠 Technical Preferences (rất quan trọng)
+Khi bạn yêu cầu code:
+Muốn:
+chỉ rõ add/remove ở đâu
+không thêm dư code
+Khi design:
+Muốn:
+đưa ra options / criteria
+bạn chọn
+mới implement
+10. ⚠️ Những thứ KHÔNG còn dùng
+❌ passage_types table
+❌ API layer
+❌ service role
+❌ JWT role metadata
+❌ form-components.tsx (đã tách nhỏ)
+11. 📌 Tổng kết (cái bạn đang có)
+
+Bạn hiện đã có:
+
+✅ Strong domain model (exam system chuẩn hóa tốt)
+✅ Clear backend pattern (RPC-first)
+✅ Clean frontend architecture (App Router + SSR)
+✅ Strict UI system (composition-based)
+✅ Scalable folder structure (B3-ready)
