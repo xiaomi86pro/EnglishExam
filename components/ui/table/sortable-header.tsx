@@ -3,7 +3,6 @@
 
 import { cn } from "@/lib/utils";
 import React from "react";
-import { ChevronUp, ChevronDown } from "lucide-react";
 
 type SortDirection = "asc" | "desc" | null;
 
@@ -12,12 +11,16 @@ interface SortableHeaderProps
   children: React.ReactNode;
   direction?: SortDirection;
   onSort?: () => void;
+  ascIcon?: React.ReactNode;
+  descIcon?: React.ReactNode;
 }
 
 export function SortableHeader({
   children,
   direction = null,
   onSort,
+  ascIcon,
+  descIcon,
   className,
   ...props
 }: SortableHeaderProps) {
@@ -37,22 +40,24 @@ export function SortableHeader({
       <div className="flex items-center gap-2">
         {children}
         <div className="flex flex-col">
-          <ChevronUp
-            size={14}
+          <span
             className={cn(
-              direction === "asc"
-                ? "opacity-100"
-                : "opacity-30"
+              "text-xs leading-none",
+              direction === "asc" ? "opacity-100" : "opacity-30"
             )}
-          />
-          <ChevronDown
-            size={14}
+            aria-hidden="true"
+          >
+            {ascIcon ?? "▲"}
+          </span>
+          <span
             className={cn(
-              direction === "desc"
-                ? "opacity-100"
-                : "opacity-30"
+              "text-xs leading-none",
+              direction === "desc" ? "opacity-100" : "opacity-30"
             )}
-          />
+            aria-hidden="true"
+          >
+            {descIcon ?? "▼"}
+          </span>
         </div>
       </div>
     </th>
