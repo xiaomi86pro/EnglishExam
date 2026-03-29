@@ -140,6 +140,7 @@
 
   --field-helper-size: 0.875rem;
   --field-helper-color: var(--muted-foreground);
+  --field-helper-text-size: var(--field-helper-size);
 
   /* =========================================
    CONTROL SEMANTIC TOKENS
@@ -176,25 +177,27 @@
   --role-student-border: hsl(140 50% 80%);
 
   --ui-radius-lg: 1rem;
-  --ui-shadow-lg: 0 10px 25px rgba(0,0,0,0.08);
-  --ui-overlay-bg: rgba(0,0,0,0.5);
+  --ui-shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.08);
+  --ui-overlay-bg: rgba(0, 0, 0, 0.5);
   --ui-transition-fast: 150ms ease-in-out;
 
   --input-border: #e5e7eb;
---input-border-focus: #6366f1;
---input-border-error: #ef4444;
+  --input-border-focus: #6366f1;
+  --input-border-error: #ef4444;
 
---focus-ring: 0 0 0 2px rgba(99, 102, 241, 0.3);
+  --focus-ring: 0 0 0 2px rgba(99, 102, 241, 0.3);
 
---disabled-opacity: 0.6;
+  --disabled-opacity: 0.6;
 
---card-bg: hsl(var(--background));
+  --card-bg: hsl(var(--background));
   --card-border: hsl(var(--border));
   --card-hover: hsl(var(--muted));
 
   --color-success: hsl(var(--success));
   --color-danger: hsl(var(--destructive));
   --color-primary: hsl(var(--primary));
+
+
 
 }
 
@@ -405,11 +408,11 @@
   transition: background-color 150ms ease-in-out;
 }
 
-.peer:checked ~ .ui-switch-track {
+.peer:checked~.ui-switch-track {
   background-color: rgb(var(--primary));
 }
 
-.peer:focus-visible ~ .ui-switch-track {
+.peer:focus-visible~.ui-switch-track {
   box-shadow: 0 0 0 2px rgb(var(--ring));
 }
 
@@ -424,7 +427,7 @@
   transition: transform 150ms ease-in-out;
 }
 
-.peer:checked ~ .ui-switch-thumb {
+.peer:checked~.ui-switch-thumb {
   transform: translateX(1.25rem);
 }
 

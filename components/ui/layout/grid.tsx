@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 type GridProps = {
   cols?: number;
@@ -16,7 +16,7 @@ export function Grid({
 }: GridProps) {
   return (
     <div
-      className={clsx(
+      className={cn(
         "grid",
         `grid-cols-${cols}`,
         `gap-${gap}`,

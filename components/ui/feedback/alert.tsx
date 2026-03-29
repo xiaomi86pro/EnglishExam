@@ -1,4 +1,5 @@
 import { FC, ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 interface AlertProps {
   children: ReactNode;
@@ -16,8 +17,13 @@ export const Alert: FC<AlertProps> = ({ children, variant = "info" }) => {
   const colors = variantColors[variant];
   return (
     <div
-      className={`flex items-center gap-2 px-[var(--alert-padding)] py-[var(--alert-padding)] rounded-[var(--alert-radius)] ${colors.bg} ${colors.text}`}
-    >
+className={cn(
+        "flex items-center gap-2",
+        "rounded-[var(--alert-radius)]",
+        "px-[var(--alert-padding)] py-[var(--alert-padding)]",
+        colors.bg,
+        colors.text
+      )}    >
       <span className="text-[var(--alert-icon-size)]">⚠️</span>
       <div>{children}</div>
     </div>

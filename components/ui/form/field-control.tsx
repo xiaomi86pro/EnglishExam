@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useField } from "./form-field";
+import { cn } from "@/lib/utils";
+
 
 type ControlProps = {
   id?: string;
@@ -21,12 +23,10 @@ export function FieldControl({ children }: FieldControlProps) {
 
   const child = React.Children.only(children) as ControlElement;
 
-  const mergedDescribedBy = [
+  const mergedDescribedBy = cn(
     child.props["aria-describedby"],
-    describedBy,
-  ]
-    .filter(Boolean)
-    .join(" ") || undefined;
+    describedBy
+  ) || undefined;
 
   return React.cloneElement(child, {
     id: child.props.id ?? id,

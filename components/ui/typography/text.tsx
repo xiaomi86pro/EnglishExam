@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 type TextSize =
   | "body-lg"
@@ -63,7 +63,7 @@ export function Text({
 
   return (
     <Component
-      className={clsx(
+      className={cn(
         sizeMap[size],
         toneMap[tone],
         weightMap[weight],

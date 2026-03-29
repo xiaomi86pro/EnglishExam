@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 type StackDirection = "vertical" | "horizontal";
 type StackAlign = "start" | "center" | "end" | "between";
@@ -35,7 +35,7 @@ export function Stack({
 }: StackProps) {
   return (
     <div
-      className={clsx(
+      className={cn(
         directionMap[direction],
         alignMap[align],
         wrap && "flex-wrap",

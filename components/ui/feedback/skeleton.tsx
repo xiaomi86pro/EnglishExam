@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { cn } from "@/lib/utils";
 
 interface SkeletonProps {
   className?: string;
@@ -7,7 +8,9 @@ interface SkeletonProps {
 export const Skeleton: FC<SkeletonProps> = ({ className }) => {
   return (
     <div
-      className={`bg-[var(--skeleton-bg)] rounded-[var(--skeleton-radius)] animate-pulse ${className}`}
-    />
+      className={cn(
+        "animate-pulse rounded-[var(--skeleton-radius)] bg-[var(--skeleton-bg)]",
+        className
+      )} />
   );
 };

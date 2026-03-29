@@ -1,7 +1,8 @@
 "use client";
 
 import { Modal } from "./modal";
-import { Button } from "./button";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface ConfirmDialogProps {
   open: boolean;
@@ -20,12 +21,12 @@ export const ConfirmDialog = ({
 }: ConfirmDialogProps) => {
   return (
     <Modal isOpen={open} onClose={onCancel}>
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold">{title}</h3>
+       <div className={cn("space-y-4")}>
+        <h3 className={cn("text-lg font-semibold")}>{title}</h3>
         {description && (
-          <p className="text-sm text-muted-foreground">{description}</p>
+          <p className={cn("text-sm text-muted-foreground")}>{description}</p>
         )}
-        <div className="flex justify-end gap-2 pt-2">
+        <div className={cn("flex justify-end gap-2 pt-2")}>
           <Button variant="outline" onClick={onCancel}>
             Cancel
           </Button>

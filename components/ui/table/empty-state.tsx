@@ -1,5 +1,5 @@
 // components/ui/table/empty-state.tsx
-import React from "react";
+import { cn } from "@/lib/utils";
 
 interface EmptyStateProps {
   colSpan?: number;
@@ -14,8 +14,9 @@ export function EmptyState({
     <tr>
       <td
         colSpan={colSpan}
-        className="px-[var(--table-padding-x)] py-10 text-center text-[var(--table-muted)]"
-      >
+        className={cn(
+          "px-[var(--table-padding-x)] py-10 text-center text-[var(--table-muted)]"
+        )}      >
         {message}
       </td>
     </tr>

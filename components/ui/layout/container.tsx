@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 type ContainerProps = {
   size?: "sm" | "md" | "lg" | "xl" | "full";
@@ -22,7 +22,7 @@ export function Container({
 }: ContainerProps) {
   return (
     <div
-      className={clsx(
+      className={cn(
         "w-full mx-auto px-4 md:px-6",
         sizeMap[size],
         className

@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 
 type HeadingSize =
   | "display"
@@ -48,7 +48,7 @@ export function Heading({
 
   return (
     <Component
-      className={clsx(
+      className={cn(
         sizeMap[size],
         weightMap[weight],
         "tracking-tight text-primary",

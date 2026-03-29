@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { cn } from "@/lib/utils";
 
 interface ToastProps {
   open: boolean;
@@ -24,8 +25,12 @@ export const Toast = ({
   if (!open) return null;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50">
-      <div className="rounded-2xl bg-black text-white px-4 py-3 shadow-lg text-sm">
+    <div className={cn("fixed bottom-6 right-6 z-50")}>
+      <div
+        className={cn(
+          "rounded-2xl bg-black px-4 py-3 text-sm text-white shadow-lg"
+        )}
+      >
         {message}
       </div>
     </div>

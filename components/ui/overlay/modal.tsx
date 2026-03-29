@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 interface ModalProps {
   children: ReactNode;
@@ -11,12 +12,14 @@ export function Modal({ children, isOpen, onClose }: ModalProps) {
 
   return (
     <div
-      className="fixed inset-0 flex items-center justify-center bg-[var(--surface-modal-overlay)]"
-      onClick={onClose}
+      className={cn(
+        "fixed inset-0 flex items-center justify-center bg-[var(--surface-modal-overlay)]"
+      )} onClick={onClose}
     >
       <div
-        className="rounded-md p-6 bg-[var(--surface-modal-background)] shadow-[var(--surface-modal-shadow)]"
-        onClick={(e) => e.stopPropagation()}
+        className={cn(
+          "rounded-md bg-[var(--surface-modal-background)] p-6 shadow-[var(--surface-modal-shadow)]"
+        )} onClick={(e) => e.stopPropagation()}
       >
         {children}
       </div>

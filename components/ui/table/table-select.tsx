@@ -4,6 +4,7 @@
 import { Checkbox } from "@/components/ui/input/checkbox";
 import { TableCell } from "./table-cell";
 import { TableRow } from "./table-row";
+import { cn } from "@/lib/utils";
 
 interface SelectHeaderProps {
   allSelected: boolean;
@@ -17,7 +18,7 @@ export function SelectHeader({
   onSelectAll,
 }: SelectHeaderProps) {
   return (
-    <TableCell className="w-12">
+    <TableCell className={cn("w-12")}>
       <Checkbox
         checked={allSelected}
         indeterminate={someSelected && !allSelected}
@@ -42,9 +43,8 @@ export function SelectRow({
 }: SelectRowProps) {
   return (
     <TableRow
-      className={selected ? "bg-[var(--table-selected-bg)]" : ""}
-    >
-      <TableCell className="w-12">
+      className={cn(selected && "bg-[var(--table-selected-bg)]")}    >
+      <TableCell className={cn("w-12")}>
         <Checkbox
           checked={selected}
           onCheckedChange={() => onSelect(id)}
