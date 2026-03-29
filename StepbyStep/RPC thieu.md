@@ -1,6 +1,6 @@
 Tổng hợp thiếu (ưu tiên theo mức độ)
 🔴 MUST HAVE
-rpc_get_question_detail
+rpc_get_question_detail                     ok
 rpc_create_passage_with_questions
 rpc_get_exam_template_detail
 🟠 SHOULD HAVE
@@ -12,3 +12,10 @@ rpc_list_exams_admin
 rpc_bulk_delete_questions
 rpc_abandon_exam
 rpc_get_user_profile
+
+rpc_ensure_exam_active(p_exam_id)
+refactor 
+rpc_save_answer
+rpc_resume_exam
+rpc_get_exam_structure
+rpc_submit_exam
