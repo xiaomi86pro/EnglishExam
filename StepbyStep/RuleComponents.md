@@ -37,6 +37,138 @@ children type	Chưa khai báo React.ReactNode → lỗi TS. Luôn explicit.
 CSS conflict	Không override global.css. Dùng className + cn.
 Logic layer nhầm chỗ	Domain component mới logic; UI component không logic.
 Import sai layer	UI không import domain/mappers/types. Domain không import UI ngoại trừ primitives.
+
+2.1 Layer architecture (bắt buộc)
+UI (dumb) 
+  ↓
+Domain (smart - presentation logic)
+  ↓
+Hooks (data fetching / RPC)
+  ↓
+RPC (DB)
+🔒 Rule cứng:
+ui/* → không biết domain
+domain/* → không gọi supabase trực tiếp
+hooks/* → nơi DUY NHẤT gọi RPC
+mappers/* → nơi DUY NHẤT transform data
+2.2 Rule: Container vs Presentational
+🔹 Pattern bắt buộc cho domain lớn:
+
+Ví dụ question/
+
+QuestionEditor/
+  QuestionEditor.tsx          (container)
+  QuestionEditorView.tsx      (UI)
+Rule:
+File	Role
+Editor.tsx	fetch + state + handler
+EditorView.tsx	render thuần UI
+
+➡️ View KHÔNG có logic
+
+2.3 Rule: RPC usage (critical)
+
+❌ Không làm:
+
+const { data } = await supabase.rpc(...)
+
+✅ Phải làm:
+
+// hooks/useQuestion.ts
+export function useQuestionDetail(id: number) { ... }
+
+➡️ Domain chỉ gọi hook:
+
+const { data } = useQuestionDetail(id);
+2.4 Rule: Mapper (rất quan trọng với bạn)
+
+Bạn đã có:
+
+lib/mappers/question.ts
+
+➡️ Chuẩn hóa:
+
+Direction	Function
+Form → Payload	mapFormToPayload
+DB → UI	mapQuestionToViewModel
+
+❌ Không được:
+
+mapping inline trong component
+duplicate mapping
+2.5 Rule: Question Type System (core của bạn)
+
+Bạn PHẢI có abstraction:
+
+type QuestionTypeRenderer = {
+  type: QuestionTypeCode;
+  component: React.FC<any>;
+};
+
+Hoặc:
+
+const QUESTION_COMPONENT_MAP = {
+  MCQ_SINGLE: MCQSingleEditor,
+  TEXT_INPUT: TextInputEditor,
+};
+
+➡️ Domain KHÔNG được:
+
+if (type === "MCQ_SINGLE") ...
+
+➡️ Phải:
+
+const Component = QUESTION_COMPONENT_MAP[type];
+return <Component ... />
+2.6 Rule: Form system (đang dễ lỗi nhất)
+Chuẩn contract:
+interface FormFieldProps {
+  label?: string;
+  error?: string;
+  helperText?: string;
+  required?: boolean;
+  children: React.ReactNode;
+}
+Rule:
+FormField luôn wrap input
+Input KHÔNG render label/error
+Error chỉ render 1 nơi
+2.7 Rule: Props typing (anti-any)
+❌ Không:
+(row: any)
+✅ Phải:
+type QuestionRow = Database["public"]["Tables"]["questions"]["Row"];
+
+Hoặc:
+
+interface QuestionItemProps {
+  question: QuestionViewModel;
+}
+2.8 Rule: CSS isolation
+Rule cứng:
+UI: dùng cn
+Domain: KHÔNG style trực tiếp
+Không dùng CSS module riêng lẻ (trừ case đặc biệt)
+2.9 Rule: File structure chuẩn (domain)
+
+Ví dụ question/
+
+components/domain/question/
+  question-item.tsx
+  question-list.tsx
+  question-editor/
+    question-editor.tsx
+    question-editor-view.tsx
+2.10 Rule: Error & Loading
+
+Domain component phải handle:
+
+if (loading) return <Loading />
+if (error) return <Error />
+
+KHÔNG để UI layer xử lý.
+
+
 4️⃣ Checklist tổng thể khi tạo component mới
 Xác định layer: ui hay domain.
 Kiểm tra import: chỉ import những thứ layer cho phép.
