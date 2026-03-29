@@ -1,5 +1,5 @@
 // types/question.ts
-
+import type { Difficulty } from "@/lib/mappers/difficulty";
 export type QuestionType = "mcq_single";
 
 export interface QuestionOption {
@@ -14,7 +14,7 @@ export interface QuestionOption {
 export interface QuestionFormValues {
   question_text: string;
   explanation?: string;
-  difficulty: number;
+  difficulty: Difficulty;
   grade_level?: number;
   category_id?: number;
 
