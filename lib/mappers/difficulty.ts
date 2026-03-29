@@ -16,6 +16,19 @@ function normalizeQuestionDifficulty(value: number): number {
   );
 }
 
+export function mapDifficultyToNumber(difficulty: Difficulty): number {
+  switch (difficulty) {
+    case "easy":
+      return 1;
+    case "medium":
+      return 3;
+    case "hard":
+      return 5;
+    default:
+      return 2;
+  }
+}
+
 export function mapQuestionDifficulty(value: number): Difficulty {
   const normalizedValue = normalizeQuestionDifficulty(value);
 

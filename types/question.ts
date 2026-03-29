@@ -17,7 +17,6 @@ export interface QuestionFormValues {
   difficulty: Difficulty;
   grade_level?: number;
   category_id?: number;
-
   options: QuestionOption[];
 }
 

@@ -1,5 +1,5 @@
 // lib/mappers/question.ts
-
+import { mapDifficultyToNumber } from "@/lib/mappers/difficulty";
 import {
   QuestionFormValues,
   QuestionPayload,
@@ -11,7 +11,7 @@ export function mapFormToPayload(
   return {
     question_text: values.question_text,
     explanation: values.explanation,
-    difficulty: values.difficulty,
+    difficulty: mapDifficultyToNumber(values.difficulty),
     grade_level: values.grade_level,
     category_id: values.category_id,
 
@@ -30,7 +30,7 @@ export function createDefaultMCQForm(): QuestionFormValues {
   return {
     question_text: "",
     explanation: "",
-    difficulty: 1,
+    difficulty: "easy",
     grade_level: undefined,
     category_id: undefined,
 
