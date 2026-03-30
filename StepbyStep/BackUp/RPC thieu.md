@@ -1,8 +1,8 @@
 Tổng hợp thiếu (ưu tiên theo mức độ)
 🔴 MUST HAVE
 rpc_get_question_detail                     ok
-rpc_create_passage_with_questions
-rpc_get_exam_template_detail
+rpc_create_passage_with_questions           ok
+rpc_get_exam_template_detail                ok
 🟠 SHOULD HAVE
 rpc_restore_deleted_question
 rpc_soft_delete_passage
