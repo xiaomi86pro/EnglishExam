@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/data-display/badge";
 import type { BadgeTone } from "@/lib/design-system/badge";
-import type { Difficulty } from "@/lib/mappers/difficulty";
+import type { Difficulty } from "@/lib/mappers/difficulty.mapper";
 
 interface DifficultyBadgeProps {
   difficulty: Difficulty;

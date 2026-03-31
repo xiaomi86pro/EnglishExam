@@ -22,7 +22,10 @@ export function Badge({
   size = "sm",
   className,
 }: BadgeProps) {
-  const toneStyle = BADGE_TONE_STYLES[tone][variant];
+  const toneStyle =
+    BADGE_TONE_STYLES[tone]?.[variant] ??
+    BADGE_TONE_STYLES["neutral"]["subtle"];
+
   const sizeStyle = BADGE_SIZE_STYLES[size];
 
   return (
@@ -38,3 +41,5 @@ export function Badge({
     </span>
   );
 }
+
+export type { BadgeTone, BadgeVariant, BadgeSize } from "./tokens";

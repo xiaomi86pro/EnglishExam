@@ -3,7 +3,7 @@ import {
   mapPassageType,
   mapPassageTypeMeta,
   type PassageType,
-} from "@/lib/mappers/passage";
+} from "@/lib/mappers/passage.mapper";
 
 interface PassageTypeBadgeProps {
   type?: PassageType;

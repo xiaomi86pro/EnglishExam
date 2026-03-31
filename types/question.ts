@@ -1,5 +1,5 @@
 // types/question.ts
-import type { Difficulty } from "@/lib/mappers/difficulty";
+import type { Difficulty } from "@/lib/mappers/difficulty.mapper";
 export type QuestionType = "mcq_single";
 
 export interface QuestionOption {

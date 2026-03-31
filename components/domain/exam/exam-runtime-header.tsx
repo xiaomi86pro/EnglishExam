@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
-import type { ExamDisplayState } from "@/lib/mappers/exam";
+import type { ExamDisplayState } from "@/lib/mappers/exam.mapper";
 import { ExamStateBadge } from "@/components/domain/exam/exam-state-badge";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/overlay/modal";

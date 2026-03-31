@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/data-display/badge";
 import type { BadgeTone } from "@/lib/design-system/badge";
-import type { ExamDisplayState } from "@/lib/mappers/exam";
+import type { ExamDisplayState } from "@/lib/mappers/exam.mapper";
 
 interface ExamStateBadgeProps {
   state: ExamDisplayState;

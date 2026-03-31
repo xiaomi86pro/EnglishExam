@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/data-display/badge";
 import {
   EXAM_STATUS_BADGE_CONFIG,
   type ExamStatus,
-} from "@/lib/mappers/exam";
+} from "@/lib/mappers/exam.mapper";
 
 interface ExamStatusBadgeProps {
   status: ExamStatus;

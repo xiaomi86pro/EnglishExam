@@ -1,0 +1,150 @@
+🚀 PHASE 1 — QUESTION CORE (Chuẩn hoá lại)
+🧩 STEP 1 — DATA LAYER (KHÔNG SKIP)
+✅ Files cần có
+lib/mappers/
+  question.mapper.ts       ✅ (refactor lại nếu cần)
+hooks/
+  use-question-list.ts
+  use-question-detail.ts
+❗ KHÔNG tạo thêm:
+❌ question.service.ts
+❌ question.api.ts
+
+→ bạn dùng RPC rồi
+
+🧩 STEP 2 — QUESTION LIST (READ FLOW)
+✅ Tạo đúng thứ tự:
+components/domain/question/
+
+1. question-list-container.tsx
+2. question-list-view.tsx
+3. question-table.tsx
+4. question-table-row.tsx
+5. question-toolbar.tsx
+🔥 Mapping responsibility
+File	Responsibility
+container	gọi hook
+view	layout
+table	render table
+row	render row
+toolbar	filter/search
+❗ XÓA / KHÔNG TẠO
+❌ question-list.tsx
+❌ question-list-table.tsx
+❌ question-preview.tsx
+🧩 STEP 3 — QUESTION DETAIL
+components/domain/question/
+
+question-detail-container.tsx
+question-detail-view.tsx
+🧩 STEP 4 — QUESTION EDITOR (WRITE FLOW)
+✅ Files cần có
+question-editor.tsx         ✅ (bạn đã có)
+question-form.tsx           ← NEW
+question-option-item.tsx    ← NEW (MCQ)
+❗ Rule quan trọng
+editor = orchestration
+form = form UI
+item = repeatable unit
+🧩 STEP 5 — SHARED DOMAIN COMPONENTS
+question-card.tsx          ✅ giữ
+question-type-badge.tsx    ✅ giữ
+📦 KẾT QUẢ SAU PHASE 1
+✅ Final structure (QUESTION)
+components/domain/question/
+
+# LIST
+question-list-container.tsx
+question-list-view.tsx
+question-table.tsx
+question-table-row.tsx
+question-toolbar.tsx
+
+# DETAIL
+question-detail-container.tsx
+question-detail-view.tsx
+
+# EDITOR
+question-editor.tsx
+question-form.tsx
+question-option-item.tsx
+
+# SHARED
+question-card.tsx
+question-type-badge.tsx
+🚀 PHASE 2 — TEMPLATE (KHÔNG LÀM NGAY)
+❗ CHỈ tạo khi bắt đầu feature
+template-list-container.tsx
+template-list-view.tsx
+template-card.tsx
+template-editor.tsx
+
+👉 Hiện tại:
+
+❌ KHÔNG tạo thêm template files
+template-card.tsx giữ tạm OK
+🚀 PHASE 3 — EXAM RUNTIME
+
+👉 Sau khi question ổn
+
+exam-runtime-container.tsx
+exam-runtime-view.tsx
+exam-question-renderer.tsx
+🔥 DANH SÁCH FILE CẦN TẠO NGAY (THEO THỨ TỰ)
+✅ BẮT BUỘC làm đúng order này
+1. Hook
+hooks/use-question-list.ts
+hooks/use-question-detail.ts
+2. List flow
+question-list-container.tsx
+question-list-view.tsx
+question-table.tsx
+question-table-row.tsx
+question-toolbar.tsx
+3. Detail
+question-detail-container.tsx
+question-detail-view.tsx
+4. Editor
+question-form.tsx
+question-option-item.tsx
+
+
+
+
+1. Core RPC
+use-rpc.ts
+2. Query hooks
+use-question-list
+use-question-detail
+3. Mutation hooks
+use-create-question
+use-update-question
+use-delete-question
+
+
+ule 1 — Hook là “API duy nhất” cho UI
+
+Component chỉ gọi:
+
+const { questions } = useQuestionList()
+
+👉 KHÔNG biết:
+
+RPC
+Supabase
+mapping
+Rule 2 — Mapper đứng giữa
+RPC → mapper → hook → UI
+
+👉 Khi đổi React Query:
+
+mapper giữ nguyên
+UI giữ nguyên
+Rule 3 — Hook trả về shape ổn định
+return {
+  data,
+  loading,
+  error
+}
+
+👉 Sau này React Query cũng y chang

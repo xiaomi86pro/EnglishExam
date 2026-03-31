@@ -5,7 +5,7 @@ import { ExamStateBadge } from "./exam-state-badge";
 import {
   deriveExamDisplayState,
   type ExamStatus,
-} from "@/lib/mappers/exam";
+} from "@/lib/mappers/exam.mapper";
 
 interface ExamCardProps {
   id: number;

@@ -3,7 +3,7 @@ import {
   getQuestionTypeLabel,
   getQuestionTypeTone,
   mapQuestionType,
-} from "@/lib/mappers/question-type";
+} from "@/lib/mappers/question-type.mapper";
 import type { EngineQuestionType } from "@/types/engine";
 
 type QuestionTypeBadgeProps = {
