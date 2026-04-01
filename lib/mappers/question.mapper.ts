@@ -17,7 +17,6 @@ export function mapFormToPayload(
     difficulty: mapDifficultyToNumber(values.difficulty),
     grade_level: values.grade_level,
     category_id: values.category_id,
-
     options: values.options
       .map<QuestionOptionPayload>((o) => ({
         option_text: o.option_text,

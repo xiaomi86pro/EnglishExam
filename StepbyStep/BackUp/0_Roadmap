@@ -1,0 +1,89 @@
+🟢 PHASE A — QUESTION CORE (LÀM NGAY)
+
+Đây là phase current của bạn.
+
+A1. Question Type Core
+[ ] MCQ_SINGLE editor
+[ ] TEXT_INPUT editor
+[ ] TRUE_FALSE editor
+A2. Advanced Question Types
+[ ] REORDER basic
+[ ] REORDER advanced
+[ ] ESSAY
+A3. Passage System
+[ ] Passage editor (reading)
+[ ] Passage editor (audio)
+[ ] Passage → many questions binding
+A4. Question Management
+[ ] Question list
+[ ] Filter
+[ ] Detail
+[ ] Update
+[ ] Delete
+[ ] Tagging
+
+👉 START HERE = A1 → MCQ_SINGLE Editor
+
+Đây đúng với current maturity của project bạn.
+
+🔵 PHASE B — TEMPLATE SYSTEM
+
+Sau khi question stable.
+
+B1. Template Core
+[ ] Create template
+[ ] Template sections
+[ ] Add rule by question type
+B2. Template Builder
+[ ] section reorder
+[ ] distribution config
+[ ] passage rule config
+B3. Template Validation
+[ ] preview generated result
+[ ] validate rule conflicts
+[ ] estimate generated size
+🟣 PHASE C — EXAM RUNTIME
+
+Đây là strength lớn nhất của architecture bạn đã build DB side.
+
+C1. Model A generation
+[ ] generate exam instance
+[ ] snapshot question
+[ ] snapshot options
+[ ] snapshot passage
+C2. Student UI
+[ ] render by question type
+[ ] passage render
+[ ] audio player
+[ ] navigation
+[ ] timer
+C3. Answer Engine
+[ ] autosave
+[ ] update answer
+[ ] progress tracking
+C4. Submit / Result
+[ ] submit
+[ ] auto grading
+[ ] manual grading
+[ ] result detail
+🔴 PHASE D — USER / ROLE / ADMIN
+[ ] role-based route
+[ ] role-based UI
+[ ] profile
+[ ] teacher dashboard
+[ ] student dashboard
+
+Auth bạn đã có nên phase này không urgent.
+
+⚫ PHASE E — ANALYTICS + SYSTEM
+[ ] question difficulty analytics
+[ ] exam performance
+[ ] user score distribution
+[ ] audit history
+[ ] attempt logs
+⚪ PHASE F — OPTIMIZATION
+[ ] full text search
+[ ] bulk import/export
+[ ] caching
+[ ] UI perf
+[ ] virtualization

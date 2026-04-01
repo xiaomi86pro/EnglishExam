@@ -58,9 +58,6 @@ export interface QuestionPayload {
   difficulty?: number;
   grade_level?: number;
   category_id?: number;
-
-  question_type_id: number;
-
   options: QuestionOptionPayload[];
 }
 
