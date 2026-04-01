@@ -49,8 +49,7 @@ CREATE TABLE public.exam_questions (
   answer_key_snapshot text,
   CONSTRAINT exam_questions_pkey PRIMARY KEY (id),
   CONSTRAINT exam_questions_exam_passage_id_fkey FOREIGN KEY (exam_passage_id) REFERENCES public.exam_passages(id),
-  CONSTRAINT exam_questions_exam_fk FOREIGN KEY (exam_id) REFERENCES public.exams(id),
-  CONSTRAINT exam_questions_original_question_fk FOREIGN KEY (original_question_id) REFERENCES public.questions(id)
+  CONSTRAINT exam_questions_exam_fk FOREIGN KEY (exam_id) REFERENCES public.exams(id)
 );
 CREATE TABLE public.exam_template_items (
   id bigint GENERATED ALWAYS AS IDENTITY NOT NULL,
@@ -65,6 +64,7 @@ CREATE TABLE public.exam_template_items (
   passage_count integer,
   passage_type text CHECK (passage_type = ANY (ARRAY['reading'::text, 'listening'::text])),
   selection_mode text NOT NULL CHECK (selection_mode = ANY (ARRAY['QUESTION'::text, 'PASSAGE'::text])),
+  item_order integer NOT NULL,
   CONSTRAINT exam_template_items_pkey PRIMARY KEY (id),
   CONSTRAINT exam_template_items_template_section_id_fkey FOREIGN KEY (template_section_id) REFERENCES public.exam_template_sections(id),
   CONSTRAINT exam_template_items_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.question_categories(id),
