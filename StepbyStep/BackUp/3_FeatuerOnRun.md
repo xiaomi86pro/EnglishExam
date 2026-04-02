@@ -1,22 +1,31 @@
-Feature : Question Editor
+Scope của Question List cần chốt trước
 
-Bạn chỉ cần đưa:
+Question List không chỉ là “render array”, thường sẽ gồm 5 scope:
 
-Feature: <tên feature>
-Scope: <giới hạn rõ>
+Basic list
+load danh sách question
+table/card view
+pagination
 
-Ví dụ:
+Filter
+theo category
+question_type
+difficulty
+keyword search
 
-Feature: Question Editor (MCQ_SINGLE)
-Scope: Create only (no edit)
+Sort
+created_at
+difficulty
+usage count
+updated_at
 
-Roadmap item
-→ DB
-→ RPC
-→ types
-→ mapper
-→ hook
-→ domain
-→ page integration
+Actions
+view detail
+edit
+delete
+duplicate
 
-✅ Scope của feature = các “use-case thực tế” của user
+Selection state
+bulk delete
+bulk tag
+bulk move category

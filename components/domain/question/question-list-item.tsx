@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/input/checkbox";
-import { QuestionListItem } from "./question-list";
+import type { QuestionListItem } from "@/types/question/question-list.domain";
 
 type Props = {
   item: QuestionListItem;
@@ -35,12 +35,12 @@ export function QuestionListItemRow({
       <td className="p-2">{item.id}</td>
 
       <td className="p-2 max-w-[400px] truncate">
-        {item.text}
+        {item.questionText}
       </td>
 
-      <td className="p-2">{item.type}</td>
+      <td className="p-2">{item.questionTypeCode ?? "-"}</td>
 
-      <td className="p-2">{item.difficulty}</td>
+      <td className="p-2">{item.difficultyLabel}</td>
 
       <td className="p-2">
         {new Date(item.createdAt).toLocaleDateString()}
