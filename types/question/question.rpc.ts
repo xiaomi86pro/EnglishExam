@@ -26,3 +26,9 @@ export interface CreateQuestionRpcInput {
 }
 
 export type CreateQuestionRpcResponse = number
+
+export interface QuestionCategoryRpcRow {
+  id: number
+  code: string
+  name: string
+}

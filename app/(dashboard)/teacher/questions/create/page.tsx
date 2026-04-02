@@ -6,7 +6,6 @@ export default function CreateQuestionPage() {
       <h1 className="mb-6 text-2xl font-semibold">
         Create MCQ Question
       </h1>
-
       <QuestionFormContainer />
     </div>
   );

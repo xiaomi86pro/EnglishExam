@@ -2,12 +2,15 @@
 
 import { useState } from "react";
 import type { QuestionFormValues } from "@/types/question/question.form";
+import type { QuestionCategorySelectOption } from "@/lib/mappers/question-category.mapper";
 
 interface QuestionFormProps {
   onSubmit: (values: QuestionFormValues) => Promise<void>;
-  isSubmitting?: boolean;
-  submitError?: string | null;
-  createdId?: number | null;
+  isSubmitting: boolean;
+  submitError: string | null;
+  createdId: number | null;
+  categoryOptions: QuestionCategorySelectOption[];
+  isLoadingCategories: boolean;
 }
 
 const defaultValues: QuestionFormValues = {
@@ -30,6 +33,8 @@ export function QuestionForm({
   isSubmitting = false,
   submitError = null,
   createdId = null,
+  categoryOptions ,
+  isLoadingCategories,
 }: QuestionFormProps) {
   const [form, setForm] = useState<QuestionFormValues>(defaultValues);
 
@@ -37,7 +42,7 @@ export function QuestionForm({
     setForm((prev) => ({
       ...prev,
       options: prev.options.map((opt, i) =>
-        i === index ? { ...opt, option_text } : opt
+        i === index ? { ...opt, option_text } : opt,
       ) as QuestionFormValues["options"],
     }));
   };
@@ -58,7 +63,10 @@ export function QuestionForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 rounded-2xl border p-6 shadow-sm">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-6 rounded-2xl border p-6 shadow-sm"
+    >
       <div>
         <label className="mb-2 block text-sm font-medium">Question Text</label>
         <textarea
@@ -101,10 +109,8 @@ export function QuestionForm({
         </div>
 
         <div>
-          <label className="mb-2 block text-sm font-medium">Category ID</label>
-          <input
-            type="number"
-            min={1}
+          <label className="mb-2 block text-sm font-medium">Category</label>
+          <select
             value={form.category_id}
             onChange={(e) =>
               setForm((prev) => ({
@@ -112,8 +118,16 @@ export function QuestionForm({
                 category_id: Number(e.target.value),
               }))
             }
+            disabled={isLoadingCategories}
             className="w-full rounded-xl border p-3"
-          />
+          >
+            <option value="">Select category</option>
+            {categoryOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </select>
         </div>
       </div>
 
