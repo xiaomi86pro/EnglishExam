@@ -1,11 +1,11 @@
 import { requireRole } from "@/lib/auth/require-role";
 
-export default async function TeacherLayout({
+export default async function StudentLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  await requireRole("teacher");
+  await requireRole("student");
 
   return <>{children}</>;
 }

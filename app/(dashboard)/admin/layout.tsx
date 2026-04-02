@@ -1,19 +1,11 @@
-"use client";
+import { requireRole } from "@/lib/auth/require-role";
 
-import { useRole } from "@/components/domain/auth/role-context";
-import { hasMinRole } from "@/lib/roles";
-import { redirect } from "next/navigation";
-
-export default function AdminLayout({
+export default async function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const role = useRole();
-
-  if (!hasMinRole(role, "admin")) {
-    redirect("/dashboard");
-  }
+  await requireRole("admin");
 
   return <>{children}</>;
 }
