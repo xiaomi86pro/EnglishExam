@@ -30,13 +30,13 @@ export default async function HomePage() {
   }
 
   switch (profile.role) {
-  case "admin":
-    redirect("/admin");
-  case "teacher":
-    redirect("/teacher/questions/create");
-  case "student":
-    redirect("/student");
-  default:
-    redirect("/login");
-}
+    case "admin":
+      redirect("/admin");
+    case "teacher":
+      redirect("/teacher");
+    case "student":
+      redirect("/student");
+    default:
+      redirect("/login");
+  }
 }

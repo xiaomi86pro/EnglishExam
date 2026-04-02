@@ -6,13 +6,9 @@ import type {
   QuestionListRpcRow,
 } from "@/types/question/question-list.rpc";
 
-import type {
-  QuestionListResult,
-} from "@/types/question/question-list.domain";
+import type { QuestionListResult } from "@/types/question/question-list.domain";
 
-import {
-  mapQuestionListResult,
-} from "@/lib/mappers/question-list.mapper";
+import { mapQuestionListResult } from "@/lib/mappers/question-list.mapper";
 
 export function useQuestionList({
   limit,
@@ -20,17 +16,14 @@ export function useQuestionList({
   search,
   isActive,
 }: ListQuestionsParams) {
-  const [result, setResult] =
-    useState<QuestionListResult>({
-      items: [],
-      totalCount: 0,
-    });
+  const [result, setResult] = useState<QuestionListResult>({
+    items: [],
+    totalCount: 0,
+  });
 
-  const [isLoading, setIsLoading] =
-    useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [error, setError] =
-    useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchQuestions = async () => {
@@ -39,15 +32,21 @@ export function useQuestionList({
       setIsLoading(true);
       setError(null);
 
-      const { data, error } = await supabase.rpc(
-        "rpc_list_questions_v2",
-        {
-          p_limit: limit,
-          p_offset: offset,
-          p_search: search ?? null,
-          p_is_active: isActive ?? null,
-        }
-      );
+      console.log("rpc search", search);
+
+      const { data, error } = await supabase.rpc("rpc_list_questions_v2", {
+        p_limit: limit,
+        p_offset: offset,
+        p_search: search ?? null,
+        p_is_active: isActive ?? null,
+      });
+
+      console.log("rpc result", {
+        search,
+        count: data?.length,
+        first: data?.[0],
+        error,
+      });
 
       if (error) {
         setError(error.message);
@@ -60,7 +59,7 @@ export function useQuestionList({
       }
 
       const mapped = mapQuestionListResult(
-        (data ?? []) as QuestionListRpcRow[]
+        (data ?? []) as QuestionListRpcRow[],
       );
 
       setResult(mapped);
