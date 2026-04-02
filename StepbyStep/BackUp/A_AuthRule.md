@@ -21,3 +21,29 @@ password reset
 magic link
 
 dùng chung redirect logic.
+
+
+***********************************************************
+Với các RPC dashboard kiểu:
+
+question list
+exam list
+template list
+analytics
+student submissions
+
+mình khuyên chuẩn hóa rule:
+
+List/read RPC = SECURITY DEFINER
+table RLS = chỉ bảo vệ direct table access
+
+Tức là:
+
+UI luôn đi qua RPC
+permission logic nằm trong RPC + rpc_assert_min_role
+RLS chỉ là safety net
+
+Cách này rất hợp với architecture bạn đã chọn:
+
+DB schema → RPC contract → types → mapper → hook → UI
+************************************************************

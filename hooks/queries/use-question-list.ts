@@ -28,7 +28,10 @@ export function useQuestionList({
   useEffect(() => {
     const fetchQuestions = async () => {
       const supabase = createClient();
-
+      console.log(
+  "supabase url",
+  process.env.NEXT_PUBLIC_SUPABASE_URL
+);
       setIsLoading(true);
       setError(null);
 
@@ -40,7 +43,7 @@ export function useQuestionList({
         p_search: search ?? null,
         p_is_active: isActive ?? null,
       });
-
+      console.log("raw data", data);
       console.log("rpc result", {
         search,
         count: data?.length,

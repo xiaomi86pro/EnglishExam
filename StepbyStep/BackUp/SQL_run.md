@@ -29,3 +29,12 @@ JOIN
 WHERE 
     p.proname = 'rpc_preview_exam_template' -- Thay bằng tên hàm bạn cần soi code
     AND n.nspname = 'public';
+
+SQL DROP RPC
+
+DROP FUNCTION IF EXISTS public.rpc_list_questions_v2(
+  integer,
+  integer,
+  text,
+  boolean
+);
