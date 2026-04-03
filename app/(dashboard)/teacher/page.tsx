@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { useQuestionList } from "@/hooks/queries/use-question-list";
 import { QuestionListItemRow } from "@/components/domain/question/question-list-item";
@@ -16,11 +16,6 @@ export default function TeacherQuestionsPage() {
   const debouncedSearch = useDebounce(search, 300);
   const offset = useMemo(() => (page - 1) * PAGE_SIZE, [page]);
 
-  console.log("search state", {
-    search,
-    debouncedSearch,
-  });
-
   const { items, totalCount, isLoading, error } = useQuestionList({
     limit: PAGE_SIZE,
     offset,
@@ -35,9 +30,7 @@ export default function TeacherQuestionsPage() {
     );
   };
 
-  const handleBulkDelete = () => {
-    console.log("delete ids", selectedIds);
-  };
+  const handleBulkDelete = () => {};
 
   return (
     <div className="space-y-4 p-4">
