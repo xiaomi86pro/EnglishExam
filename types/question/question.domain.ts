@@ -6,3 +6,10 @@ export interface QuestionCardModel {
   category_id: number
   is_active: boolean
 }
+
+export interface QuestionListFilters {
+  search: string
+  categoryId?: number
+  questionTypeCode?: string
+  difficulty?: number
+}

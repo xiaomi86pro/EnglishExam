@@ -13,9 +13,18 @@ import { mapQuestionListResult } from "@/lib/mappers/question-list.mapper";
 export function useQuestionList({
   limit,
   offset,
-  search,
-  isActive,
+  filters,
 }: ListQuestionsParams) {
+  const supabase = createClient();
+
+  const {
+    search,
+    isActive,
+    categoryId,
+    questionTypeCode,
+    difficulty,
+  } = filters;
+
   const [result, setResult] = useState<QuestionListResult>({
     items: [],
     totalCount: 0,
@@ -27,8 +36,6 @@ export function useQuestionList({
 
   useEffect(() => {
     const fetchQuestions = async () => {
-      const supabase = createClient();
-
       setIsLoading(true);
       setError(null);
 
@@ -37,6 +44,9 @@ export function useQuestionList({
         p_offset: offset,
         p_search: search ?? null,
         p_is_active: isActive ?? null,
+        p_category_id: categoryId ?? null,
+        p_question_type_code: questionTypeCode ?? null,
+        p_difficulty: difficulty ?? null,
       });
 
       if (error) {
@@ -58,7 +68,16 @@ export function useQuestionList({
     };
 
     void fetchQuestions();
-  }, [limit, offset, search, isActive]);
+  }, [
+    supabase,
+    limit,
+    offset,
+    search,
+    isActive,
+    categoryId,
+    questionTypeCode,
+    difficulty,
+  ]);
 
   return {
     items: result.items,

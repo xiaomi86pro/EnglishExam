@@ -15,9 +15,16 @@ export interface QuestionListRpcRow {
   total_count: number;
 }
 
+export interface QuestionListFiltersRpc {
+  search?: string;
+  isActive?: boolean;
+  categoryId?: number;
+  questionTypeCode?: string;
+  difficulty?: number;
+}
+
 export interface ListQuestionsParams {
   limit: number;
   offset: number;
-  search?: string;
-  isActive?: boolean;
+  filters: QuestionListFiltersRpc;
 }

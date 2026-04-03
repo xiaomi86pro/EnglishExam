@@ -32,3 +32,17 @@ export interface QuestionCategoryRpcRow {
   code: string
   name: string
 }
+
+export interface QuestionListFiltersRpc {
+  search?: string;
+  isActive?: boolean;
+  categoryId?: number;
+  questionTypeCode?: string;
+  difficulty?: number;
+}
+
+export interface ListQuestionsParams {
+  limit: number;
+  offset: number;
+  filters: QuestionListFiltersRpc;
+}

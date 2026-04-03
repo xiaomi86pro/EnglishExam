@@ -3,49 +3,103 @@
 import { useMemo, useState } from "react";
 
 import { useQuestionList } from "@/hooks/queries/use-question-list";
+import { useQuestionCategories } from "@/hooks/queries/use-question-categories";
+
 import { QuestionListItemRow } from "@/components/domain/question/question-list-item";
 import { QuestionListToolbar } from "@/components/domain/question/question-toolbar";
 import { useDebounce } from "@/hooks/use-debounce";
+import { mapQuestionCategoryToSelectOption } from "@/lib/mappers/question-category.mapper";
 
 const PAGE_SIZE = 10;
 
 export default function TeacherQuestionsPage() {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [categoryId, setCategoryId] = useState<number | undefined>();
+  const [questionTypeCode, setQuestionTypeCode] = useState<
+    string | undefined
+  >();
+  const [difficulty, setDifficulty] = useState<number | undefined>();
   const [selectedIds, setSelectedIds] = useState<number[]>([]);
+
   const debouncedSearch = useDebounce(search, 300);
+
+  const { categories } = useQuestionCategories();
+
+  const categoryOptions = categories.map(
+    mapQuestionCategoryToSelectOption
+  );
+
   const offset = useMemo(() => (page - 1) * PAGE_SIZE, [page]);
 
   const { items, totalCount, isLoading, error } = useQuestionList({
     limit: PAGE_SIZE,
     offset,
-    search: debouncedSearch,
+    filters: {
+      search: debouncedSearch,
+      categoryId,
+      questionTypeCode,
+      difficulty,
+    },
   });
 
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
 
   const toggleSelection = (id: number, checked: boolean) => {
     setSelectedIds((prev) =>
-      checked ? [...prev, id] : prev.filter((itemId) => itemId !== id),
+      checked ? [...prev, id] : prev.filter((itemId) => itemId !== id)
     );
+  };
+
+  const resetToFirstPage = () => {
+    setPage(1);
   };
 
   const handleBulkDelete = () => {};
 
+  const handleClearFilters = () => {
+    setSearch("");
+    setCategoryId(undefined);
+    setQuestionTypeCode(undefined);
+    setDifficulty(undefined);
+    setPage(1);
+  };
+
   return (
     <div className="space-y-4 p-4">
       <h1 className="text-xl font-semibold">Question List</h1>
+
       <QuestionListToolbar
         search={search}
+        categoryId={categoryId}
+        questionTypeCode={questionTypeCode}
+        difficulty={difficulty}
+        categoryOptions={categoryOptions}
         onSearchChange={(value) => {
           setSearch(value);
-          setPage(1);
+          resetToFirstPage();
         }}
+        onCategoryChange={(value) => {
+          setCategoryId(value);
+          resetToFirstPage();
+        }}
+        onQuestionTypeChange={(value) => {
+          setQuestionTypeCode(value);
+          resetToFirstPage();
+        }}
+        onDifficultyChange={(value) => {
+          setDifficulty(value);
+          resetToFirstPage();
+        }}
+        onClearFilters={handleClearFilters}
         selectedCount={selectedIds.length}
         onBulkDelete={handleBulkDelete}
       />
+
       {isLoading && (
-        <p className="text-sm text-muted-foreground">Loading questions...</p>
+        <p className="text-sm text-muted-foreground">
+          Loading questions...
+        </p>
       )}
 
       {error && <p className="text-sm text-red-500">{error}</p>}
@@ -82,7 +136,9 @@ export default function TeacherQuestionsPage() {
           </div>
 
           <div className="flex items-center justify-between">
-            <p className="text-sm text-muted-foreground">Total: {totalCount}</p>
+            <p className="text-sm text-muted-foreground">
+              Total: {totalCount}
+            </p>
 
             <div className="flex gap-2">
               <button
