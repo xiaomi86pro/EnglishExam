@@ -324,3 +324,10 @@ Frozen architecture rule
 ```
 
 Never violate frozen architecture for short-term speed.
+
+## 13 Feature Merge Rule
+When merging scopes/pages:
+- migrate all existing feature logic first
+- preserve previous scope behavior
+- route simplification is only allowed after successful feature migration
+- never delete source implementation before destination parity is achieved

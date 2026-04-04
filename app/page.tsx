@@ -104,11 +104,11 @@ export default async function HomePage() {
                 <Link
                   key={link.href}
                   href={link.href}
-                  className="block w-[280px] rounded-2xl border-2 border-slate-800 bg-slate-900 px-4 py-3 text-left text-white shadow-md transition hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500"
+                  className="block w-[280px] rounded-2xl border-2 border-slate-800 bg-slate-900 px-4 py-3 text-left text-slate-900 shadow-md transition hover:-translate-y-0.5 hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-500"
                 >
                   <div className="space-y-2">
                     <div className="flex items-center justify-between gap-3">
-                      <p className="pr-2 text-sm font-semibold leading-5 text-white">
+                      <p className="pr-2 text-sm font-semibold leading-5 text-slate-900">
                         {link.title}
                       </p>
                       <span className="shrink-0 rounded-full bg-slate-700 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-slate-100">
