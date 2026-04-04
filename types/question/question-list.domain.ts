@@ -9,8 +9,10 @@ export interface QuestionListItem {
   questionTypeCode: string | null;
   optionCount: number;
   answerCount: number;
+  usageCount: number;
   isActive: boolean;
   createdAt: string;
+  updatedAt: string;
 }
 
 export interface QuestionListResult {

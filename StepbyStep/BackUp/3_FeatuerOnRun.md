@@ -2,30 +2,30 @@ Scope của Question List cần chốt trước
 
 Question List không chỉ là “render array”, thường sẽ gồm 5 scope:
 
-Basic list
+1 Basic list
 load danh sách question
 table/card view
 pagination
 
-Filter
+2 Filter
 theo category
 question_type
 difficulty
 keyword search
 
-Sort
+3 Sort
 created_at
 difficulty
 usage count
 updated_at
 
-Actions
+4 Actions
 view detail
 edit
 delete
 duplicate
 
-Selection state
+5 Selection state
 bulk delete
 bulk tag
 bulk move category

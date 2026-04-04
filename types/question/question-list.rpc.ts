@@ -13,6 +13,8 @@ export interface QuestionListRpcRow {
   is_active: boolean;
   created_at: string;
   total_count: number;
+  updated_at: string;
+  usage_count: number;
 }
 
 export interface QuestionListFiltersRpc {
@@ -27,4 +29,14 @@ export interface ListQuestionsParams {
   limit: number;
   offset: number;
   filters: QuestionListFiltersRpc;
+  sortBy?: QuestionListSortBy;
+  sortOrder?: SortOrder;
 }
+
+export type QuestionListSortBy =
+  | "created_at"
+  | "updated_at"
+  | "difficulty"
+  | "usage_count";
+
+export type SortOrder = "asc" | "desc";

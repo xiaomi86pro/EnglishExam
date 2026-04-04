@@ -14,6 +14,8 @@ export function useQuestionList({
   limit,
   offset,
   filters,
+  sortBy = "created_at",
+  sortOrder = "desc",
 }: ListQuestionsParams) {
   const supabase = createClient();
 
@@ -47,6 +49,8 @@ export function useQuestionList({
         p_category_id: categoryId ?? null,
         p_question_type_code: questionTypeCode ?? null,
         p_difficulty: difficulty ?? null,
+        p_sort_by: sortBy,
+        p_sort_order: sortOrder,
       });
 
       if (error) {
@@ -77,6 +81,8 @@ export function useQuestionList({
     categoryId,
     questionTypeCode,
     difficulty,
+    sortBy,
+    sortOrder,
   ]);
 
   return {

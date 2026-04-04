@@ -21,8 +21,10 @@ export function mapQuestionListRow(
     questionTypeCode: row.question_type_code,
     optionCount: row.option_count,
     answerCount: row.answer_count,
+    usageCount: row.usage_count,
     isActive: row.is_active,
     createdAt: row.created_at,
+    updatedAt: row.updated_at,
   };
 }
 
