@@ -13,3 +13,17 @@ export interface QuestionListFilters {
   questionTypeCode?: string
   difficulty?: number
 }
+
+export type QuestionDetailMode = "view" | "edit";
+
+export interface QuestionEditAction {
+  questionId: number;
+}
+
+export interface QuestionDeleteAction {
+  questionId: number;
+}
+
+export interface QuestionDuplicateAction {
+  questionId: number;
+}

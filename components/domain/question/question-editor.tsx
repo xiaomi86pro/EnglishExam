@@ -14,8 +14,7 @@ import { Textarea } from "@/components/ui/input/textarea";
 import { Select } from "@/components/ui/input/select";
 
 // domain mappers
-import type { QuestionType } from "@/lib/mappers/question-type.mapper";
-import { getQuestionTypeLabel } from "@/lib/mappers/question-type.mapper";
+import type { mapQuestionType } from "@/lib/mappers/question-type.mapper";
 
 import type { Difficulty } from "@/lib/mappers/difficulty.mapper";
 

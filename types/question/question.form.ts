@@ -17,3 +17,21 @@ export interface QuestionFormValues {
   ]
   tag_ids: number[]
 }
+
+export interface QuestionUpdateFormOption {
+  id?: number;
+  label: "A" | "B" | "C" | "D";
+  text: string;
+  isCorrect: boolean;
+}
+
+export interface QuestionUpdateFormValues {
+  questionText: string;
+  explanation: string;
+  difficulty: number;
+  categoryId: number | null;
+  gradeLevel: number | null;
+  isActive: boolean;
+  options: QuestionUpdateFormOption[];
+  tagIds: number[];
+}
