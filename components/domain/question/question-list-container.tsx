@@ -7,7 +7,7 @@ import { useQuestionCategories } from "@/hooks/queries/use-question-categories";
 import { useDebounce } from "@/hooks/use-debounce";
 import { useSelection } from "@/hooks/core/use-selection";
 import { QuestionListToolbar } from "./question-toolbar";
-import { QuestionListTable } from "./question-list-table";
+import { QuestionListPresenter } from "./question-list-presenter";
 import { mapQuestionCategoryToSelectOption } from "@/lib/mappers/question-category.mapper";
 
 import type {
@@ -44,6 +44,7 @@ export function QuestionListContainer() {
   // pagination state
   // ===============================
   const [page, setPage] = useState(1);
+  const [viewMode, setViewMode] = useState<"table" | "card">("table");
 
   // ===============================
   // selection state
@@ -176,6 +177,7 @@ export function QuestionListContainer() {
         categoryId={categoryId}
         questionTypeCode={questionTypeCode}
         difficulty={difficulty}
+        viewMode={viewMode}
         categoryOptions={categoryOptions}
         selectedCount={selectedCount}
         onSearchChange={(value) => {
@@ -194,13 +196,15 @@ export function QuestionListContainer() {
           setDifficulty(value);
           resetListContext();
         }}
+        onViewModeChange={setViewMode}
         onClearFilters={handleClearFilters}
         onBulkDelete={handleBulkDelete}
       />
 
       <p className="text-sm text-muted-foreground">Total: {totalCount}</p>
 
-      <QuestionListTable
+      <QuestionListPresenter
+        viewMode={viewMode}
         items={items}
         sortBy={sortBy}
         sortOrder={sortOrder}
@@ -209,7 +213,7 @@ export function QuestionListContainer() {
         allSelected={allCurrentPageSelected}
         someSelected={someCurrentPageSelected}
         onSelectAll={handleSelectAllCurrentPage}
-        onToggleSelection={toggle}
+        selection={{ isSelected, toggle }}
         onView={handleView}
         onEdit={handleEdit}
         onDuplicate={handleDuplicate}

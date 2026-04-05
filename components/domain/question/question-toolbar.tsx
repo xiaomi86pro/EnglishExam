@@ -9,11 +9,13 @@ type Props = {
   categoryId?: number;
   questionTypeCode?: string;
   difficulty?: number;
+  viewMode: "table" | "card";
   categoryOptions: QuestionCategorySelectOption[];
   onSearchChange: (v: string) => void;
   onCategoryChange: (v?: number) => void;
   onQuestionTypeChange: (v?: string) => void;
   onDifficultyChange: (v?: number) => void;
+  onViewModeChange: (viewMode: "table" | "card") => void;
   onClearFilters: () => void;
   selectedCount: number;
   onBulkDelete?: () => void;
@@ -36,11 +38,13 @@ export function QuestionListToolbar({
   categoryId,
   questionTypeCode,
   difficulty,
+  viewMode,
   categoryOptions,
   onSearchChange,
   onCategoryChange,
   onQuestionTypeChange,
   onDifficultyChange,
+  onViewModeChange,
   onClearFilters,
   selectedCount,
   onBulkDelete,
@@ -110,6 +114,27 @@ export function QuestionListToolbar({
         >
           Clear
         </button>
+
+        <div className="inline-flex rounded-md border p-1">
+          <button
+            type="button"
+            onClick={() => onViewModeChange("table")}
+            className={`rounded px-3 py-1 text-sm ${
+              viewMode === "table" ? "bg-muted font-medium" : ""
+            }`}
+          >
+            Table
+          </button>
+          <button
+            type="button"
+            onClick={() => onViewModeChange("card")}
+            className={`rounded px-3 py-1 text-sm ${
+              viewMode === "card" ? "bg-muted font-medium" : ""
+            }`}
+          >
+            Card
+          </button>
+        </div>
       </div>
 
       {selectedCount > 0 && (
