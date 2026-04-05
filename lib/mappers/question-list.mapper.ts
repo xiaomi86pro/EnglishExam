@@ -17,6 +17,7 @@ export function mapQuestionListRow(
     difficultyLabel: mapQuestionDifficulty(row.difficulty),
     gradeLevel: row.grade_level,
     categoryId: row.category_id,
+    passageId: row.passage_id,
     passageTitle: row.passage_title,
     questionTypeCode: row.question_type_code,
     optionCount: row.option_count,

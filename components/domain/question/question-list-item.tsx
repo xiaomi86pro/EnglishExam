@@ -20,6 +20,8 @@ export function QuestionListItemRow({
   onCheckedChange,
   onView,
   onEdit,
+  onDelete,
+  onDuplicate,
 }: Props) {
   return (
     <tr className="border-t">

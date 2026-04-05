@@ -5,6 +5,7 @@ export interface QuestionListItem {
   difficultyLabel: string;
   gradeLevel: number;
   categoryId: number;
+  passageId: number | null;
   passageTitle: string | null;
   questionTypeCode: string | null;
   optionCount: number;
