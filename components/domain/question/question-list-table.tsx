@@ -14,7 +14,7 @@ interface QuestionListTableProps {
   sortBy: QuestionListSortBy;
   sortOrder: SortOrder;
   onSortChange: (field: QuestionListSortBy) => void;
-  selectedIds: number[];
+  selectedIds: Set<number>;
   onToggleSelection: (id: number, checked: boolean) => void;
   onView: (id: number) => void;
   onEdit: (id: number) => void;
@@ -93,7 +93,7 @@ export function QuestionListTable({
           <QuestionListItemRow
             key={item.id}
             item={item}
-            checked={selectedIds.includes(item.id)}
+            checked={selectedIds.has(item.id)}
             onCheckedChange={(checked) =>
               onToggleSelection(item.id, Boolean(checked))
             }
