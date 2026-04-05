@@ -1,59 +1,57 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { Checkbox } from "@/components/ui/input/checkbox";
 import type { QuestionListItem } from "@/types/question/question-list.domain";
+import { QuestionListRowActions } from "./question-list-row-actions";
 
 type Props = {
   item: QuestionListItem;
   checked: boolean;
   onCheckedChange: (checked: boolean) => void;
+  onView: () => void;
+  onEdit: () => void;
+  onDelete: () => void;
+  onDuplicate: () => void;
 };
 
 export function QuestionListItemRow({
   item,
   checked,
   onCheckedChange,
+  onView,
+  onEdit,
 }: Props) {
-  const router = useRouter();
-
-  const handleEdit = () => {
-    router.push(
-      `/dashboard/teacher/questions/${item.id}/edit`
-    );
-  };
-
   return (
     <tr className="border-t">
       <td className="p-2">
-        <Checkbox
-          checked={checked}
-          onCheckedChange={onCheckedChange}
-        />
+        <Checkbox checked={checked} onCheckedChange={onCheckedChange} />
       </td>
 
-      <td className="p-2">{item.id}</td>
+      <td className="p-2">{new Date(item.createdAt).toLocaleDateString()}</td>
 
-      <td className="p-2 max-w-[400px] truncate">
-        {item.questionText}
-      </td>
-
-      <td className="p-2">{item.questionTypeCode ?? "-"}</td>
+      <td className="p-2">{new Date(item.updatedAt).toLocaleDateString()}</td>
 
       <td className="p-2">{item.difficultyLabel}</td>
 
-      <td className="p-2">
-        {new Date(item.createdAt).toLocaleDateString()}
-      </td>
+      <td className="p-2">{item.usageCount}</td>
+
+      <td className="p-2 max-w-[400px] truncate">{item.questionText}</td>
+
+      <td className="p-2">{item.questionTypeCode ?? "-"}</td>
+
+      <td className="p-2">{item.isActive ? "Active" : "Inactive"}</td>
 
       <td className="p-2">
-        <button
-          onClick={handleEdit}
-          className="rounded-md border px-2 py-1 text-sm"
-        >
-          Edit
-        </button>
+        <QuestionListRowActions
+          onView={onView}
+          onEdit={onEdit}
+          onDelete={onDelete}
+          onDuplicate={onDuplicate}
+          disableDuplicate={item.passageId != null}
+        />
       </td>
+
+      <td className="p-2"></td>
     </tr>
   );
 }

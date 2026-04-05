@@ -6,7 +6,6 @@ export default function QuestionListPage() {
       <h1 className="mb-6 text-2xl font-semibold">
         Question List
       </h1>
-
       <QuestionListContainer />
     </div>
   );
