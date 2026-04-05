@@ -28,7 +28,7 @@ export interface QuestionUpdateFormOption {
 export interface QuestionUpdateFormValues {
   questionText: string;
   explanation: string;
-  difficulty: number;
+  difficulty: "easy" | "medium" | "hard";
   categoryId: number | null;
   gradeLevel: number | null;
   isActive: boolean;

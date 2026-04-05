@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { cn } from "@/lib/utils";
 
 // UI (your custom form system)
@@ -13,26 +12,22 @@ import { FieldControl } from "@/components/ui/form/field-control";
 import { Textarea } from "@/components/ui/input/textarea";
 import { Select } from "@/components/ui/input/select";
 
-// domain mappers
-import type { mapQuestionType } from "@/lib/mappers/question-type.mapper";
-
-import type { Difficulty } from "@/lib/mappers/difficulty.mapper";
-
 /* =========================================================
    TYPES
    ========================================================= */
-
-export interface QuestionEditorValue {
-  content: string;
-  type: QuestionType;
-  difficulty: Difficulty;
-}
+import type {
+  QuestionUpdateFormValues,
+} from "@/types/question/question.form";
 
 export interface QuestionEditorProps {
-  value: QuestionEditorValue;
-  onChange: (value: QuestionEditorValue) => void;
+  value: QuestionUpdateFormValues;
+  onChange: (
+    value: QuestionUpdateFormValues
+  ) => void;
 
-  errors?: Partial<Record<keyof QuestionEditorValue, string>>;
+  errors?: Partial<
+    Record<keyof QuestionUpdateFormValues, string>
+  >;
   disabled?: boolean;
   className?: string;
 }
@@ -41,19 +36,11 @@ export interface QuestionEditorProps {
    CONSTANTS
    ========================================================= */
 
-const QUESTION_TYPES: QuestionType[] = [
-  "mcq_single",
-  "text_input",
-  "passage_mcq",
-  "passage_text",
-  "reorder",
-  "true_false",
-  "audio_mcq",
-  "audio_text",
-  "essay",
+const DIFFICULTIES: QuestionUpdateFormValues["difficulty"][] = [
+  "easy",
+  "medium",
+  "hard",
 ];
-
-const DIFFICULTIES: Difficulty[] = ["easy", "medium", "hard"];
 
 /* =========================================================
    COMPONENT
@@ -62,9 +49,9 @@ const DIFFICULTIES: Difficulty[] = ["easy", "medium", "hard"];
 export function QuestionEditor(props: QuestionEditorProps) {
   const { value, onChange, errors, disabled, className } = props;
 
-  function update<K extends keyof QuestionEditorValue>(
+  function update<K extends keyof QuestionUpdateFormValues>(
     key: K,
-    next: QuestionEditorValue[K],
+    next: QuestionUpdateFormValues[K],
   ) {
     onChange({ ...value, [key]: next });
   }
@@ -77,71 +64,52 @@ export function QuestionEditor(props: QuestionEditorProps) {
         className,
       )}
     >
-      {/* CONTENT */}
-      <FormField error={errors?.content} required disabled={disabled}>
+      {/* QuestionText */}
+      <FormField error={errors?.questionText} required disabled={disabled}>
         <FieldLabel>Nội dung câu hỏi</FieldLabel>
 
         <FieldControl>
           <Textarea
-            value={value.content}
-            onChange={(e) => update("content", e.target.value)}
+            value={value.questionText}
+            onChange={(e) => update("questionText", e.target.value)}
             placeholder="Nhập nội dung câu hỏi..."
           />
         </FieldControl>
 
-        {!errors?.content && (
+        {!errors?.questionText && (
           <FieldHelper>Có thể dùng HTML/markdown nếu editor hỗ trợ</FieldHelper>
         )}
 
         <FieldError />
       </FormField>
 
-      {/* TYPE + DIFFICULTY */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* TYPE */}
-        <FormField error={errors?.type} required disabled={disabled}>
-          <FieldLabel>Loại câu hỏi</FieldLabel>
+      {/* DIFFICULTY */}
+      <FormField>
+        <FieldLabel>Độ khó</FieldLabel>
 
-          <FieldControl>
-            <Select
-              value={value.type}
-              onChange={(e) => {
-                const v = e.target.value;
-                if (QUESTION_TYPES.includes(v as QuestionType)) {
-                  update("type", v as QuestionType);
-                }
-              }}
-            ></Select>
-          </FieldControl>
+        <FieldControl>
+          <Select
+            value={value.difficulty}
+            onChange={(e) =>
+              update(
+                "difficulty",
+                e.target.value as QuestionUpdateFormValues["difficulty"]
+              )
+            }
+            disabled={disabled}
+          >
+            {DIFFICULTIES.map((d) => (
+              <option key={d} value={d}>
+                {d}
+              </option>
+            ))}
+          </Select>
+        </FieldControl>
 
-          <FieldError id="question-type-error">{errors?.type}</FieldError>
-        </FormField>
-
-        {/* DIFFICULTY */}
-        <FormField>
-          <FieldLabel>Độ khó</FieldLabel>
-
-          <FieldControl>
-            <Select
-              value={value.difficulty}
-              onChange={(e) =>
-                update("difficulty", e.target.value as Difficulty)
-              }
-              disabled={disabled}
-            >
-              {DIFFICULTIES.map((d) => (
-                <option key={d} value={d}>
-                  {d}
-                </option>
-              ))}
-            </Select>
-          </FieldControl>
-
-          <FieldError id="question-difficulty-error">
-            {errors?.difficulty}
-          </FieldError>
-        </FormField>
-      </div>
+        <FieldError id="question-difficulty-error">
+          {errors?.difficulty}
+        </FieldError>
+      </FormField>
     </div>
   );
 }

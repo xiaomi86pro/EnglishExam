@@ -16,6 +16,17 @@ export type QuestionType =
 /* =========================================================
    DB CODE (STRICT)
    ========================================================= */
+export const QUESTION_TYPES: QuestionType[] = [
+  "mcq_single",
+  "text_input",
+  "passage_mcq",
+  "passage_text",
+  "reorder",
+  "true_false",
+  "audio_mcq",
+  "audio_text",
+  "essay",
+];
 
 export const QUESTION_TYPE_CODES = [
   "MCQ_SINGLE",

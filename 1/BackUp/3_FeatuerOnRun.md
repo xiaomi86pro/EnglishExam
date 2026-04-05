@@ -30,6 +30,7 @@ reuse selectedIds từ shared selection hook
 toolbar action delete selected
 delete xong clear selection
 reload current page
+
 PHASE 1 — RPC & Type Contract (bắt buộc làm trước)
 
 Đây là phase quan trọng nhất.
@@ -177,6 +178,7 @@ use-bulk-delete-question
 delete many ids
 clear selection
 invalidate current list query
+
 PHASE 5 — Integrate vào Shared List Architecture
 
 Đây là phần tận dụng thành quả Scope 2.
@@ -287,6 +289,9 @@ no full optimistic removal yet
 Đỡ risk hơn.
 
 Recommended Execution Order (thứ tự thực chiến)
+
+
+
 
 Đây là thứ tự mình khuyên làm để ít lỗi nhất:
 

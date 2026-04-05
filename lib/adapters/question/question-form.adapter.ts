@@ -6,7 +6,7 @@ import type { QuestionFormValues } from "@/types/question/question.form";
  * UI Form → RPC Payload
  * A1 - MCQ_SINGLE
  */
-export function mapFormToPayload(
+export function mapQuestionFormToCreatePayload(
   values: QuestionFormValues
 ): CreateQuestionPayload {
   return {
