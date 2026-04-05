@@ -1,5 +1,5 @@
 "use client";
-
+import { SelectHeader } from "@/components/ui/table/table-select";
 import type { QuestionListItem } from "@/types/question/question-list.domain";
 import type {
   QuestionListSortBy,
@@ -20,6 +20,9 @@ interface QuestionListTableProps {
   onEdit: (id: number) => void;
   onDelete: (id: number) => void;
   onDuplicate: (id: number) => void;
+  allSelected: boolean;
+  someSelected: boolean;
+  onSelectAll: () => void;
 }
 
 export function QuestionListTable({
@@ -33,6 +36,9 @@ export function QuestionListTable({
   onEdit,
   onDelete,
   onDuplicate,
+  allSelected,
+  someSelected,
+  onSelectAll,
 }: QuestionListTableProps) {
   const getDirection = (field: QuestionListSortBy): "asc" | "desc" | null =>
     sortBy === field ? sortOrder : null;
@@ -41,7 +47,11 @@ export function QuestionListTable({
     <Table>
       <thead>
         <tr>
-          <th>Select</th>
+          <SelectHeader
+            allSelected={allSelected}
+            someSelected={someSelected}
+            onSelectAll={onSelectAll}
+          />
 
           <SortableHeader
             direction={getDirection("created_at")}

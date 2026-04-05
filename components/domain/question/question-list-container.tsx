@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useQuestionList } from "@/hooks/queries/use-question-list";
 import { useQuestionCategories } from "@/hooks/queries/use-question-categories";
@@ -23,10 +23,8 @@ export function QuestionListContainer() {
   // filter state
   // ===============================
   const router = useRouter();
-  const { duplicateQuestion, isPending } =
-  useDuplicateQuestion();
-  const { softDeleteQuestion } =
-  useSoftDeleteQuestion();
+  const { duplicateQuestion, isPending } = useDuplicateQuestion();
+  const { softDeleteQuestion } = useSoftDeleteQuestion();
   const [search, setSearch] = useState("");
   const [categoryId, setCategoryId] = useState<number | undefined>();
   const [questionTypeCode, setQuestionTypeCode] = useState<
@@ -74,7 +72,8 @@ export function QuestionListContainer() {
 
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE));
 
-  const resetToFirstPage = () => {
+  const resetListContext = () => {
+    setSelectedIds([]);
     setPage(1);
   };
 
@@ -86,13 +85,38 @@ export function QuestionListContainer() {
 
     setSortBy(field);
     setSortOrder("desc");
-    resetToFirstPage();
+    resetListContext();
   };
 
   const toggleSelection = (id: number, checked: boolean) => {
     setSelectedIds((prev) =>
       checked ? [...prev, id] : prev.filter((itemId) => itemId !== id),
     );
+  };
+
+  const currentPageIds = useMemo(() => items.map((item) => item.id), [items]);
+
+  const allCurrentPageSelected =
+    currentPageIds.length > 0 &&
+    currentPageIds.every((id) => selectedIds.includes(id));
+
+  const someCurrentPageSelected =
+    currentPageIds.some((id) => selectedIds.includes(id)) &&
+    !allCurrentPageSelected;
+
+  const handleSelectAllCurrentPage = () => {
+    setSelectedIds((prev) => {
+      if (allCurrentPageSelected) {
+        return prev.filter((id) => !currentPageIds.includes(id));
+      }
+
+      const merged = new Set([...prev, ...currentPageIds]);
+      return Array.from(merged);
+    });
+  };
+
+  const clearSelection = () => {
+    setSelectedIds([]);
   };
 
   const handleView = (id: number) => {
@@ -108,27 +132,38 @@ export function QuestionListContainer() {
     setCategoryId(undefined);
     setQuestionTypeCode(undefined);
     setDifficulty(undefined);
-    resetToFirstPage();
+    resetListContext();
   };
 
   const handleDelete = async (id: number) => {
-  const confirmed = window.confirm(
-    "Are you sure you want to delete this question?",
-  );
+    const confirmed = window.confirm(
+      "Are you sure you want to delete this question?",
+    );
 
-  if (!confirmed) return;
+    if (!confirmed) return;
 
-  await softDeleteQuestion(id);
-  router.refresh();
-};
-  
+    await softDeleteQuestion(id);
+    router.refresh();
+  };
+
   const handleDuplicate = async (id: number) => {
-  await duplicateQuestion(id);
-  router.refresh();
-};
+    await duplicateQuestion(id);
+    router.refresh();
+  };
 
-  const handleBulkDelete = () => {
-    // scope 4
+  const handleBulkDelete = async () => {
+    if (selectedIds.length === 0) return;
+
+    const confirmed = window.confirm(
+      `Delete ${selectedIds.length} selected questions?`,
+    );
+
+    if (!confirmed) return;
+
+    await Promise.all(selectedIds.map((id) => softDeleteQuestion(id)));
+
+    clearSelection();
+    router.refresh();
   };
 
   if (isLoading) {
@@ -150,19 +185,19 @@ export function QuestionListContainer() {
         selectedCount={selectedIds.length}
         onSearchChange={(value) => {
           setSearch(value);
-          resetToFirstPage();
+          resetListContext();
         }}
         onCategoryChange={(value) => {
           setCategoryId(value);
-          resetToFirstPage();
+          resetListContext();
         }}
         onQuestionTypeChange={(value) => {
           setQuestionTypeCode(value);
-          resetToFirstPage();
+          resetListContext();
         }}
         onDifficultyChange={(value) => {
           setDifficulty(value);
-          resetToFirstPage();
+          resetListContext();
         }}
         onClearFilters={handleClearFilters}
         onBulkDelete={handleBulkDelete}
@@ -176,18 +211,24 @@ export function QuestionListContainer() {
         sortOrder={sortOrder}
         onSortChange={handleSortChange}
         selectedIds={selectedIds}
+        allSelected={allCurrentPageSelected}
+        someSelected={someCurrentPageSelected}
+        onSelectAll={handleSelectAllCurrentPage}
         onToggleSelection={toggleSelection}
         onView={handleView}
         onEdit={handleEdit}
-        onDuplicate={handleDuplicate} onDelete={function (id: number): void {
-          throw new Error("Function not implemented.");
-        } }      />
+        onDuplicate={handleDuplicate}
+        onDelete={handleDelete}
+      />
 
       <div className="flex items-center justify-end gap-2">
         <button
           className="rounded-md border px-3 py-1 text-sm disabled:opacity-50"
           disabled={page <= 1}
-          onClick={() => setPage((prev) => prev - 1)}
+          onClick={() => {
+            setSelectedIds([]);
+            setPage((prev) => prev - 1);
+          }}
         >
           Prev
         </button>
@@ -199,7 +240,10 @@ export function QuestionListContainer() {
         <button
           className="rounded-md border px-3 py-1 text-sm disabled:opacity-50"
           disabled={page >= totalPages}
-          onClick={() => setPage((prev) => prev + 1)}
+          onClick={() => {
+            setSelectedIds([]);
+            setPage((prev) => prev - 1);
+          }}
         >
           Next
         </button>
