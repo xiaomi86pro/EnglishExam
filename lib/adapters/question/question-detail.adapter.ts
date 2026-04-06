@@ -1,28 +1,24 @@
-import type {
-  QuestionDetailRpcResponse,
-} from "@/types/question/question.rpc";
+import type { QuestionDetail } from "@/types/question/question-detail.domain";
 
-import type {
-  QuestionUpdateFormValues,
-} from "@/types/question/question.form";
+import type { QuestionUpdateFormValues } from "@/types/question/question.form";
 
 import { mapQuestionDifficulty } from "@/lib/mappers/difficulty.mapper";
 
 export function mapQuestionDetailToUpdateForm(
-  detail: QuestionDetailRpcResponse
+  detail: QuestionDetail,
 ): QuestionUpdateFormValues {
   return {
-    questionText: detail.question_text,
+    questionText: detail.questionText,
     explanation: detail.explanation ?? "",
     difficulty: mapQuestionDifficulty(detail.difficulty),
-    categoryId: detail.category_id,
-    gradeLevel: detail.grade_level,
-    isActive: detail.is_active,
+    categoryId: detail.categoryId,
+    gradeLevel: detail.gradeLevel,
+    isActive: detail.isActive,
     options: detail.options.map((option) => ({
       id: option.id,
       label: option.label,
       text: option.text,
-      isCorrect: option.is_correct,
+      isCorrect: option.isCorrect,
     })),
     tagIds: detail.tags.map((tag) => tag.id),
   };
