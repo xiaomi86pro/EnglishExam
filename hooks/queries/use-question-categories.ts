@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
-
-import { mapQuestionCategories } from "@/lib/mappers/question-category.mapper";
+import { fetchQuestionCategories } from "@/lib/domain/question/question.queries";
 
 import type { QuestionCategory } from "@/types/question/question-category.domain";
-import type { QuestionCategoryRpcRow } from "@/types/question/question.rpc";
 
 export function useQuestionCategories() {
   const [categories, setCategories] = useState<QuestionCategory[]>([]);
@@ -13,25 +10,18 @@ export function useQuestionCategories() {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const supabase = createClient();
-
       setIsLoading(true);
       setError(null);
 
-      const { data, error } = await supabase.rpc("rpc_get_question_categories");
-
-      if (error) {
-        setError(error.message);
+      try {
+        const mappedCategories = await fetchQuestionCategories();
+        setCategories(mappedCategories);
+      } catch (error) {
+        setError(error instanceof Error ? error.message : "Failed to load categories");
         setCategories([]);
+      } finally {
         setIsLoading(false);
-        return;
       }
-
-      setCategories(
-        mapQuestionCategories((data ?? []) as QuestionCategoryRpcRow[]),
-      );
-
-      setIsLoading(false);
     };
 
     void fetchCategories();

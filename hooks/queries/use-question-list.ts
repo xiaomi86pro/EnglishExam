@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
-import { createClient } from "@/lib/supabase/client";
 
-import type { QuestionListRpcRow } from "@/types/question/question-list.rpc";
 import type {
   QuestionListQuery,
   QuestionListResult,
 } from "@/types/question/question-list.domain";
-import { mapQuestionListParamsToRpc } from "@/lib/adapters/question/question-list-query.adapter";
-import { mapQuestionListResult } from "@/lib/mappers/question-list.mapper";
+import { fetchQuestionList } from "@/lib/domain/question/question.queries";
 
 export function useQuestionList({
   limit,
@@ -16,8 +13,6 @@ export function useQuestionList({
   sortBy = "createdAt",
   sortOrder = "desc",
 }: QuestionListQuery) {
-  const supabase = createClient();
-
   const {
     search,
     isActive,
@@ -40,40 +35,35 @@ export function useQuestionList({
       setIsLoading(true);
       setError(null);
 
-      const rpcParams = mapQuestionListParamsToRpc({
-        limit,
-        offset,
-        filters,
-        sortBy,
-        sortOrder,
-      });
+      try {
+        const mapped = await fetchQuestionList({
+          limit,
+          offset,
+          filters: {
+            search,
+            isActive,
+            categoryId,
+            questionTypeCode,
+            difficulty,
+          },
+          sortBy,
+          sortOrder,
+        });
 
-      const { data, error } = await supabase.rpc(
-        "rpc_list_questions_v2",
-        rpcParams
-      );
-
-      if (error) {
-        setError(error.message);
+        setResult(mapped);
+      } catch (error) {
+        setError(error instanceof Error ? error.message : "Failed to load questions");
         setResult({
           items: [],
           totalCount: 0,
         });
+      } finally {
         setIsLoading(false);
-        return;
       }
-
-      const mapped = mapQuestionListResult(
-        (data ?? []) as QuestionListRpcRow[],
-      );
-
-      setResult(mapped);
-      setIsLoading(false);
     };
 
     void fetchQuestions();
   }, [
-    supabase,
     limit,
     offset,
     search,
