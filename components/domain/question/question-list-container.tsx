@@ -8,7 +8,7 @@ import { useDebounce } from "@/hooks/use-debounce";
 import { useSelection } from "@/hooks/core/use-selection";
 import { QuestionListToolbar } from "./question-toolbar";
 import { QuestionListPresenter } from "./question-list-presenter";
-import { mapQuestionCategoryToSelectOption } from "@/lib/mappers/question-category.mapper";
+import { mapQuestionCategoryToSelectOption} from "@/lib/mappers/question-category.mapper";
 
 import type {
   QuestionListSortBy,
@@ -36,7 +36,7 @@ export function QuestionListContainer() {
   // ===============================
   // sort state
   // ===============================
-  const [sortBy, setSortBy] = useState<QuestionListSortBy>("created_at");
+  const [sortBy, setSortBy] = useState<QuestionListSortBy>("createdAt");
 
   const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
 

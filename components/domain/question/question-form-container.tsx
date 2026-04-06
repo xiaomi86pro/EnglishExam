@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { mapFormToPayload } from "@/lib/adapters/question/question-form.adapter";
+import { mapQuestionFormToCreatePayload } from "@/lib/adapters/question/question-form.adapter";
 import { useCreateQuestion } from "@/hooks/mutations/use-create-question";
 import { useQuestionCategories } from "@/hooks/queries/use-question-categories";
 import { mapQuestionCategoryToSelectOption } from "@/lib/mappers/question-category.mapper";
@@ -27,7 +27,7 @@ export function QuestionFormContainer() {
       setIsSubmitting(true);
       setSubmitError(null);
 
-      const payload = mapFormToPayload(values);
+      const payload = mapQuestionFormToCreatePayload(values);
 
       const questionId = await createQuestion({
         p_question_type_code: "MCQ_SINGLE",

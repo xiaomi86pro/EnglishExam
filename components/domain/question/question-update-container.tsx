@@ -38,7 +38,7 @@ export function QuestionUpdateContainer({
 
     await updateQuestion({
       questionId: detail.id,
-      lastUpdatedAt: detail.updated_at,
+      lastUpdatedAt: detail.updatedAt,
       values: value,
     });
   }

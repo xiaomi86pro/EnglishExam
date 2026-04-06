@@ -22,9 +22,9 @@ export interface QuestionListResult {
 }
 
 export type QuestionListSortBy =
-  | "created_at"
-  | "updated_at"
+  | "createdAt"
+  | "updatedAt"
   | "difficulty"
-  | "usage_count";
+  | "usageCount";
 
 export type SortOrder = "asc" | "desc";

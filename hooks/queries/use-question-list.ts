@@ -7,14 +7,14 @@ import type {
 } from "@/types/question/question-list.rpc";
 
 import type { QuestionListResult } from "@/types/question/question-list.domain";
-
+import { mapQuestionListParamsToRpc } from "@/lib/adapters/question/question-list-query.adapter";
 import { mapQuestionListResult } from "@/lib/mappers/question-list.mapper";
 
 export function useQuestionList({
   limit,
   offset,
   filters,
-  sortBy = "created_at",
+  sortBy = "createdAt",
   sortOrder = "desc",
 }: ListQuestionsParams) {
   const supabase = createClient();
@@ -41,17 +41,18 @@ export function useQuestionList({
       setIsLoading(true);
       setError(null);
 
-      const { data, error } = await supabase.rpc("rpc_list_questions_v2", {
-        p_limit: limit,
-        p_offset: offset,
-        p_search: search ?? null,
-        p_is_active: isActive ?? null,
-        p_category_id: categoryId ?? null,
-        p_question_type_code: questionTypeCode ?? null,
-        p_difficulty: difficulty ?? null,
-        p_sort_by: sortBy,
-        p_sort_order: sortOrder,
+      const rpcParams = mapQuestionListParamsToRpc({
+        limit,
+        offset,
+        filters,
+        sortBy,
+        sortOrder,
       });
+
+      const { data, error } = await supabase.rpc(
+        "rpc_list_questions_v2",
+        rpcParams
+      );
 
       if (error) {
         setError(error.message);

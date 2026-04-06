@@ -1,12 +1,15 @@
-import type { QuestionCategoryRpcRow } from "@/types/question/question.rpc";
 import type { QuestionCategory } from "@/types/question/question-category.domain";
 
-export function mapQuestionCategories(
-  rows: QuestionCategoryRpcRow[],
-): QuestionCategory[] {
-  return rows.map((row) => ({
-    id: row.id,
-    code: row.code,
-    name: row.name,
-  }));
+export interface QuestionCategorySelectOption {
+  value: string;
+  label: string;
+}
+
+export function mapQuestionCategoryToSelectOption(
+  category: QuestionCategory
+): QuestionCategorySelectOption {
+  return {
+    value: String(category.id),
+    label: `${category.code} - ${category.name}`,
+  };
 }

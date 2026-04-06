@@ -54,15 +54,15 @@ export function QuestionListTable({
           />
 
           <SortableHeader
-            direction={getDirection("created_at")}
-            onSort={() => onSortChange("created_at")}
+            direction={getDirection("createdAt")}
+            onSort={() => onSortChange("createdAt")}
           >
             Created
           </SortableHeader>
 
           <SortableHeader
-            direction={getDirection("updated_at")}
-            onSort={() => onSortChange("updated_at")}
+            direction={getDirection("updatedAt")}
+            onSort={() => onSortChange("updatedAt")}
           >
             Updated
           </SortableHeader>
@@ -75,8 +75,8 @@ export function QuestionListTable({
           </SortableHeader>
 
           <SortableHeader
-            direction={getDirection("usage_count")}
-            onSort={() => onSortChange("usage_count")}
+            direction={getDirection("usageCount")}
+            onSort={() => onSortChange("usageCount")}
           >
             Usage
           </SortableHeader>
