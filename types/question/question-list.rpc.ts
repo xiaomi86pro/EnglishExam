@@ -1,3 +1,5 @@
+import type { QuestionListSortBy, SortOrder } from "./question-list.domain";
+
 export interface QuestionListRpcRow {
   question_id: number;
   question_text: string;
@@ -32,11 +34,3 @@ export interface ListQuestionsParams {
   sortBy?: QuestionListSortBy;
   sortOrder?: SortOrder;
 }
-
-export type QuestionListSortBy =
-  | "created_at"
-  | "updated_at"
-  | "difficulty"
-  | "usage_count";
-
-export type SortOrder = "asc" | "desc";

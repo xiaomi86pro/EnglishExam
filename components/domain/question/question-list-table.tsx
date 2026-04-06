@@ -4,7 +4,7 @@ import type { QuestionListItem } from "@/types/question/question-list.domain";
 import type {
   QuestionListSortBy,
   SortOrder,
-} from "@/types/question/question-list.rpc";
+} from "@/types/question/question-list.domain";
 import { QuestionListItemRow } from "./question-list-item";
 import { Table } from "@/components/ui/table/table";
 import { SortableHeader } from "@/components/ui/table/sortable-header";

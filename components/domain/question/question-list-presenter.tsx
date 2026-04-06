@@ -7,7 +7,7 @@ import type { QuestionListItem } from "@/types/question/question-list.domain";
 import type {
   QuestionListSortBy,
   SortOrder,
-} from "@/types/question/question-list.rpc";
+} from "@/types/question/question-list.domain";
 
 interface QuestionListPresenterProps {
   viewMode: "table" | "card";

@@ -20,3 +20,11 @@ export interface QuestionListResult {
   items: QuestionListItem[];
   totalCount: number;
 }
+
+export type QuestionListSortBy =
+  | "created_at"
+  | "updated_at"
+  | "difficulty"
+  | "usage_count";
+
+export type SortOrder = "asc" | "desc";

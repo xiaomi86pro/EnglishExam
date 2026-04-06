@@ -13,7 +13,7 @@ import { mapQuestionCategoryToSelectOption } from "@/lib/mappers/question-catego
 import type {
   QuestionListSortBy,
   SortOrder,
-} from "@/types/question/question-list.rpc";
+} from "@/types/question/question-list.domain";
 import { useDuplicateQuestion } from "@/hooks/mutations/use-duplicate-question";
 import { useSoftDeleteQuestion } from "@/hooks/mutations/use-soft-delete-question";
 
