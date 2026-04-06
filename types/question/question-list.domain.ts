@@ -28,3 +28,17 @@ export type QuestionListSortBy =
   | "usageCount";
 
 export type SortOrder = "asc" | "desc";
+
+export interface QuestionListQuery {
+  limit: number;
+  offset: number;
+  filters: {
+    search?: string;
+    isActive?: boolean;
+    categoryId?: number;
+    questionTypeCode?: string;
+    difficulty?: number;
+  };
+  sortBy?: QuestionListSortBy;
+  sortOrder?: SortOrder;
+}

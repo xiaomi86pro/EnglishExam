@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useRpc } from "@/hooks/core/use-rpc";
 import { mapQuestionDetailToUpdateForm } from "@/lib/adapters/question/question-detail.adapter";
 import { mapQuestionDetail } from "@/lib/mappers/question-detail.mapper";
-
+import { mapQuestionDetailParamsToRpc } from "@/lib/adapters/question/question-detail-query.adapter";
 import type { QuestionDetail } from "@/types/question/question-detail.domain";
 import type { QuestionDetailRpcResponse } from "@/types/question/question.rpc";
 import type { QuestionUpdateFormValues } from "@/types/question/question.form";
@@ -33,7 +33,7 @@ export function useQuestionDetail(questionId: number): UseQuestionDetailResult {
 
       const data = await callRpc<QuestionDetailRpcResponse>(
         "rpc_get_question_detail",
-        { p_question_id: questionId },
+        mapQuestionDetailParamsToRpc(questionId),
       );
 
       const mappedDetail = mapQuestionDetail(data);

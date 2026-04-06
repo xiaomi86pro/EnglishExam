@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 
+import type { QuestionListRpcRow } from "@/types/question/question-list.rpc";
 import type {
-  ListQuestionsParams,
-  QuestionListRpcRow,
-} from "@/types/question/question-list.rpc";
-
-import type { QuestionListResult } from "@/types/question/question-list.domain";
+  QuestionListQuery,
+  QuestionListResult,
+} from "@/types/question/question-list.domain";
 import { mapQuestionListParamsToRpc } from "@/lib/adapters/question/question-list-query.adapter";
 import { mapQuestionListResult } from "@/lib/mappers/question-list.mapper";
 
@@ -16,7 +15,7 @@ export function useQuestionList({
   filters,
   sortBy = "createdAt",
   sortOrder = "desc",
-}: ListQuestionsParams) {
+}: QuestionListQuery) {
   const supabase = createClient();
 
   const {

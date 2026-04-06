@@ -1,5 +1,4 @@
-import type { ListQuestionsParams } from "@/types/question/question-list.rpc";
-
+import type { QuestionListQuery } from "@/types/question/question-list.domain";
 const sortByMap = {
   createdAt: "created_at",
   updatedAt: "updated_at",
@@ -8,7 +7,7 @@ const sortByMap = {
 } as const;
 
 export function mapQuestionListParamsToRpc(
-  params: ListQuestionsParams
+  params: QuestionListQuery
 ) {
   const {
     limit,
