@@ -13,12 +13,30 @@ All feature work must follow this sequence unless explicitly overridden:
 DB schema -> RPC contract -> exact types -> mapper -> hook -> domain/UI
 ```
 
+---
+
+“Layer Ownership Matrix” cố định
+
+Đây là thứ quan trọng nhất.
+
+Bạn nên chốt bảng như sau:
+
+Concern Owner duy nhất
+DB row → domain model mapper
+RPC row normalization mapper
+UI formatting primitive presentational component
+Form payload → RPC payload adapter
+Business action orchestration hook
+UI state container
+
+Nếu field xuất hiện trong types/question/\*.domain.ts, mapper là owner duy nhất.
+
 ## Execution requirements
 
-* Never jump directly to UI before **types are frozen**.
-* Mapper layer must be written **before hooks and domain components**.
-* Hooks consume mapper outputs, not raw DB rows.
-* Domain/UI must consume **domain-safe view models**, never DB-shaped objects.
+- Never jump directly to UI before **types are frozen**.
+- Mapper layer must be written **before hooks and domain components**.
+- Hooks consume mapper outputs, not raw DB rows.
+- Domain/UI must consume **domain-safe view models**, never DB-shaped objects.
 
 ---
 
@@ -37,10 +55,10 @@ Database / RPC
 
 ## Forbidden leaks
 
-* `components/domain` MUST NOT import from DB types directly.
-* `components/domain` MUST NOT depend on adapter internals unless explicitly designated.
-* UI primitives MUST NOT know business logic.
-* `app/` pages should orchestrate containers, not embed business logic.
+- `components/domain` MUST NOT import from DB types directly.
+- `components/domain` MUST NOT depend on adapter internals unless explicitly designated.
+- UI primitives MUST NOT know business logic.
+- `app/` pages should orchestrate containers, not embed business logic.
 
 ## Safe dependency direction
 
@@ -93,7 +111,7 @@ components/domain/auth
 
 ## File naming
 
-* Always use **kebab-case**.
+- Always use **kebab-case**.
 
 ## Component naming pattern
 
@@ -103,31 +121,31 @@ components/domain/auth
 
 Examples:
 
-* `question-form-container.tsx`
-* `question-list-toolbar.tsx`
-* `exam-result-card.tsx`
+- `question-form-container.tsx`
+- `question-list-toolbar.tsx`
+- `exam-result-card.tsx`
 
 ## Approved suffixes
 
 Use only these semantic suffixes when relevant:
 
-* `container`
-* `view`
-* `item`
-* `card`
-* `form`
-* `editor`
-* `table`
-* `toolbar`
-* `badge`
+- `container`
+- `view`
+- `item`
+- `card`
+- `form`
+- `editor`
+- `table`
+- `toolbar`
+- `badge`
 
 ## Forbidden vague suffixes
 
 Avoid:
 
-* `preview`
-* `data`
-* `manager`
+- `preview`
+- `data`
+- `manager`
 
 ## Mapper naming
 
@@ -157,10 +175,10 @@ types/question/
 
 ## Meaning
 
-* `*.db.ts` = raw database row shapes
-* `*.rpc.ts` = RPC input/output contracts
-* `*.form.ts` = form state and validation shapes
-* `*.domain.ts` = UI-safe and business-safe models
+- `*.db.ts` = raw database row shapes
+- `*.rpc.ts` = RPC input/output contracts
+- `*.form.ts` = form state and validation shapes
+- `*.domain.ts` = UI-safe and business-safe models
 
 Never merge these concerns.
 
@@ -218,7 +236,7 @@ This is a frozen architectural decision.
 Always use shared utility:
 
 ```ts
-import { cn } from '@/lib/utils'
+import { cn } from "@/lib/utils";
 ```
 
 ## Design system
@@ -237,15 +255,15 @@ Avoid inline style drift.
 
 ## Auth model
 
-* Authorization is **DB-driven role-based**.
-* Use `profiles` + `rpc_assert_min_role`.
-* Do NOT use JWT app_metadata role logic.
+- Authorization is **DB-driven role-based**.
+- Use `profiles` + `rpc_assert_min_role`.
+- Do NOT use JWT app_metadata role logic.
 
 ## Middleware / proxy behavior
 
-* Middleware layer only checks **authentication/session existence**.
-* Role checks belong to DB RPCs.
-* Do not reintroduce service-role shortcuts.
+- Middleware layer only checks **authentication/session existence**.
+- Role checks belong to DB RPCs.
+- Do not reintroduce service-role shortcuts.
 
 ---
 
@@ -253,14 +271,14 @@ Avoid inline style drift.
 
 When building domain components:
 
-* First inspect existing related:
+- First inspect existing related:
+  - ui components
+  - mapper
+  - types
+  - hooks
 
-  * ui components
-  * mapper
-  * types
-  * hooks
-* Reuse current abstractions before creating new files.
-* Preserve module boundaries.
+- Reuse current abstractions before creating new files.
+- Preserve module boundaries.
 
 ## Existing question flow references
 
@@ -282,9 +300,9 @@ Any new question feature must align with this chain.
 
 If any implementation detail is unclear:
 
-* explicitly state assumptions
-* prefer asking for exact existing file content
-* do not invent missing abstractions when a nearby layer may already exist
+- explicitly state assumptions
+- prefer asking for exact existing file content
+- do not invent missing abstractions when a nearby layer may already exist
 
 This rule is critical for avoiding architecture drift.
 
@@ -303,12 +321,12 @@ When editing code:
 
 ## High-risk anti-patterns to avoid
 
-* importing DB types into domain UI
-* bypassing mapper layer
-* mixing form state and RPC DTOs
-* creating duplicate container/view files
-* introducing alternative naming schemes
-* prop-based form wrappers
+- importing DB types into domain UI
+- bypassing mapper layer
+- mixing form state and RPC DTOs
+- creating duplicate container/view files
+- introducing alternative naming schemes
+- prop-based form wrappers
 
 ---
 
@@ -326,7 +344,9 @@ Frozen architecture rule
 Never violate frozen architecture for short-term speed.
 
 ## 13 Feature Merge Rule
+
 When merging scopes/pages:
+
 - migrate all existing feature logic first
 - preserve previous scope behavior
 - route simplification is only allowed after successful feature migration
